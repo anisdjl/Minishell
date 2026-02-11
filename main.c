@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/11 15:45:09 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:09:42 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int main(void)
 {
 	char *line;
 	
-	//line = malloc(sizeof(char) * 1000);
+	int fd;
 	
+	fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND, 0644);
 	line = readline("minishell> ");
-	// char buffer[1096];
-	// printf("%s\n", getenv("PATH"));
-	// printf("%s\n", getcwd(buffer, 1096));
-	// chdir("/home");
-	
-	// printf("%s", getcwd(buffer, 1096));
+	printf("%s\n", line);
+	if (line)
+	{
+		write(fd, line, strlen(line));
+		write(fd, "\n", 1);
+	}
 	return (0);
 }
