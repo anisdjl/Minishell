@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/11 15:44:35 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:50:01 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@
 #include <unistd.h>
 #include <readline/history.h>
 
+void  history(char *line);
+
 #endif
+
+
 /*
 
 ============================ gestion de la ligme de commande et du prompt ========================================================

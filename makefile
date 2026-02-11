@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/11 15:52:18 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/11 16:51:36 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-SRC = main.c
+SRC = main.c \
+	src/history/history.c
 
 OBJ = $(SRC:.c=.o)
 

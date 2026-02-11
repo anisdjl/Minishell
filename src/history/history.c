@@ -1,3 +1,5 @@
+#include "../../minishell.h"
+
 void  history(char *line)
 {
 	int fd;
