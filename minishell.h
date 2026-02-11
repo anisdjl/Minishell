@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/11 14:40:43 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:12:41 by volt             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ Ces fonctions servent à configurer le comportement du clavier et de l'affichage
 
     tgoto / tputs : Utilisées pour déplacer le curseur ou envoyer des commandes de formatage au terminal.
 
+    
 */
