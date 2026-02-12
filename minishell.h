@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/11 16:50:01 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/12 14:20:35 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <readline/history.h>
+#include "header/parsing.h"
+#include "header/utils.h"
 
 void  history(char *line);
 
