@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/16 15:28:24 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/17 17:24:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,21 @@ typedef struct s_tree
     struct s_tree *left;
 }   t_tree;
 
-typedef struct s_lexer
+typedef struct	s_token
 {
-	int 			type;
-	int 			priority;
-	char			*value;
-	struct s_lexer	*next;
-}	t_lexer;
+	char			*word; // le mot, la commande ou le separateur
+	t_enum			type; // pour l'enum 
+	int				flag; // avec le bit shifting
+	struct s_token	*next; // le noeud d'apres (liste chainee)
+}	t_token;
 
-typedef enum s_token
+typedef struct	s_data
+{
+	t_token			*content; // un noeud de la liste chainee
+	struct s_data	*data; // un autre neoud pour le parsing
+}	t_data;
+
+typedef enum s_enum
 {
     PIPE,
     OR,
@@ -45,7 +51,7 @@ typedef enum s_token
     D_RIGHT_A, // >>
     SUB_STR, // ()
     
-}   t_token;
+}   t_enum;
 
 t_tree	*ft_lstnew(int content);
 void	tokeniasation(char *line);
