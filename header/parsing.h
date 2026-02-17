@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/17 17:24:51 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:42:12 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_token
 typedef struct	s_data
 {
 	t_token			*content; // un noeud de la liste chainee
-	struct s_data	*data; // un autre neoud pour le parsing
+	struct s_data	*next; // un autre neoud pour le parsing
 }	t_data;
 
 typedef enum s_enum
