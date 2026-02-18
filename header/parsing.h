@@ -6,12 +6,30 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/17 17:42:12 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:34:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 #define PARSING_H
+
+typedef enum s_enum
+{
+    PIPE,
+    OR,
+    AND,
+    WORD,
+    SINGLE_QUOTES,
+    DOUBLE_QUOTES,
+    EXPAND,
+    HERE_DOC,
+    RIGHT_A, // >
+    LEFT_A, // <
+    D_LEFT_A, // <<
+    D_RIGHT_A, // >>
+    SUB_STR, // ()
+    
+}   t_enum;
 
 typedef struct s_tree
 {
@@ -35,25 +53,6 @@ typedef struct	s_data
 	struct s_data	*next; // un autre neoud pour le parsing
 }	t_data;
 
-typedef enum s_enum
-{
-    PIPE,
-    OR,
-    AND,
-    WORD,
-    SINGLE_QUOTES,
-    DOUBLE_QUOTES,
-    EXPAND,
-    HERE_DOC,
-    RIGHT_A, // >
-    LEFT_A, // <
-    D_LEFT_A, // <<
-    D_RIGHT_A, // >>
-    SUB_STR, // ()
-    
-}   t_enum;
-
 t_tree	*ft_lstnew(int content);
-void	tokeniasation(char *line);
 
 #endif

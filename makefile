@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/12 17:57:43 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/18 10:45:32 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ NAME = minishell
 
 READLINE_DIR = $(shell brew --prefix readline)
 
+LIBFT_lib = minihsell/libft
 INCLUDES = -I$(READLINE_DIR)/include
 LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 

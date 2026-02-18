@@ -6,54 +6,38 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/17 17:11:08 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:42:43 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	create_node(t_lexer *head, char *value, int type, int priority)
+void	token(char *line)
 {
-	t_lexer	*node;
+	t_data	*data;
 
-	node = malloc(sizeof(t_lexer));
-	if (!node)
+	int nb_elem;
+	y = 0;
+	if (!line)
+		return ;
+	data = malloc(sizeof(t_data));
+	if (!data)
 	{
-		//ft_free_list
-		exit(EXIT_FAILURE);
+		free(line); // mettre une ft pour tout free
+		return ;
 	}
-	head->next = node;
-	node->value = value;
-	node->type = type;
-	node->priority = priority;
-	node->next = NULL;
+	nb_elem = count_elem(line);
 }
 
-void	tokeniasation(char *line)
+int	count_elem(char *line)
 {
-	int	y;
-	int i;
-	char	*value;
-	int	a;
-	t_lexer	*head;
+	int y;
+	int nb_elem;
 
-	i = 0;
+	nb_elem = 0;
 	y = 0;
-	head = malloc(sizeof(t_lexer));
 	while (line[y])
 	{
-		a = 0;
-		while (line[y] != '|')
-			y++;
-		value = malloc(sizeof(char) * (y - i) + 2);
-		if (!value)
-			exit(EXIT_FAILURE);
-		while (line[i] != '|')
-		{	
-			value[a] = line[i];
-			a++;
-			i++;
-		}
-		create_node
+		if (ft_isalpha)
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/16 14:35:23 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/18 08:39:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int main(void)
 		if (!line)
 			return (1);
 		history(line);
-		tokeniasation(line);
+		free(line);
+		//tokeniasation(line);
 	}
 	return (0);
 }
