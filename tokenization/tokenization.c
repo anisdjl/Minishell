@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/18 11:11:51 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:37:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	token(char *line)
 {
-	t_data	*data;
+	t_lexer	*lexer;
 
 	int nb_elem;
 	y = 0;
@@ -30,7 +30,7 @@ void	token(char *line)
 	fill_tokens(line, &data);
 }
 
-void	fill_tokens(char *line, t_data **data)
+void	fill_tokens(char *line, t_lexer **lexer)
 {
 	int	y;
 	

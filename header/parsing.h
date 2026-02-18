@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:54:08 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:15:26 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef enum s_enum
     
 }   t_enum;
 
+typedef enum s_state
+{
+	DQUTOE,
+	SQUOTE,
+	GENERAL,
+}	t_state;
+
 typedef struct s_tree
 {
     char    **arg;
@@ -47,10 +54,11 @@ typedef struct	s_token
 	struct s_token	*next; // le noeud d'apres (liste chainee)
 }	t_token;
 
-typedef struct	s_data
+typedef struct	s_lexer
 {
 	t_token			*content; // un noeud de la liste chainee
-	struct s_data	*next; // un autre neoud pour le parsing
-}	t_data;
+	char			*buff;
+	t_state			state;
+}	t_lexer;
 
 #endif
