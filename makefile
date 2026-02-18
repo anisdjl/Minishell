@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/18 10:45:32 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/18 10:51:52 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,19 @@ NAME = minishell
 
 READLINE_DIR = $(shell brew --prefix readline)
 
-LIBFT_lib = minihsell/libft
+LIBFT_PATH = libft
+LIBFT_LIB = $(LIBFT_PATH)/libft.a
+
 INCLUDES = -I$(READLINE_DIR)/include
 LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
+$(NAME) : $(OBJ) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
+
+$(LIBFT_LIB) :
+	$(MAKE) -C $(LIBFT_PATH)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

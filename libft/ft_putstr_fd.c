@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/12 09:23:24 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/12 09:26:15 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	y;
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+	y = 0;
+	while (s[y])
+	{
+		ft_putchar_fd(s[y], fd);
+		y++;
+	}
+}
+
+/*int main(void)
+{
+    char str[] = "hello world";
+
+    ft_putstr_fd(str, 1);
+    return (0);
+}*/

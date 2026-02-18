@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/05 15:57:57 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/17 13:36:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+int	ft_isalnum(int c)
+{
+	if (c >= 65 && c <= 90)
+		return (1);
+	else if (c >= 97 && c <= 122)
+		return (1);
+	else if (c >= 48 && c <= 57)
+		return (1);
+	else
+		return (0);
+}
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+/*#include <stdio.h>
+#include <ctype.h>
+int	main(void)
+{
+	char	c;
+
+	c = 7;
+	printf("%d\n", ft_isalnum(c));
+	printf("%d", isalnum(c));
+	return (0);
+}*/

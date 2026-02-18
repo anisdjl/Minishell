@@ -1,23 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/06 14:22:47 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/18 09:54:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+char	*ft_strdup(const char *s)
+{
+	char	*new_str;
+	int		a;
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+	a = 0;
+	while (s[a])
+		a++;
+	new_str = malloc(sizeof(char) * a + 1);
+	if (!new_str)
+		return (0);
+	a = 0;
+	while (s[a])
+	{
+		new_str[a] = s[a];
+		a++;
+	}
+	new_str[a] = '\0';
+	return (new_str);
+}
+
+/*#include <stdio.h>
+
+int	main(void)
+{
+	char s[] = "hello world";
+
+	printf("%s", ft_strdup(s));
+	return (0);
+}*/

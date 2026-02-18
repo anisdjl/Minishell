@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 17:30:14 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/12 13:20:11 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/18 10:53:35 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main.h"
+// #include "../main.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
+// int	ft_strlen(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	return (i);
+// }

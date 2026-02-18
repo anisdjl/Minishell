@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/14 09:29:58 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/14 18:48:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
+	return (lst);
+}

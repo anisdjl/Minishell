@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/12 09:29:48 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/12 09:31:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+/*int main(void)
+{
+	char str[] = "ilyy";
+	ft_putendl_fd(str, 1);
+	return (0);
+}*/

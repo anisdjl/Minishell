@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/05 16:34:58 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/19 16:16:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+size_t	ft_strlen(const char *s)
+{
+	int	y;
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+	y = 0;
+	while (s[y])
+		y++;
+	return (y);
+}
+
+/*#include <stdio.h>
+#include <string.h>
+
+int	main(void)
+{
+	const char s[] = "hello";
+	printf("%zu\n", ft_strlen(s));
+	printf("%lu", strlen(s));
+	return (0);
+}*/

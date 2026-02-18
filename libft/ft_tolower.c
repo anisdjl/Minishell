@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/07 09:50:18 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/07 09:55:30 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
+}
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+/*#include <stdio.h>
+#include <ctype.h>
+
+int main(void)
+{
+	char c;
+	
+	c = 'a';
+	printf("%c\n", ft_tolower(c));
+	printf("%c", tolower(c));
+	return (0);
+}*/

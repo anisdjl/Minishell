@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:34:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:54:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,5 @@ typedef struct	s_data
 	t_token			*content; // un noeud de la liste chainee
 	struct s_data	*next; // un autre neoud pour le parsing
 }	t_data;
-
-t_tree	*ft_lstnew(int content);
 
 #endif

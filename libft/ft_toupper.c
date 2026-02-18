@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_len.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/02 17:13:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:06 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/07 09:36:42 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/07 09:53:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// int	ft_arg_len(char **s)
-// {
-// 	int	i;
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
+}
 
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+/*#include <stdio.h>
+#include <ctype.h>
+
+int main(void)
+{
+	char c;
+	
+	c = 'a';
+	printf("%c\n", ft_toupper(c));
+	printf("%c", toupper(c));
+	return (0);
+}*/

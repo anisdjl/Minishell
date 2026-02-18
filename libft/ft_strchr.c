@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 13:47:48 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:00 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/07 11:24:08 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/17 17:22:27 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// t_tree	*ft_lstnew(int content)
-// {
-// 	t_tree	*lst;
-
-// 	lst = malloc(sizeof(t_tree));
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	lst->right = NULL;
-// 	lst->left = NULL;
-// 	return (lst);
-// }
-
-/*
-int	main(void)
+char	*ft_strchr(const char *s, int c)
 {
-	int	nb;
+	int	y;
 
-	nb = 42;
-	ft_lstnew(&nb);
-	return (0);
+	y = 0;
+	while (s[y])
+	{
+		if (s[y] == (char)c)
+			return ((char *)(s + y));
+		else
+			y++;
+	}
+	if (s[y] == (char)c)
+		return ((char *)(s + y));
+	return (NULL);
 }
-*/
+
+/*#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+	char str[] = "hello world";
+	
+	printf("%s\n", ft_strchr	(str, 'l'));
+	printf("%s", strchr(str, 'l'));
+	return (0);
+}*/

@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 13:47:48 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:00 by adjelili         ###   ########.fr       */
+/*   Created: 2025/11/07 17:40:38 by adjelili          #+#    #+#             */
+/*   Updated: 2025/11/17 17:55:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../main.h"
+#include "libft.h"
 
-// t_tree	*ft_lstnew(int content)
-// {
-// 	t_tree	*lst;
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t	y;
 
-// 	lst = malloc(sizeof(t_tree));
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	lst->right = NULL;
-// 	lst->left = NULL;
-// 	return (lst);
-// }
+	y = 0;
+	while (y < n)
+	{
+		if (*(char *)(s + y) == (char)c)
+			return ((char *)(s + y));
+		else
+			y++;
+	}
+	return (NULL);
+}
 
-/*
+/*#include <stdio.h>
+#include <string.h>
+
 int	main(void)
 {
-	int	nb;
-
-	nb = 42;
-	ft_lstnew(&nb);
+	char membloc[] = {'h', 'e', 'l', 'l', 'o'};
+	char *p = memchr(membloc, 'a', 4);
+	char *t = ft_memchr(membloc, 'a', 4);
+	
+	printf("%c\n", t[2]);
+	printf("%c", p[2]);
 	return (0);
-}
-*/
+}*/

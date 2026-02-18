@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/12 14:20:35 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/18 10:52:23 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <readline/history.h>
 #include "header/parsing.h"
 #include "header/utils.h"
+#include "libft/libft.h"
 
 void  history(char *line);
 
