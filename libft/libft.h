@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 15:41:46 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/18 17:39:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <stdint.h>
-
+# include "../header/parsing.h"
 typedef struct s_list
 {
 	void			*content;
@@ -57,14 +57,14 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_token	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_token **lst, t_token *new);
+int		ft_lstsize(t_token *lst);
+t_token	*ft_lstlast(t_token *lst);
+void	ft_lstadd_back(t_token **lst, t_token *new);
+void	ft_lstdelone(t_token *lst, void (*del)(void *));
+void	ft_lstclear(t_token **lst, void (*del)(void *));
+void	ft_lstiter(t_token *lst, void (*f)(void *));
+t_token	*ft_lstmap(t_token *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

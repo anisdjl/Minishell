@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 17:53:14 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/14 18:50:33 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:57:26 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_token *lst)
 {
 	int	y;
 

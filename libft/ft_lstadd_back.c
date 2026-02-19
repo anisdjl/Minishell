@@ -6,15 +6,15 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:48:53 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/18 17:36:42 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:56:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_token **lst, t_token *new)
 {
-	t_list	*ptr;
+	t_token	*ptr;
 
 	if (*lst == NULL)
 	{

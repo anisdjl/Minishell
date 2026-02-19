@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/18 10:52:23 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:50:35 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "header/parsing.h"
 #include "header/utils.h"
 #include "libft/libft.h"
+# include "libft/libft.h"
 
 void  history(char *line);
 

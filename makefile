@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/18 10:51:52 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/19 16:10:18 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,11 @@ $(LIBFT_LIB) :
 
 clean :
 	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_PATH)
 	
 fclean : clean
 	rm -f $(NAME)
-	
+	$(MAKE) fclean -C $(LIBFT_PATH)
 re : fclean all
 
 .PHONY: all clean fclean re

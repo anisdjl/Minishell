@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/19 10:08:30 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:26:30 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,19 @@
 
 typedef enum	s_enum
 {
-    PIPE,
-    OR,
-    AND,
-    WORD,
-    SINGLE_QUOTES,
-    DOUBLE_QUOTES,
-    EXPAND,
-    HERE_DOC,
-    RIGHT_A, // >
-    LEFT_A, // <
-    D_LEFT_A, // <<
-    D_RIGHT_A, // >>
-    SUB_STR, // ()
-    
+	PIPE,
+	OR,
+	AND,
+	WORD,
+    //SINGLE_QUOTES, on ne stocke pas les quotes
+    //DOUBLE_QUOTES, on ne stocke pas les doubles quotes
+	EXPAND, // est ce que je ne metterais pas juste un flag ?
+	HERE_DOC,
+	RIGHT_A, // >
+	LEFT_A, // <
+	D_LEFT_A, // <<
+	D_RIGHT_A, // >>
+	SUB_STR, // () subshell
 } t_enum;
 
 typedef enum s_state
@@ -56,10 +55,21 @@ typedef struct	s_token
 
 typedef struct	s_lexer
 {
-	t_token			*content; // un noeud de la liste chainee
+	t_token			**content; // un noeud de la liste chainee
 	t_state			state;
 	char			buff[4096];
 	int				index;
 }	t_lexer;
+
+void	debug_tokens(t_token **tokens);
+void	add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
+void	create_token(t_lexer *lexer, t_enum type);
+void	lexing(t_lexer *lexer, char *line);
+t_lexer	*ft_lexer(char *line);
+void	dquote_state(t_lexer *lexer, char *line, int *y);
+void	squote_state(t_lexer *lexer, char *line, int *y);
+void	general_state(t_lexer *lexer, char *line, int *y);
+void	operator_token(t_lexer *lexer, char *line, int *y);
+int	operator(char c);
 
 #endif
