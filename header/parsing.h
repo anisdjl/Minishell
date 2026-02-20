@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/19 15:26:30 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:12:49 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_token
 
 typedef struct	s_lexer
 {
-	t_token			**content; // un noeud de la liste chainee
+	t_token			*content; // un noeud de la liste chainee
 	t_state			state;
 	char			buff[4096];
 	int				index;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/19 16:09:21 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:19:22 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_lexer	*ft_lexer(char *line)
 		exit(EXIT_FAILURE); // + free tout le reste
 	lexer->state = GENERAL;
 	lexer->index = 0;
-	lexer->content = malloc(sizeof(t_token *));
+	lexer->content = malloc(sizeof(t_token));
 	if (!lexer->content)
 		exit(EXIT_FAILURE); // + free tout le reste
-	*lexer->content = NULL;
+	lexer->content = NULL;
 	lexing(lexer, line);
-	debug_tokens(lexer->content);
+	debug_tokens(&lexer->content);
 	return (lexer);
 }
 
@@ -124,7 +124,7 @@ void	create_token(t_lexer *lexer, t_enum type) // creation de token
 		new->next = NULL;
 		new->type = type;
 		lexer->index = 0;
-		ft_lstadd_back(lexer->content, new);
+		ft_lstadd_back(&lexer->content, new);
 	}
 }
 void	add_to_buffer(t_lexer *lexer, char line) // le remplissage de buffer
