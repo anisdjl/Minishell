@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/19 09:29:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:08:17 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int main(void)
 	int fd;
 
 	fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
+		return (0);
 	while (1)
 	{
 		line = readline("minishell> ");
