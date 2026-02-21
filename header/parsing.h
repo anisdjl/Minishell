@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/20 17:20:56 by anis             ###   ########.fr       */
+/*   Updated: 2026/02/21 14:58:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# define F_EXPAND (1 << 0) // 001 un
+# define F_DQUOTE (1 << 1) // 010 deux
+# define F_SQUOTE (1 << 2) // 100 quatre
+
 typedef enum	s_enum
 {
-	PIPE,
-	OR,
-	AND,
-	WORD,
-    //SINGLE_QUOTES, on ne stocke pas les quotes
-    //DOUBLE_QUOTES, on ne stocke pas les doubles quotes
-	EXPAND, // est ce que je ne metterais pas juste un flag ?
-	HERE_DOC,
-	RIGHT_A, // >
-	LEFT_A, // <
-	D_LEFT_A, // <<
-	D_RIGHT_A, // >>
-	SUB_STR, // () subshell
+	PIPE, // | 0
+	OR, // || 1
+	AND, // && 2
+	WORD, // 3
+	HERE_DOC, // << 4
+	RIGHT_A, // > 5
+	LEFT_A, // < 6
+	APPEND, // >> 7
 } t_enum;
 
 typedef enum s_state
@@ -35,6 +34,7 @@ typedef enum s_state
 	DQUOTE,
 	SQUOTE,
 	GENERAL,
+	PARENTHESES,
 }	t_state;
 
 typedef struct s_tree
@@ -55,21 +55,26 @@ typedef struct	s_token
 
 typedef struct	s_lexer
 {
-	t_token			*content; // un noeud de la liste chainee
-	t_state			state;
-	char			buff[4096];
-	int				index;
+	t_token	*content; // un noeud de la liste chainee
+	t_state	state;
+	int		current_flag; // ne pas toucher ou utiliser
+	char	buff[4096];
+	int		index;
 }	t_lexer;
 
 void	debug_tokens(t_token **tokens);
 void	add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
-void	create_token(t_lexer *lexer, t_enum type);
+void	create_token(t_lexer *lexer);
 void	lexing(t_lexer *lexer, char *line);
 t_lexer	*ft_lexer(char *line);
 void	dquote_state(t_lexer *lexer, char *line, int *y);
 void	squote_state(t_lexer *lexer, char *line, int *y);
 void	general_state(t_lexer *lexer, char *line, int *y);
 void	operator_token(t_lexer *lexer, char *line, int *y);
-int	operator(char c);
+int		operator(char c);
+void	par_state(t_lexer *lexer, char *line, int *y);
+t_enum	return_type(t_token *tmp);
+void	put_types(t_lexer *lexer);
+int		need_expand(t_token *tmp);
 
 #endif
