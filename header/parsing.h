@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/23 14:58:16 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/23 18:17:23 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ typedef struct	s_token
 	struct s_token	*next; // le noeud d'apres (liste chainee)
 }	t_token;
 
+typedef struct s_redir
+{
+	char			*value;
+	struct s_redir 	*next;
+}	t_redir;
+
 typedef struct s_tree
 {
     char            **arg;
@@ -84,9 +90,10 @@ void	free_tokens(t_token **tokens);
 
 /*	AST	*/
 
-int		count_word(t_token *start, t_token *end);
 t_tree 	*AST_launcher(t_token *token);
 t_token	*find_op(t_token *start, t_token *end, t_enum type);
-void print_ast(t_tree *tree, int depth);
+void 	print_ast(t_tree *tree, int depth);
+int		count_word(t_token *start, t_token *end);
+int 	claim_subshell(t_token *start, t_token *end); // pour plus tard
 
 #endif

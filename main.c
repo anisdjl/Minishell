@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 15:00:35 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/23 15:06:34 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(void)
 			return (1);
 		if (!ft_strncmp(line, "exit", 4))
 			return (0);
-		history(line);
+		history(line);	
 		lexer = ft_lexer(line);
 		tree = AST_launcher(lexer->content);
 		free_struct(lexer);

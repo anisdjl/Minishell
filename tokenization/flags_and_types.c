@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flags_and_types.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:36:56 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 11:34:30 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:35:16 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_enum	return_type(t_token *tmp)
 		return (APPEND);
 	else if (ft_strlen(tmp->value) == 1 && tmp->value[0] == '>')
 		return (RIGHT_A);
-	else if (ft_strlen(tmp->value) == 1 && tmp->value[0] == '>')
+	else if (ft_strlen(tmp->value) == 1 && tmp->value[0] == '<')
 		return (LEFT_A);
 	else if (ft_strlen(tmp->value) == 1 && tmp->value[0] == '(')
 		return (L_PARENTHESE);

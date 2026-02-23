@@ -30,7 +30,10 @@ void print_ast(t_tree *tree, int depth)
         printf("REDIRECT >\n");
     else if (tree->type == LEFT_A)
         printf("REDIRECT <\n");
-
+	else if (tree->type == L_PARENTHESE)
+		printf("L_PARENTHESE (\n");
+	else if (tree->type == R_PARENTHESE)
+		printf("R_PARENTHESE )\n");
     // récursion sur les sous-arbres
     print_ast(tree->left, depth + 1);
     print_ast(tree->right, depth + 1);
@@ -51,12 +54,30 @@ int count_word(t_token *start, t_token *end)
 
 t_token	*find_op(t_token *start, t_token *end, t_enum type)// On garde le dernier trouver de droite a gauche !
 {                                                 // d'ou une variable tmp et pas un return direct sur le premier resultat
-	t_token *tmp = start;
-	t_token *op = NULL;
+	t_token *tmp;
+	t_token *op;
 
+	op = NULL;
+	tmp = start;
 	while (tmp != end)
 	{
 		if (tmp->type == type)
+			op = tmp;
+		tmp = tmp->next;
+	}
+	return (op);
+}
+
+int claim_subshell(t_token *start, t_token *end)
+{                                                 
+	t_token *tmp;
+	t_token *op;
+
+	op = NULL;
+	tmp = start;
+	while (tmp != end)
+	{
+		if (tmp->type == R_PARENTHESE)
 			op = tmp;
 		tmp = tmp->next;
 	}
