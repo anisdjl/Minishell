@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/23 12:09:45 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/23 14:44:35 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRC = main.c \
 	tokenization/tokenization.c \
 	tokenization/flags_and_types.c \
 	tokenization/states.c \
-	tokenization/free_tokens.c
+	tokenization/free_tokens.c \
+	src/AST/AST.c \
+	src/AST/AST_utils.c
 
 OBJ = $(SRC:.c=.o)
 

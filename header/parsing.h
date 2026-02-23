@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/23 12:06:36 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:58:16 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@ typedef enum s_state
 	PARENTHESES,
 }	t_state;
 
-typedef struct s_tree
-{
-    char    **arg;
-    int     type;
-    struct s_tree *right;
-    struct s_tree *left;
-}   t_tree;
-
 typedef struct	s_token
 {
 	char			*value; // le mot, la commande ou le separateur
@@ -54,6 +46,15 @@ typedef struct	s_token
 	int				flag; // avec le bit shifting pour la priorite des operations
 	struct s_token	*next; // le noeud d'apres (liste chainee)
 }	t_token;
+
+typedef struct s_tree
+{
+    char            **arg;
+    t_enum           type;
+    t_token          *data;
+	struct s_tree	*right;
+	struct s_tree	*left;
+}					t_tree;
 
 typedef struct	s_lexer
 {
@@ -80,5 +81,12 @@ void	put_types(t_lexer *lexer);
 int		need_expand(t_token *tmp);
 void	free_struct(t_lexer *lexer);
 void	free_tokens(t_token **tokens);
+
+/*	AST	*/
+
+int		count_word(t_token *start, t_token *end);
+t_tree 	*AST_launcher(t_token *token);
+t_token	*find_op(t_token *start, t_token *end, t_enum type);
+void print_ast(t_tree *tree, int depth);
 
 #endif
