@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/21 14:37:29 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/23 12:09:45 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,14 @@ CFLAGS = -g -Wall -Werror -Wextra
 
 SRC = main.c \
 	src/history/history.c \
-	tokenization/tokenization.c 
+	tokenization/tokenization.c \
+	tokenization/flags_and_types.c \
+	tokenization/states.c \
+	tokenization/free_tokens.c
 
 OBJ = $(SRC:.c=.o)
 
 NAME = minishell
-
-#READLINE_DIR = $(shell brew --prefix readline)
 
 LIBFT_PATH = libft
 LIBFT_LIB = $(LIBFT_PATH)/libft.a

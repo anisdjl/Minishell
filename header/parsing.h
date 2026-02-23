@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/21 14:58:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/23 12:06:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef enum	s_enum
 	RIGHT_A, // > 5
 	LEFT_A, // < 6
 	APPEND, // >> 7
+	L_PARENTHESE, // (
+	R_PARENTHESE, // )
 } t_enum;
 
 typedef enum s_state
@@ -60,6 +62,7 @@ typedef struct	s_lexer
 	int		current_flag; // ne pas toucher ou utiliser
 	char	buff[4096];
 	int		index;
+	int		was_quoted;
 }	t_lexer;
 
 void	debug_tokens(t_token **tokens);
@@ -72,9 +75,10 @@ void	squote_state(t_lexer *lexer, char *line, int *y);
 void	general_state(t_lexer *lexer, char *line, int *y);
 void	operator_token(t_lexer *lexer, char *line, int *y);
 int		operator(char c);
-void	par_state(t_lexer *lexer, char *line, int *y);
 t_enum	return_type(t_token *tmp);
 void	put_types(t_lexer *lexer);
 int		need_expand(t_token *tmp);
+void	free_struct(t_lexer *lexer);
+void	free_tokens(t_token **tokens);
 
 #endif
