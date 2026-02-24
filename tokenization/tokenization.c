@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 10:22:17 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:14:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_lexer	*ft_lexer(char *line)
 {
 	t_lexer	*lexer;
 
-	lexer = malloc(sizeof(t_lexer));
+	lexer = ft_malloc(1, sizeof(t_lexer));
 	if (!lexer)
 		exit(EXIT_FAILURE); // + free tout le reste
 	lexer->state = GENERAL;
@@ -58,7 +58,7 @@ void	create_token(t_lexer *lexer)
 	else if (ft_strlen(lexer->buff) > 0 || lexer->was_quoted == 1)
 	{
 		lexer->buff[lexer->index] = '\0';
-		new = malloc(sizeof(t_token));
+		new = ft_malloc(1, sizeof(t_token));
 		if (!new)
 			exit(EXIT_FAILURE); // + tout les frees
 		if (lexer->index == 0)

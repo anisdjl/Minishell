@@ -6,13 +6,14 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/24 10:10:49 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:13:34 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "../minishell.h"
 # define F_EXPAND (1 << 0) // 001 un
 # define F_DQUOTE (1 << 1) // 010 deux
 # define F_SQUOTE (1 << 2) // 100 quatre

@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   gc2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 14:22:47 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:15:16 by adjelili         ###   ########.fr       */
+/*   Created: 2026/02/24 15:22:37 by adjelili          #+#    #+#             */
+/*   Updated: 2026/02/24 15:27:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "gc.h"
 
-char	*ft_strdup(const char *s)
+void	ft_lstadd_back_gc(t_list **lst, t_list *new_node)
 {
-	char	*new_str;
-	int		a;
+	t_list	*ptr;
 
-	a = 0;
-	while (s[a])
-		a++;
-	new_str = ft_malloc(1, sizeof(char) * a + 1);
-	if (!new_str)
-		return (0); // free tout le reste 
-	a = 0;
-	while (s[a])
+	if ((*lst) == NULL)
+		*lst = new_node;
+	else
 	{
-		new_str[a] = s[a];
-		a++;
+		ptr = *lst;
+		while (ptr->next)
+		{
+			ptr = ptr->next;
+		}
+		ptr->next = new_node;
 	}
-	new_str[a] = '\0';
-	return (new_str);
 }
 
-/*#include <stdio.h>
-
-int	main(void)
+t_list	*ft_lstnew_gc(void *content)
 {
-	char s[] = "hello world";
+	t_list	*new_node;
 
-	printf("%s", ft_strdup(s));
-	return (0);
-}*/
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
+}

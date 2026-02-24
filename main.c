@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 14:31:27 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:15:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(void)
 			return (0);
 		history(line);
 		lexer = ft_lexer(line);
-		free_struct(lexer);
+		//free_struct(lexer);
 		// ici mettre une free de tout (lexing, parsing, expand, exec)
 		free(line);
 	}
