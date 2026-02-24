@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 12:55:56 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:22:17 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	create_token(t_lexer *lexer)
 {
 	t_token	*new;
 
-	if (lexer->index == 0)
+	if (lexer->index == 0 && lexer->was_quoted == 0)
 		return ;
 	else if (ft_strlen(lexer->buff) > 0 || lexer->was_quoted == 1)
 	{
@@ -61,20 +61,19 @@ void	create_token(t_lexer *lexer)
 		new = malloc(sizeof(t_token));
 		if (!new)
 			exit(EXIT_FAILURE); // + tout les frees
-		new->value = ft_strdup(lexer->buff);
+		if (lexer->index == 0)
+			new->value = ft_strdup("");
+		else
+			new->value = ft_strdup(lexer->buff);
 		new->next = NULL;
 		new->type = 0;
 		new->flag = lexer->current_flag;
 		lexer->index = 0;
 		ft_lstadd_back(&lexer->content, new);
 		ft_bzero(lexer->buff, 4095);
-		if (lexer->current_flag != 0)
-			lexer->current_flag = 0;
-		if (lexer->was_quoted)
-			lexer->was_quoted = 0;
+		lexer->current_flag = 0;
+		lexer->was_quoted = 0;
 	}
-	else
-		return ;
 }
 
 void	add_to_buffer(t_lexer *lexer, char line) // le remplissage de buffer
