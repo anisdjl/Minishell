@@ -65,12 +65,13 @@ t_tree	*AST(t_token *start, t_token *end)
 	op_pos = NULL;
 	op_pos = AST_EVAL(start, end);
 	
-	if (!op_pos && start->type == WORD)
+	if (!op_pos) //&& start->type == WORD
 		return (AST_VALUE_NODE(start, end));
-	if (!op_pos){	// temporaire
-		printf("[AST] Undefined\n"); 
-		return (NULL);
-	}
+	// if (!op_pos){	// temporaire
+	// 	printf("[AST] Undefined\n"); 
+	// 	return (NULL);
+	// }
+	
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);
 	node->right = AST(op_pos->next, end);

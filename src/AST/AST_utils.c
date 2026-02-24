@@ -53,14 +53,20 @@ int	count_word(t_token *start, t_token *end)
 t_token	*find_op(t_token *start, t_token *end, t_enum type) // On garde le dernier trouver de droite a gauche !
 {                                                          
 	// d'ou une variable tmp et pas un return direct sur le premier resultat
+	int subshell;
 	t_token *tmp;
 	t_token *op;
 
 	op = NULL;
 	tmp = start;
+	subshell = 0;
 	while (tmp != end)
 	{
-		if (tmp->type == type)
+		if (tmp->type == L_PARENTHESE)
+			subshell++;
+		if (tmp->type == R_PARENTHESE)
+			subshell--;
+		if (tmp->type == type && subshell == 0)
 			op = tmp;
 		tmp = tmp->next;
 	}
