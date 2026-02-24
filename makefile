@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/24 15:42:19 by eprieur          ###   ########.fr        #
+#    Updated: 2026/02/24 17:19:02 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRC = main.c \
 	tokenization/flags_and_types.c \
 	tokenization/states.c \
 	tokenization/free_tokens.c \
+	garbage_collector/gc1.c \
+	garbage_collector/gc2.c \
 	src/AST/AST.c \
 	src/AST/AST_subshell.c \
 	src/AST/AST_utils.c
