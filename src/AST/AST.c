@@ -9,8 +9,6 @@ t_token	*AST_EVAL(t_token *start, t_token *end)
 		op_pos = find_op(start, end, AND);
 	if (!op_pos)
 		op_pos = find_op(start, end, PIPE);
-	if (!op_pos && start->type == L_PARENTHESE)
-		op_pos = start;
 	return (op_pos);
 }
 
@@ -69,14 +67,9 @@ t_tree	*AST(t_token *start, t_token *end)
 	
 	if (!op_pos && start->type == WORD)
 		return (AST_VALUE_NODE(start, end));
-	if (!op_pos){
-		printf("[AST] Undefined\n"); // temporaire
+	if (!op_pos){	// temporaire
+		printf("[AST] Undefined\n"); 
 		return (NULL);
-	}
-	if (op_pos && op_pos->type == L_PARENTHESE){
-		printf("Subshell find ! \n");
-		//fonction creation node
-		return (NULL); // temporaire
 	}
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);

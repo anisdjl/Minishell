@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/23 18:17:23 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/24 14:25:01 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum	s_enum
 	RIGHT_A, // > 5
 	LEFT_A, // < 6
 	APPEND, // >> 7
+	SUBSHELL,
 	L_PARENTHESE, // (
 	R_PARENTHESE, // )
 } t_enum;
@@ -88,9 +89,16 @@ int		need_expand(t_token *tmp);
 void	free_struct(t_lexer *lexer);
 void	free_tokens(t_token **tokens);
 
-/*	AST	*/
+/*	AST	main func */
 
 t_tree 	*AST_launcher(t_token *token);
+t_tree	*AST_OP_NODE(t_token *op_pos);
+t_token	*AST_EVAL(t_token *start, t_token *end);
+t_tree	*AST_build_subshell(t_token *start, t_token *end);
+t_tree	*AST_VALUE_NODE(t_token *start, t_token *end);
+
+/* AST Utils */
+
 t_token	*find_op(t_token *start, t_token *end, t_enum type);
 void 	print_ast(t_tree *tree, int depth);
 int		count_word(t_token *start, t_token *end);

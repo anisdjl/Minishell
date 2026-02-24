@@ -1,47 +1,45 @@
 #include "../../minishell.h"
 
-void print_ast(t_tree *tree, int depth)
+void	print_ast(t_tree *tree, int depth)
 {
-    if (!tree)
-        return;
-
-    // indentation
-    for (int i = 0; i < depth; i++)
-        printf("  ");
-
-    // affichage selon le type
-    if (tree->type == WORD)
-    {
-        printf("COMMAND:");
-        if (tree->arg)
-        {
-            for (int i = 0; tree->arg[i]; i++)
-                printf(" %s", tree->arg[i]);
-        }
-        printf("\n");
-    }
-    else if (tree->type == PIPE)
-        printf("PIPE\n");
-    else if (tree->type == AND)
-        printf("AND\n");
-    else if (tree->type == OR)
-        printf("OR\n");
-    else if (tree->type == RIGHT_A)
-        printf("REDIRECT >\n");
-    else if (tree->type == LEFT_A)
-        printf("REDIRECT <\n");
+	if (!tree)
+		return ;
+	// indentation
+	for (int i = 0; i < depth; i++)
+		printf("  ");
+	// affichage selon le type
+	if (tree->type == WORD)
+	{
+		printf("COMMAND:");
+		if (tree->arg)
+		{
+			for (int i = 0; tree->arg[i]; i++)
+				printf(" %s", tree->arg[i]);
+		}
+		printf("\n");
+	}
+	else if (tree->type == PIPE)
+		printf("PIPE\n");
+	else if (tree->type == AND)
+		printf("AND\n");
+	else if (tree->type == OR)
+		printf("OR\n");
+	else if (tree->type == RIGHT_A)
+		printf("REDIRECT >\n");
+	else if (tree->type == LEFT_A)
+		printf("REDIRECT <\n");
 	else if (tree->type == L_PARENTHESE)
 		printf("L_PARENTHESE (\n");
 	else if (tree->type == R_PARENTHESE)
 		printf("R_PARENTHESE )\n");
-    // récursion sur les sous-arbres
-    print_ast(tree->left, depth + 1);
-    print_ast(tree->right, depth + 1);
+	// récursion sur les sous-arbres
+	print_ast(tree->left, depth + 1);
+	print_ast(tree->right, depth + 1);
 }
 
-int count_word(t_token *start, t_token *end)
+int	count_word(t_token *start, t_token *end)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (start != end)
@@ -52,8 +50,9 @@ int count_word(t_token *start, t_token *end)
 	return (count);
 }
 
-t_token	*find_op(t_token *start, t_token *end, t_enum type)// On garde le dernier trouver de droite a gauche !
-{                                                 // d'ou une variable tmp et pas un return direct sur le premier resultat
+t_token	*find_op(t_token *start, t_token *end, t_enum type) // On garde le dernier trouver de droite a gauche !
+{                                                          
+	// d'ou une variable tmp et pas un return direct sur le premier resultat
 	t_token *tmp;
 	t_token *op;
 
@@ -68,18 +67,18 @@ t_token	*find_op(t_token *start, t_token *end, t_enum type)// On garde le dernie
 	return (op);
 }
 
-int claim_subshell(t_token *start, t_token *end)
-{                                                 
-	t_token *tmp;
-	t_token *op;
+// int claim_subshell(t_token *start, t_token *end)
+// {
+// 	t_token *tmp;
+// 	t_token *op;
 
-	op = NULL;
-	tmp = start;
-	while (tmp != end)
-	{
-		if (tmp->type == R_PARENTHESE)
-			op = tmp;
-		tmp = tmp->next;
-	}
-	return (op);
-}
+// 	op = NULL;
+// 	tmp = start;
+// 	while (tmp != end)
+// 	{
+// 		if (tmp->type == R_PARENTHESE)
+// 			op = tmp;
+// 		tmp = tmp->next;
+// 	}
+// 	return (op);
+// }
