@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 17:23:45 by eprieur          ###   ########.fr       */
+/*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
+/*   Updated: 2026/02/25 17:28:19 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int main(void)
 	while (1)
 	{
 		line = readline("minishell> ");
-		if (!line)
-			return (1);
+		if (!line || line[0] == '\n' || line[0] == '\0')
+			continue;
 		if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
 			return (0);
 		history(line);	
