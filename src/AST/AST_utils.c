@@ -1,40 +1,43 @@
 #include "../../minishell.h"
 
-void	print_ast(t_tree *tree, int depth)
+void print_ast(t_tree *tree, char *prefix, int is_left)
 {
-	if (!tree)
-		return ;
-	// indentation
-	for (int i = 0; i < depth; i++)
-		printf("  ");
-	// affichage selon le type
-	if (tree->type == WORD)
-	{
-		printf("COMMAND:");
-		if (tree->arg)
-		{
-			for (int i = 0; tree->arg[i]; i++)
-				printf(" %s", tree->arg[i]);
-		}
-		printf("\n");
-	}
-	else if (tree->type == PIPE)
-		printf("PIPE\n");
-	else if (tree->type == AND)
-		printf("AND\n");
-	else if (tree->type == OR)
-		printf("OR\n");
-	else if (tree->type == RIGHT_A)
-		printf("REDIRECT >\n");
-	else if (tree->type == LEFT_A)
-		printf("REDIRECT <\n");
-	else if (tree->type == L_PARENTHESE)
-		printf("L_PARENTHESE (\n");
-	else if (tree->type == R_PARENTHESE)
-		printf("R_PARENTHESE )\n");
-	// récursion sur les sous-arbres
-	print_ast(tree->left, depth + 1);
-	print_ast(tree->right, depth + 1);
+    if (!tree)
+        return;
+
+    // Affichage du préfixe pour la hiérarchie
+    printf("%s", prefix);
+    printf(is_left ? "├── " : "└── ");
+
+    // Affichage selon le type
+    if (tree->type == WORD)
+    {
+        printf("\033[32m[CMD]\033[0m"); // Vert pour les commandes
+        if (tree->arg)
+        {
+            for (int i = 0; tree->arg[i]; i++)
+                printf(" %s", tree->arg[i]);
+        }
+    }
+    else if (tree->type == PIPE) printf("\033[33m[PIPE |]\033[0m"); // Jaune
+    else if (tree->type == AND)  printf("\033[34m[AND &&]\033[0m");  // Bleu
+    else if (tree->type == OR)   printf("\033[31m[OR ||]\033[0m");   // Rouge
+    else if (tree->type == L_PARENTHESE) printf("\033[35m( SUBSHELL )\033[0m"); // Magenta
+    else printf("TYPE: %d", tree->type);
+    
+    printf("\n");
+
+    // Préparation du préfixe pour les enfants
+    char new_prefix[256];
+    sprintf(new_prefix, "%s%s", prefix, is_left ? "│   " : "    ");
+
+    // On réclame l'affichage des enfants
+    // L'enfant gauche est marqué comme "is_left = 1"
+    if (tree->left || tree->right)
+    {
+        print_ast(tree->left, new_prefix, 1);
+        print_ast(tree->right, new_prefix, 0);
+    }
 }
 
 int	count_word(t_token *start, t_token *end)
@@ -64,27 +67,11 @@ t_token	*find_op(t_token *start, t_token *end, t_enum type) // On garde le derni
 	{
 		if (tmp->type == L_PARENTHESE)
 			subshell++;
-		if (tmp->type == R_PARENTHESE)
+		else if (tmp->type == R_PARENTHESE)
 			subshell--;
-		if (tmp->type == type && subshell == 0)
+		if (subshell == 0 && tmp->type == type)
 			op = tmp;
 		tmp = tmp->next;
 	}
 	return (op);
 }
-
-// int claim_subshell(t_token *start, t_token *end)
-// {
-// 	t_token *tmp;
-// 	t_token *op;
-
-// 	op = NULL;
-// 	tmp = start;
-// 	while (tmp != end)
-// 	{
-// 		if (tmp->type == R_PARENTHESE)
-// 			op = tmp;
-// 		tmp = tmp->next;
-// 	}
-// 	return (op);
-// }

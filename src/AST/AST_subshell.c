@@ -1,25 +1,35 @@
 #include "../../minishell.h"
 
+t_token	*AST_find_subparent(t_token *start, t_token *end)
+{
+	t_token *op;
+	int		count;
+
+	op = NULL;
+	count = 0;
+	while (start && start != end)
+	{
+		if (start->type == L_PARENTHESE)
+			count++;
+		if (start->type == R_PARENTHESE)
+			count--;
+		if (count == 0)
+			return (start);
+		start = start->next;
+	}
+	return (op);
+}
+
 t_tree	*AST_build_subshell(t_token *start, t_token *end)
 {
 	t_tree	*node;
-	t_token	*op_pos;
+	t_token	*match;
 
-	if (start == NULL)
-		return (NULL);
-	node = NULL;
-	op_pos = NULL;
-	op_pos = AST_EVAL(start, end);
-
-    printf("[AST] Build start ... \n");
-	if (!op_pos && start->type == WORD)
-		return (AST_VALUE_NODE(start, end));
-	if (!op_pos){
-		printf("[AST] Undefined\n"); // temporaire
-		return (NULL);
-	}
-	node = AST_OP_NODE(op_pos);
-	node->left = AST_build_subshell(start, op_pos);
-	node->right = AST_build_subshell(op_pos->next, end);
+	match = AST_find_subparent(start, end);
+	node = malloc(sizeof(t_tree));
+	node->type = L_PARENTHESE;
+	node->arg = NULL;
+	node->left = AST(start->next, match);
+	node->right = NULL;
 	return (node);
 }

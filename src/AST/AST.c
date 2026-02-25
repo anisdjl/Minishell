@@ -31,9 +31,9 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 		i++;
 	}
 	node->arg[i] = NULL;
-	node->type = WORD;
 	node->left = NULL;
 	node->right = NULL;
+	node->type = WORD;
 	return (node);
 }
 
@@ -65,13 +65,19 @@ t_tree	*AST(t_token *start, t_token *end)
 	op_pos = NULL;
 	op_pos = AST_EVAL(start, end);
 	
-	if (!op_pos) //&& start->type == WORD
+	if (!op_pos && start->type == WORD)
 		return (AST_VALUE_NODE(start, end));
-	// if (!op_pos){	// temporaire
-	// 	printf("[AST] Undefined\n"); 
-	// 	return (NULL);
-	// }
-	
+	if (!op_pos && start->type == L_PARENTHESE)
+    {
+		printf("[AST] Subshell find ...\n");
+        return (AST_build_subshell(start, end));
+    }
+	if (!op_pos){	// temporaire
+		printf("[AST] Undefined\n");
+		return (NULL);
+	}
+
+
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);
 	node->right = AST(op_pos->next, end);
@@ -84,6 +90,8 @@ t_tree	*AST_launcher(t_token *token)
 		return (NULL);
 	t_tree *ast; // construit directement l'AST à partir du premier token
 	ast = AST(token, NULL);
-	print_ast(ast, 0);
+	printf("\n--- AST Structure ---\n");
+    print_ast(ast, "", 0);
+    printf("---------------------\n\n");
 	return (ast);
 }
