@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 16:16:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:04:07 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int	check_consecutive_op(t_token **token)
 	{
 		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE))
 			return(0);
-		else if ((tmp->type != 3  && tmp->type != L_PARENTHESE && tmp->type != R_PARENTHESE) && ((tmp->next->type != 3  && tmp->next->type != L_PARENTHESE && tmp->next->type != R_PARENTHESE)))
+		else if ((tmp->type != 3  && tmp->type != L_PARENTHESE && tmp->type
+			!= R_PARENTHESE) && ((tmp->next->type != 3  && tmp->next->type
+				!= L_PARENTHESE && tmp->next->type != R_PARENTHESE)))
 			return (0);
 		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE)
 			return (0);
