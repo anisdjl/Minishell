@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 11:59:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 13:44:24 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:14:33 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_tokens(t_token **tokens)
 	tmp = *tokens;
 	while (tmp)
 	{
-		next = tmp->next; 
+		next = tmp->next;
 		if (tmp->value)
 			free(tmp->value);
 		free(tmp);

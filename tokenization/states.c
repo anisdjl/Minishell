@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:43:05 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/23 15:22:53 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:08:07 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	general_state(t_lexer *lexer, char *line, int *y)
 		lexer->was_quoted = 1;
 		lexer->current_flag |= F_DQUOTE;
 	}
-	else if (operator(line[*y]) && lexer->state == GENERAL)
+	else if ((operator(line[*y]) || (line[*y] == '(' || line[*y] == ')'))
+		&& lexer->state == GENERAL)
 		operator_token(lexer, line, y);
 	else
 		add_to_buffer(lexer, line[*y]);

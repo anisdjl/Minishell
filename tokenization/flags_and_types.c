@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:36:56 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 10:12:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:05:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	operator(char c)
 {
 	if (c == '>' || c == '<'
 		|| c == '|'
-		|| c == '&' || c == '(' || c == ')')
+		|| c == '&')
 		return (1);
 	else
 		return (0);
@@ -24,7 +24,8 @@ int	operator(char c)
 
 void	operator_token(t_lexer *lexer, char *line, int *y)
 {
-	if (operator(line[*y]) && line[*y + 1] != line[*y])
+	if ((operator(line[*y]) && line[*y + 1] != line[*y])
+		|| (line[*y] == '(' || line[*y] == ')'))
 	{
 		create_token(lexer);
 		add_to_buffer(lexer, line[*y]);
