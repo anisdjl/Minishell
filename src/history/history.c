@@ -12,6 +12,6 @@ void  history(char *line)
 	}
 	else
 		fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND);
-	write(fd, line, ft_strlen(line)); // on doit mettre notre ft_strlen
+	write(fd, line, ft_strlen(line));
 	write(fd, "\n", 1);
 }

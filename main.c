@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:43:14 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/25 14:59:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ int main(void)
 		line = readline("minishell> ");
 		if (!line)
 			return (1);
-		if (!ft_strncmp(line, "exit", 4))
+		if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
 			return (0);
 		history(line);	
 		lexer = ft_lexer(line);
 		tree = AST_launcher(lexer->content);
-		free_struct(lexer);
+		ft_free_all_malloc();
+		//free_struct(lexer);
 		// ici mettre une free de tout (lexing, parsing, expand, exec)
 		free(line);
 	}
