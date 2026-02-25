@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 10:21:32 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:34:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(void)
 		line = readline("minishell> ");
 		if (!line)
 			return (1);
-		if (!ft_strncmp(line, "exit", 4))
+		if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
 			return (0);
 		history(line);
 		lexer = ft_lexer(line);

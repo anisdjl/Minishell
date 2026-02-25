@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:09:48 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:26:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:33:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	t_list	**return_adress(void)
 {
-	static t_list	*list;
+	static t_list	*list = NULL;
 
 	return (&list);
 }
