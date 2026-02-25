@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/25 14:17:45 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/25 17:26:37 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRC = main.c \
 	tokenization/free_tokens.c \
 	garbage_collector/gc1.c \
 	garbage_collector/gc2.c \
-	tokenization/check.c
+	src/AST/AST.c \
+	src/AST/AST_subshell.c \
+	src/AST/AST_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -37,13 +39,13 @@ LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAG) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
 
 $(LIBFT_LIB) :
-	$(MAKE) -C $(LIBFT_PATH)
+	$(MAKE) $(CFLAG) -C $(LIBFT_PATH)
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(INCLUDES) -c $< -o $@
 
 clean :
 	rm -f $(OBJ)

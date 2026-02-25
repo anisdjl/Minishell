@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/25 15:39:22 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:26:28 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@
 # define F_DQUOTE (1 << 1) // 010 deux
 # define F_SQUOTE (1 << 2) // 100 quatre
 
-typedef enum	s_enum
+typedef enum s_enum
 {
-	PIPE, // | 0
-	OR, // || 1
-	AND, // && 2
-	WORD, // 3
+	PIPE,     // | 0
+	OR,       // || 1
+	AND,      // && 2
+	WORD,     // 3
 	HERE_DOC, // << 4
-	RIGHT_A, // > 5
-	LEFT_A, // < 6
-	APPEND, // >> 7
+	RIGHT_A,  // > 5
+	LEFT_A,   // < 6
+	APPEND,   // >> 7
+	SUBSHELL,
 	L_PARENTHESE, // (
 	R_PARENTHESE, // )
-} t_enum;
+}					t_enum;
 
 typedef enum s_state
 {
@@ -38,33 +39,41 @@ typedef enum s_state
 	SQUOTE,
 	GENERAL,
 	PARENTHESES,
-}	t_state;
+}					t_state;
+
+typedef struct s_token
+{
+	char *value; // le mot, la commande ou le separateur
+	t_enum type; // pour l'enum
+	int				flag;
+	// avec le bit shifting pour la priorite des operations
+	struct s_token *next; // le noeud d'apres (liste chainee)
+}					t_token;
+
+typedef struct s_redir
+{
+	char			*value;
+	struct s_redir	*next;
+}					t_redir;
 
 typedef struct s_tree
 {
-    char    **arg;
-    int     type;
-    struct s_tree *right;
-    struct s_tree *left;
-}   t_tree;
+	char			**arg;
+	t_enum			type;
+	t_token			*data;
+	struct s_tree	*right;
+	struct s_tree	*left;
+}					t_tree;
 
-typedef struct	s_token
+typedef struct s_lexer
 {
-	char			*value; // le mot, la commande ou le separateur
-	t_enum			type; // pour l'enum 
-	int				flag; // avec le bit shifting pour la priorite des operations
-	struct s_token	*next; // le noeud d'apres (liste chainee)
-}	t_token;
-
-typedef struct	s_lexer
-{
-	t_token	*content; // un noeud de la liste chainee
-	t_state	state;
-	int		current_flag; // ne pas toucher ou utiliser
-	char	buff[4096];
-	int		index;
-	int		was_quoted;
-}	t_lexer;
+	t_token 		*content; // un noeud de la liste chainee
+	t_state			state;
+	int 			current_flag; // ne pas toucher ou utiliser
+	char			buff[4096];
+	int				index;
+	int				was_quoted;
+}					t_lexer;
 
 void	debug_tokens(t_token **tokens);
 void	add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
@@ -84,5 +93,23 @@ void	free_tokens(t_token **tokens);
 int		check_quotes(char *line);
 int		check_parentheses(char *line);
 int		check_consecutive_op(t_token **token);
+
+/*	AST	main func */
+
+t_tree				*AST_launcher(t_token *token);
+t_tree				*AST_OP_NODE(t_token *op_pos);
+t_tree				*AST(t_token *start, t_token *end);
+t_token				*AST_EVAL(t_token *start, t_token *end);
+t_tree				*AST_build_subshell(t_token *start, t_token *end);
+t_tree				*AST_VALUE_NODE(t_token *start, t_token *end);
+
+/* AST Utils */
+
+t_token				*find_op(t_token *start, t_token *end, t_enum type);
+void 				print_ast(t_tree *tree, char *prefix, int is_left);
+int					count_word(t_token *start, t_token *end);
+t_token				*AST_find_subparent(t_token *start, t_token *end);
+t_tree				*subshell_start(t_token *start, t_token *end);
+int					claim_subshell(t_token *start, t_token *end); // pour plus tard
 
 #endif
