@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/24 15:13:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:39:22 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ void	put_types(t_lexer *lexer);
 int		need_expand(t_token *tmp);
 void	free_struct(t_lexer *lexer);
 void	free_tokens(t_token **tokens);
+int		check_quotes(char *line);
+int		check_parentheses(char *line);
+int		check_consecutive_op(t_token **token);
 
 #endif

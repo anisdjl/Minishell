@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:35:14 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 17:12:33 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:51:39 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_lexer	*ft_lexer(char *line)
 	lexer->content = NULL;
 	lexing(lexer, line);
 	put_types(lexer);
-	debug_tokens(&lexer->content);
 	return (lexer);
 }
 

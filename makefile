@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/24 15:25:58 by adjelili         ###   ########.fr        #
+#    Updated: 2026/02/25 14:17:45 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC = main.c \
 	tokenization/states.c \
 	tokenization/free_tokens.c \
 	garbage_collector/gc1.c \
-	garbage_collector/gc2.c
+	garbage_collector/gc2.c \
+	tokenization/check.c
 
 OBJ = $(SRC:.c=.o)
 
