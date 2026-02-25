@@ -26,7 +26,7 @@ t_tree	*AST_build_subshell(t_token *start, t_token *end)
 	t_token	*match;
 
 	match = AST_find_subparent(start, end);
-	node = malloc(sizeof(t_tree));
+	node = ft_malloc(sizeof(t_tree), 1);
 	node->type = L_PARENTHESE;
 	node->arg = NULL;
 	node->left = AST(start->next, match);

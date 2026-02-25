@@ -18,10 +18,8 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 	int		i;
 
 	i = 0;
-	node = malloc(sizeof(t_tree));
-	if (!node)
-		return (NULL);
-	node->arg = malloc((count_word(start, end) + 1) * sizeof(char *));
+	node = ft_malloc(sizeof(t_tree), 1);
+	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
 	if (!node->arg)
 		return (NULL);
 	while (start != end && start->type == WORD)
@@ -41,12 +39,8 @@ t_tree	*AST_OP_NODE(t_token *op_pos)
 {
 	t_tree	*node;
 
-	node = malloc(sizeof(t_tree));
-	if (!node)
-		return (NULL);
-	node->arg = malloc(2 * sizeof(char *));
-	if (!node->arg)
-		return (NULL);
+	node = ft_malloc(sizeof(t_tree), 1);
+	node->arg = ft_malloc(sizeof(char *), 2);
 	node->type = op_pos->type;
 	node->data = op_pos;
 	node->arg[0] = op_pos->value;
@@ -59,12 +53,9 @@ t_tree	*AST(t_token *start, t_token *end)
 	t_tree	*node;
 	t_token	*op_pos;
 
-	if (start == NULL)
-		return (NULL);
 	node = NULL;
 	op_pos = NULL;
 	op_pos = AST_EVAL(start, end);
-	
 	if (!op_pos && start->type == WORD)
 		return (AST_VALUE_NODE(start, end));
 	if (!op_pos && start->type == L_PARENTHESE)
@@ -76,8 +67,6 @@ t_tree	*AST(t_token *start, t_token *end)
 		printf("[AST] Undefined\n");
 		return (NULL);
 	}
-
-
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);
 	node->right = AST(op_pos->next, end);
@@ -86,7 +75,7 @@ t_tree	*AST(t_token *start, t_token *end)
 
 t_tree	*AST_launcher(t_token *token)
 {
-	if (!token)
+	if (!token)	
 		return (NULL);
 	t_tree *ast; // construit directement l'AST à partir du premier token
 	ast = AST(token, NULL);
