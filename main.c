@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 12:05:21 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:51:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,20 @@ int main(void)
             continue;
         if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
             return (0);
-        history(line);
-        if (!check_parentheses(line) || !check_quotes(line))
-            continue;
-        lexer = ft_lexer(line);
+		history(line);
+		if (!check_parentheses(line) || !check_quotes(line))
+			continue;
+		lexer = ft_lexer(line);
         if (!check_consecutive_op(&lexer->content))
-        {
+		{
             printf("error\n");
             ft_free_all_malloc();
             free(line);
             continue;
         }
         debug_tokens(&lexer->content);
-		AST_launcher(lexer->content);
+		//AST_launcher(lexer->content);
         ft_free_all_malloc();
-        //free_struct(lexer);
-        // ici mettre une free de tout (lexing, parsing, expand, exec)
         free(line);
     }
     return (0);
