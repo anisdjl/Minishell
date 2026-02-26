@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:24:59 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:27:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
 void	ft_free_malloc(void *ptr);
 void	ft_free_all_malloc(); // une boucle qui free tout
+void	ft_exit(char *line);
 
 #endif
 

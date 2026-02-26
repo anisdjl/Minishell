@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 14:14:55 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/26 16:25:02 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ int main(void)
             continue;
         lexer = ft_lexer(line);
         debug_tokens(&lexer->content);
-		AST_launcher(lexer->content);
+		//AST_launcher(lexer->content);
         ft_free_all_malloc();
-        //free_struct(lexer);
-        // ici mettre une free de tout (lexing, parsing, expand, exec)
         free(line);
     }
     return (0);
