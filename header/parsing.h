@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/26 11:30:46 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 14:26:07 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,15 @@ t_token				*AST_EVAL(t_token *start, t_token *end);
 t_tree				*AST_build_subshell(t_token *start, t_token *end);
 t_tree				*AST_VALUE_NODE(t_token *start, t_token *end);
 
+/* AST Check */
+
+int 				AST_check(t_token *token);
+
 /* AST Utils */
 
 t_token				*find_op(t_token *start, t_token *end, t_enum type);
 void 				print_ast(t_tree *tree, char *prefix, int is_left);
+int					AST_check_start(t_token *token);
 int					count_word(t_token *start, t_token *end);
 t_token				*AST_find_subparent(t_token *start, t_token *end);
 t_tree				*subshell_start(t_token *start, t_token *end);

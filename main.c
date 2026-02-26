@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 12:05:21 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 14:14:55 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ int main(void)
         if (!check_parentheses(line) || !check_quotes(line))
             continue;
         lexer = ft_lexer(line);
-        if (!check_consecutive_op(&lexer->content))
-        {
-            printf("error\n");
-            ft_free_all_malloc();
-            free(line);
-            continue;
-        }
         debug_tokens(&lexer->content);
 		AST_launcher(lexer->content);
         ft_free_all_malloc();
