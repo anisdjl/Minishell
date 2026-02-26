@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/02/26 13:02:53 by eprieur          ###   ########.fr        #
+#    Updated: 2026/02/26 17:10:14 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = main.c \
 	src/AST/AST_check_start.c \
 	src/AST/AST.c \
 	src/AST/AST_subshell.c \
-	src/AST/AST_utils.c
+	src/AST/AST_utils.c \
+	env/env.c
 
 OBJ = $(SRC:.c=.o)
 
