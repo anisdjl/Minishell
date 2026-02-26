@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 11:30:18 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:14:54 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,29 @@ int	check_quotes(char *line)
 int	check_consecutive_op(t_token **token)
 {
 	t_token	*tmp;
-	// t_token	*next;
-	
+	int state;
+
 	tmp = (*token);
+	state = 1;
 	while (tmp->next)
 	{
 		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE))
-			return(0);
+			state = 0;
 		else if ((tmp->type != 3  && tmp->type != L_PARENTHESE && tmp->type
 			!= R_PARENTHESE) && ((tmp->next->type != 3  && tmp->next->type
 				!= L_PARENTHESE && tmp->next->type != R_PARENTHESE)))
-			return (0);
+			state = 0;
 		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE)
-			return (0);
+			state = 0;
 		else if (tmp->type == R_PARENTHESE && tmp->next->type == WORD)
-				return (0);
+			state = 0;
+		if (state == 0)
+			break;
 		tmp = tmp->next;
 	}
-	return (1);
+	if (state == 0)
+		printf("bash: syntax error near unexpected token '%s'\n", tmp->value);
+	return (state);
 }
 
 int	only_spaces(char *argv)
