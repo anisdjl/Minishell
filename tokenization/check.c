@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 15:14:54 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/26 17:06:57 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_parentheses(char *line)
 {
-	int par;
+	int	par;
 	int	y;
 
 	y = 0;
@@ -67,24 +67,27 @@ int	check_quotes(char *line)
 int	check_consecutive_op(t_token **token)
 {
 	t_token	*tmp;
-	int state;
+	int		state;
 
 	tmp = (*token);
 	state = 1;
 	while (tmp->next)
 	{
-		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE))
+		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE)) //()
 			state = 0;
-		else if ((tmp->type != 3  && tmp->type != L_PARENTHESE && tmp->type
-			!= R_PARENTHESE) && ((tmp->next->type != 3  && tmp->next->type
-				!= L_PARENTHESE && tmp->next->type != R_PARENTHESE)))
+		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
+				&& tmp->type != R_PARENTHESE) && ((tmp->next->type != WORD
+					&& tmp->next->type != L_PARENTHESE
+					&& tmp->next->type != R_PARENTHESE))) //
 			state = 0;
-		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE)
+		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE) // echo hello (echo hello)
 			state = 0;
-		else if (tmp->type == R_PARENTHESE && tmp->next->type == WORD)
+		else if (tmp->type == R_PARENTHESE && tmp->next->type == WORD) // reverse
+			state = 0;
+		else if (tmp->type == L_PARENTHESE && (tmp->next->type == AND || tmp->next->type == OR))
 			state = 0;
 		if (state == 0)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	if (state == 0)
