@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 17:04:07 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/26 11:30:18 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,24 @@ int	check_consecutive_op(t_token **token)
 			return (0);
 		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE)
 			return (0);
+		else if (tmp->type == R_PARENTHESE && tmp->next->type == WORD)
+				return (0);
 		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	only_spaces(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] != ' ')
+			return (0);
+		else
+			i++;
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 17:33:27 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/26 12:05:21 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(void)
     while (1)
     {
         line = readline("minishell> ");
-        if (!line || line[0] == '\n' || line[0] == '\0')
+        if (!line || line[0] == '\n' || line[0] == '\0' || only_spaces(line))
             continue;
         if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
             return (0);
@@ -40,6 +40,7 @@ int main(void)
             continue;
         }
         debug_tokens(&lexer->content);
+		AST_launcher(lexer->content);
         ft_free_all_malloc();
         //free_struct(lexer);
         // ici mettre une free de tout (lexing, parsing, expand, exec)
