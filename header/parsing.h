@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/26 16:32:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:10:39 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define F_EXPAND (1 << 0) // 001 un
 # define F_DQUOTE (1 << 1) // 010 deux
 # define F_SQUOTE (1 << 2) // 100 quatre
+
+typedef struct s_env t_env;
 
 typedef enum s_enum
 {
@@ -45,16 +47,9 @@ typedef struct s_token
 {
 	char *value; // le mot, la commande ou le separateur
 	t_enum type; // pour l'enum
-	int				flag;
-	// avec le bit shifting pour la priorite des operations
+	int				flag; // avec le bit shifting pour la priorite des operations
 	struct s_token *next; // le noeud d'apres (liste chainee)
 }					t_token;
-
-typedef struct s_redir
-{
-	char			*value;
-	struct s_redir	*next;
-}					t_redir;
 
 typedef struct s_tree
 {
@@ -97,10 +92,10 @@ int		only_spaces(char *argv);
 
 /*	AST	main func */
 
-t_tree				*AST_launcher(t_token *token);
+t_tree				*AST_launcher(t_token *token, t_env *env);
 t_tree				*AST_OP_NODE(t_token *op_pos);
 t_tree				*AST(t_token *start, t_token *end);
-t_token				*AST_EVAL(t_token *start, t_token *end);
+t_token				*AST_EVAL_OP(t_token *start, t_token *end);
 t_tree				*AST_build_subshell(t_token *start, t_token *end);
 t_tree				*AST_VALUE_NODE(t_token *start, t_token *end);
 

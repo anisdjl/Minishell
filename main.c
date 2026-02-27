@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 17:18:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:46:52 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int main(int argc, char **argv, char **envp)
     char *line;
     int fd;
     t_lexer    *lexer;
+    t_env      *env;
 
     fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND, 0644);
-    if (fd < 0)
+    env = get_env(envp);
+    if (fd < 0 || !env)
         return (0);
     while (1)
     {
@@ -33,7 +35,7 @@ int main(int argc, char **argv, char **envp)
             continue;
         lexer = ft_lexer(line);
         debug_tokens(&lexer->content);
-		AST_launcher(lexer->content);
+		AST_launcher(lexer->content, env);
         ft_free_all_malloc();
         free(line);
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 17:17:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:27:49 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ char	*create_key(char *envp)
 	key[y] = '\0';
 	return (key);
 }
-int get_env(char **envp)
+
+t_env *get_env(char **envp)
 {
 	int y;
 	t_env	*env;
@@ -72,5 +73,5 @@ int get_env(char **envp)
 	// 	printf("%s%s\n", new->key, new->value);
 	// 	new = new->next;
 	// }
-	return (0);
+	return (env);
 }

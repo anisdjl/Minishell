@@ -30,4 +30,3 @@ int AST_check(t_token *token)
         return (0);
     return (1);
 }
-

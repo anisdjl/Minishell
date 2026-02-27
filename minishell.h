@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 17:05:18 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:24:15 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include "libft/libft.h"
 # include "libft/libft.h"
 # include "garbage_collector/gc.h"
-# include "env/env.h"
+# include "header/env.h"
 
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
