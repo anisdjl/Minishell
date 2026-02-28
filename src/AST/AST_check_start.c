@@ -4,7 +4,7 @@ int	AST_check_start(t_token *token)
 {
 	if (token->type != L_PARENTHESE && token->type != RIGHT_A
 		&& token->type != HERE_DOC && token->type != LEFT_A
-		&& token->type != APPEND && token->type != WORD)
+		&& token->type != APPEND && token->type != WORD && token->type != F_FILE) // anis a ajoute le token type != F_FILE
         {
             printf("bash: syntax error near unexpected token '%s'\n", token->value);
 		    return (0);

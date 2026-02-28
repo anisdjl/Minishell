@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 17:06:57 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/02/28 13:50:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int	check_consecutive_op(t_token **token)
 		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE)) //()
 			state = 0;
 		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
-				&& tmp->type != R_PARENTHESE) && ((tmp->next->type != WORD
+				&& tmp->type != R_PARENTHESE && tmp->type != F_FILE) && ((tmp->next->type != WORD
 					&& tmp->next->type != L_PARENTHESE
-					&& tmp->next->type != R_PARENTHESE))) //
+					&& tmp->next->type != R_PARENTHESE && tmp->next->type != F_FILE))) //
 			state = 0;
-		else if (tmp->type == WORD && tmp->next->type == L_PARENTHESE) // echo hello (echo hello)
+		else if ((tmp->type == WORD || tmp->type == F_FILE) && tmp->next->type == L_PARENTHESE) // echo hello (echo hello)
 			state = 0;
-		else if (tmp->type == R_PARENTHESE && tmp->next->type == WORD) // reverse
+		else if (tmp->type == R_PARENTHESE && (tmp->next->type == WORD || tmp->next->type == F_FILE)) // reverse
 			state = 0;
 		else if (tmp->type == L_PARENTHESE && (tmp->next->type == AND || tmp->next->type == OR))
 			state = 0;
@@ -108,4 +108,18 @@ int	only_spaces(char *argv)
 			i++;
 	}
 	return (1);
+}
+
+void	file_flag(t_token **tokens)
+{
+	t_token	*tmp;
+
+	tmp = (*tokens);
+	while (tmp->next)
+	{
+		if ((tmp->type == HERE_DOC || tmp->type == RIGHT_A || tmp->type == LEFT_A
+		|| tmp->type == APPEND) && (tmp->next->type == WORD))
+			tmp->next->type = F_FILE;
+		tmp = tmp->next;
+	}
 }

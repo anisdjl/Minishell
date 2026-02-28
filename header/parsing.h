@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/26 16:32:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/02/28 12:35:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ typedef enum s_enum
 	RIGHT_A,  // > 5
 	LEFT_A,   // < 6
 	APPEND,   // >> 7
-	SUBSHELL,
-	L_PARENTHESE, // (
-	R_PARENTHESE, // )
+	SUBSHELL, // 8
+	L_PARENTHESE, // ( 9
+	R_PARENTHESE, // ) 10
+	F_FILE, // 11
 }					t_enum;
 
 typedef enum s_state
@@ -94,6 +95,7 @@ int		check_quotes(char *line);
 int		check_parentheses(char *line);
 int		check_consecutive_op(t_token **token);
 int		only_spaces(char *argv);
+void	file_flag(t_token **tokens);
 
 /*	AST	main func */
 
