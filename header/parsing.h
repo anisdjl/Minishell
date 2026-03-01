@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/02/27 17:10:39 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/01 14:52:35 by volt             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_tree
 {
 	char			**arg;
 	t_enum			type;
+	int 			flag;
 	t_token			*data;
 	struct s_tree	*right;
 	struct s_tree	*left;

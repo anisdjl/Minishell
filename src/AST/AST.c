@@ -28,6 +28,7 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 	i = 0;
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
+	node->flag = start->flag;
 	if (!node->arg)
 		return (NULL);
 	while (start != end && start->type == WORD)
@@ -51,6 +52,7 @@ t_tree	*AST_OP_NODE(t_token *op_pos)
 	node->arg = ft_malloc(sizeof(char *), 2);
 	node->type = op_pos->type;
 	node->data = op_pos;
+	node->flag = op_pos->flag;
 	node->arg[0] = op_pos->value;
 	node->arg[1] = NULL;
 	return (node);
