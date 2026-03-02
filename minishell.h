@@ -6,25 +6,30 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/26 17:05:18 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:54:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/history.h>
-#include "header/parsing.h"
-#include "header/utils.h"
-#include "libft/libft.h"
+# include <stdio.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/history.h>
+# include <errno.h>
+# include <wait.h>
+# include "header/parsing.h"
+# include "header/utils.h"
 # include "libft/libft.h"
 # include "garbage_collector/gc.h"
 # include "env/env.h"
+# include "sys/wait.h"
+# include "sys/types.h"
+# include "exec/exec.h"
+# include "libft/libft.h"
 
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
