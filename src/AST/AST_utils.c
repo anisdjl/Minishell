@@ -1,48 +1,83 @@
 #include "../../minishell.h"
 
+// void print_ast(t_tree *tree, char *prefix, int is_left)
+// {
+//     if (!tree)
+//         return;
+
+//     // Affichage du préfixe pour dessiner les branches
+//     printf("%s", prefix);
+//     printf(is_left ? "├── " : "└── ");
+
+//     // Affichage selon ton enum s_enum
+//     if (tree->type == WORD)
+//     {
+//         printf("\033[32m[CMD]\033[0m"); // Vert
+//         if (tree->arg)
+//         {
+//             for (int i = 0; tree->arg[i]; i++)
+//                 printf(" %s", tree->arg[i]);
+//         }
+//     }
+//     else if (tree->type == PIPE)         printf("\033[33m[PIPE |]\033[0m");    // Jaune
+//     else if (tree->type == OR)           printf("\033[31m[OR ||]\033[0m");     // Rouge
+//     else if (tree->type == AND)          printf("\033[34m[AND &&]\033[0m");    // Bleu
+//     else if (tree->type == HERE_DOC)     printf("\033[36m[HEREDOC <<]\033[0m"); // Cyan
+//     else if (tree->type == RIGHT_A)      printf("\033[36m[REDIR >]\033[0m");    // Cyan
+//     else if (tree->type == LEFT_A)       printf("\033[36m[REDIR <]\033[0m");    // Cyan
+//     else if (tree->type == APPEND)       printf("\033[36m[APPEND >>]\033[0m");  // Cyan
+//     else if (tree->type == SUBSHELL || tree->type == L_PARENTHESE) 
+//                                          printf("\033[35m( SUBSHELL )\033[0m"); // Magenta
+//     else printf("TYPE: %u", tree->type);
+    
+//     printf("\n");
+
+//     // Préparation du préfixe pour les lignes verticales des enfants
+//     char new_prefix[256];
+//     sprintf(new_prefix, "%s%s", prefix, is_left ? "│   " : "    ");
+
+//     // Récursion : Gauche (is_left = 1) puis Droite (is_left = 0)
+//     if (tree->left || tree->right)
+//     {
+//         print_ast(tree->left, new_prefix, 1);
+//         print_ast(tree->right, new_prefix, 0);
+//     }
+// }
+
 void print_ast(t_tree *tree, char *prefix, int is_left)
 {
-    if (!tree)
-        return;
+    if (!tree) return;
+    printf("%s%s", prefix, is_left ? "├── " : "└── ");
 
-    // Affichage du préfixe pour dessiner les branches
-    printf("%s", prefix);
-    printf(is_left ? "├── " : "└── ");
-
-    // Affichage selon ton enum s_enum
-    if (tree->type == WORD)
+    if (tree->type == WORD || tree->type == L_PARENTHESE)
     {
-        printf("\033[32m[CMD]\033[0m"); // Vert
+        if (tree->type == WORD) printf("\033[32m[CMD]\033[0m");
+        else printf("\033[35m( SUBSHELL )\033[0m");
+        
         if (tree->arg)
+            for (int i = 0; tree->arg[i]; i++) printf(" %s", tree->arg[i]);
+
+        t_redir *r = tree->redirs;
+        while (r)
         {
-            for (int i = 0; tree->arg[i]; i++)
-                printf(" %s", tree->arg[i]);
+            char *sym = (r->type == LEFT_A) ? "<" : (r->type == RIGHT_A) ? ">" : 
+                        (r->type == APPEND) ? ">>" : "<<";
+            printf("\n%s%s    \033[90m╰─\033[0m \033[36m%s %s\033[0m", 
+                   prefix, is_left ? "│" : " ", sym, r->value);
+            r = r->next;
         }
     }
-    else if (tree->type == PIPE)         printf("\033[33m[PIPE |]\033[0m");    // Jaune
-    else if (tree->type == OR)           printf("\033[31m[OR ||]\033[0m");     // Rouge
-    else if (tree->type == AND)          printf("\033[34m[AND &&]\033[0m");    // Bleu
-    else if (tree->type == HERE_DOC)     printf("\033[36m[HEREDOC <<]\033[0m"); // Cyan
-    else if (tree->type == RIGHT_A)      printf("\033[36m[REDIR >]\033[0m");    // Cyan
-    else if (tree->type == LEFT_A)       printf("\033[36m[REDIR <]\033[0m");    // Cyan
-    else if (tree->type == APPEND)       printf("\033[36m[APPEND >>]\033[0m");  // Cyan
-    else if (tree->type == SUBSHELL || tree->type == L_PARENTHESE) 
-                                         printf("\033[35m( SUBSHELL )\033[0m"); // Magenta
-    else printf("TYPE: %u", tree->type);
-    
+    else if (tree->type == PIPE) printf("\033[33m[PIPE |]\033[0m");
+    else if (tree->type == OR)   printf("\033[31m[OR ||]\033[0m");
+    else if (tree->type == AND)  printf("\033[34m[AND &&]\033[0m");
+
     printf("\n");
-
-    // Préparation du préfixe pour les lignes verticales des enfants
     char new_prefix[256];
-    sprintf(new_prefix, "%s%s", prefix, is_left ? "│   " : "    ");
-
-    // Récursion : Gauche (is_left = 1) puis Droite (is_left = 0)
-    if (tree->left || tree->right)
-    {
-        print_ast(tree->left, new_prefix, 1);
-        print_ast(tree->right, new_prefix, 0);
-    }
+    snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_left ? "│   " : "    ");
+    print_ast(tree->left, new_prefix, 1);
+    print_ast(tree->right, new_prefix, 0);
 }
+
 int	count_word(t_token *start, t_token *end)
 {
 	int	count;
