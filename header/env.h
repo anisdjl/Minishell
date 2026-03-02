@@ -6,12 +6,14 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:43:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/27 15:27:39 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/02 11:57:09 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
+
+# include "../minishell.h"
 
 typedef struct s_env
 {
