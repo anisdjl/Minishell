@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/02 11:42:45 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/02 11:45:36 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_tree
 {
 	char			**arg;
 	t_enum			type;
+	int 			flag;
 	t_token			*data;
 	struct s_tree	*right;
 	struct s_tree	*left;
