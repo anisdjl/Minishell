@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/03 12:02:02 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/03 14:30:34 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@
 # define F_DQUOTE (1 << 1) // 010 deux
 # define F_SQUOTE (1 << 2) // 100 quatre
 
-typedef struct s_env t_env;
+typedef struct s_env	t_env;
 
 typedef enum s_enum
 {
-	PIPE,     // | 0
-	OR,       // || 1
-	AND,      // && 2
-	WORD,     // 3
-	HERE_DOC, // << 4
-	RIGHT_A,  // > 5
-	LEFT_A,   // < 6
-	APPEND,   // >> 7
-	SUBSHELL, // 8
+	PIPE,         // | 0
+	OR,           // || 1
+	AND,          // && 2
+	WORD,         // 3
+	HERE_DOC,     // << 4
+	RIGHT_A,      // > 5
+	LEFT_A,       // < 6
+	APPEND,       // >> 7
+	SUBSHELL,     // 8
 	L_PARENTHESE, // ( 9
 	R_PARENTHESE, // ) 10
-	F_FILE, // 11
-}					t_enum;
+	F_FILE,       // 11
+}						t_enum;
 
 typedef enum s_state
 {
@@ -42,88 +42,89 @@ typedef enum s_state
 	SQUOTE,
 	GENERAL,
 	PARENTHESES,
-}					t_state;
+}						t_state;
 
 typedef struct s_token
 {
-	char *value; // le mot, la commande ou le separateur
-	t_enum type; // pour l'enum
-	int				flag; // avec le bit shifting pour la priorite des operations
+	char *value;          // le mot, la commande ou le separateur
+	t_enum type;          // pour l'enum
+	int flag;            
+		// avec le bit shifting pour la priorite des operations
 	struct s_token *next; // le noeud d'apres (liste chainee)
-}					t_token;
+}						t_token;
 
 typedef struct s_redir
 {
-	char			*value;
-	int				type;
-	struct s_redir	*next;
-}					t_redir;
+	char				*value;
+	int					type;
+	struct s_redir		*next;
+}						t_redir;
 
 typedef struct s_tree
 {
-	char			**arg;
-	int				flag;
-	t_enum			type;
-	t_redir			*redirs;
-	t_token			*data;
-	struct s_tree	*right;
-	struct s_tree	*left;
-}					t_tree;
+	char				**arg;
+	int					flag;
+	t_enum				type;
+	t_redir				*redirs;
+	t_token				*data;
+	struct s_tree		*right;
+	struct s_tree		*left;
+}						t_tree;
 
 typedef struct s_lexer
 {
-	t_token 		*content; // un noeud de la liste chainee
-	t_state			state;
-	int 			current_flag; // ne pas toucher ou utiliser
-	char			buff[4096];
-	int				index;
-	int				was_quoted;
-}					t_lexer;
+	t_token *content; // un noeud de la liste chainee
+	t_state				state;
+	int current_flag; // ne pas toucher ou utiliser
+	char				buff[4096];
+	int					index;
+	int					was_quoted;
+}						t_lexer;
 
-void	debug_tokens(t_token **tokens);
+void					debug_tokens(t_token **tokens);
 void	add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
-void	create_token(t_lexer *lexer);
-void	lexing(t_lexer *lexer, char *line);
-t_lexer	*ft_lexer(char *line);
-void	dquote_state(t_lexer *lexer, char *line, int *y);
-void	squote_state(t_lexer *lexer, char *line, int *y);
-void	general_state(t_lexer *lexer, char *line, int *y);
-void	operator_token(t_lexer *lexer, char *line, int *y);
-int		operator(char c);
-t_enum	return_type(t_token *tmp);
-void	put_types(t_lexer *lexer);
-int		need_expand(t_token *tmp);
-void	free_struct(t_lexer *lexer);
-void	free_tokens(t_token **tokens);
-int		check_quotes(char *line);
-int		check_parentheses(char *line);
-int		check_consecutive_op(t_token **token);
-int		only_spaces(char *argv);
-void	file_flag(t_token **tokens);
+void					create_token(t_lexer *lexer);
+void					lexing(t_lexer *lexer, char *line);
+t_lexer					*ft_lexer(char *line);
+void					dquote_state(t_lexer *lexer, char *line, int *y);
+void					squote_state(t_lexer *lexer, char *line, int *y);
+void					general_state(t_lexer *lexer, char *line, int *y);
+void					operator_token(t_lexer *lexer, char *line, int *y);
+int						operator(char c);
+t_enum					return_type(t_token *tmp);
+void					put_types(t_lexer *lexer);
+int						need_expand(t_token *tmp);
+void					free_struct(t_lexer *lexer);
+void					free_tokens(t_token **tokens);
+int						check_quotes(char *line);
+int						check_parentheses(char *line);
+int						check_consecutive_op(t_token **token);
+int						only_spaces(char *argv);
+void					file_flag(t_token **tokens);
 
 /*	AST	main func */
 
-t_tree				*AST_launcher(t_token *token);
-t_tree				*AST_OP_NODE(t_token *op_pos);
-t_tree				*AST(t_token *start, t_token *end);
-t_token				*AST_EVAL_OP(t_token *start, t_token *end);
-t_tree				*AST_build_subshell(t_token *start, t_token *end);
-t_tree				*AST_build_redir(t_token *start, t_token *end);
-t_tree				*AST_VALUE_NODE(t_token *start, t_token *end);
+t_tree					*AST_launcher(t_token *token);
+t_tree					*AST_OP_NODE(t_token *op_pos);
+t_tree					*AST(t_token *start, t_token *end);
+t_token					*AST_EVAL_OP(t_token *start, t_token *end);
+t_tree					*AST_build_subshell(t_token *start, t_token *end);
+void					add_redir(t_tree *node, t_token *redirs);
+t_tree					*AST_VALUE_NODE(t_token *start, t_token *end);
 
 /* AST Check */
 
-int 				AST_check(t_token *token);
-t_token				*AST_EVAL_OP(t_token *start, t_token *end);
+int						AST_check(t_token *token);
+t_token					*AST_EVAL_OP(t_token *start, t_token *end);
 
 /* AST Utils */
 
-t_token				*find_op(t_token *start, t_token *end, t_enum type);
-void 				print_ast(t_tree *tree, char *prefix, int is_left);
-int					AST_check_start(t_token *token);
-int					count_word(t_token *start, t_token *end);
-t_token				*AST_find_subparent(t_token *start, t_token *end);
-t_tree				*subshell_start(t_token *start, t_token *end);
-int					claim_subshell(t_token *start, t_token *end); // pour plus tard
+t_token					*find_op(t_token *start, t_token *end, t_enum type);
+void					print_ast(t_tree *tree, char *prefix, int is_left);
+int						AST_check_start(t_token *token);
+int						count_word(t_token *start, t_token *end);
+t_token					*AST_find_subparent(t_token *start, t_token *end);
+t_tree					*subshell_start(t_token *start, t_token *end);
+int	claim_subshell(t_token *start, t_token *end); // pour plus tard
 
 #endif

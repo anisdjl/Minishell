@@ -8,17 +8,22 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 	i = 0;
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
-	node->flag = start->flag;
 	if (!node->arg)
 		return (NULL);
-	while (start != end && start->type == WORD)
+	node->type = WORD;
+	while (start != end)
 	{
-		node->arg[i] = start->value;
+		if (start->type == WORD)
+			node->arg[i++] = start->value;
+		else if (start->type >= 4 && start->type <= 7)
+		{
+			add_redir(node, start);
+			if (start->next)
+				start = start->next;
+		}
 		start = start->next;
-		i++;
 	}
 	node->arg[i] = NULL;
-	node->type = WORD;
 	return (node);
 }
 
@@ -30,7 +35,6 @@ t_tree	*AST_OP_NODE(t_token *op_pos)
 	node->arg = ft_malloc(sizeof(char *), 2);
 	node->type = op_pos->type;
 	node->data = op_pos;
-	node->flag = op_pos->flag;
 	node->arg[0] = op_pos->value;
 	node->arg[1] = NULL;
 	return (node);
@@ -45,7 +49,7 @@ t_tree	*AST(t_token *start, t_token *end)
 	op_pos = NULL;
 	if (start == NULL || start == end)
 		return (NULL);
-	op_pos = AST_EVAL(start, end);
+	op_pos = AST_EVAL_OP(start, end);
 	if (!op_pos)
 	{
 		if (start->type == L_PARENTHESE)
@@ -96,21 +100,19 @@ t_tree	*AST(t_token *start, t_token *end)
 	op_pos = NULL;
 	if (start == NULL || start == end)
 		return (NULL);
-	op_pos = AST_EVAL_OP(start, end);
+	op_pos = AST_EVAL(start, end);
 	if (!op_pos && start->type == WORD)
 		return (AST_VALUE_NODE(start, end));
 	if (!op_pos && start->type == L_PARENTHESE)
-	{
+    {
 		printf("[AST] Subshell find ...\n");
-		return (AST_build_subshell(start, end));
-	}
-	if (!op_pos && (start->type == RIGHT_A || start->type == LEFT_A))
-	{
-		printf("[AST] Redir find ...\n");
+        return (AST_build_subshell(start, end));
+    }
+	if (!op_pos && (start->type == RIGHT_A || start->type == LEFT_A)){	
+		printf("[AST] Redir find ...");
 		return (NULL);
 	}
-	if (!op_pos)
-	{
+	if (!op_pos ){ // temporaire
 		printf("[AST] Undefined\n");
 		return (NULL);
 	}
