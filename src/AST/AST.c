@@ -8,6 +8,7 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 	i = 0;
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
+	node->flag = start->flag;
 	if (!node->arg)
 		return (NULL);
 	while (start != end && start->type == WORD)
@@ -29,6 +30,7 @@ t_tree	*AST_OP_NODE(t_token *op_pos)
 	node->arg = ft_malloc(sizeof(char *), 2);
 	node->type = op_pos->type;
 	node->data = op_pos;
+	node->flag = op_pos->flag;
 	node->arg[0] = op_pos->value;
 	node->arg[1] = NULL;
 	return (node);
@@ -118,20 +120,4 @@ t_tree	*AST(t_token *start, t_token *end)
 	return (node);
 }
 
-<<<<<<< HEAD
-t_tree	*AST_launcher(t_token *token, t_env *env)
-{
-	t_tree *ast; // construit directement l'AST à partir du premier token
-	if (!token)
-		return (NULL);
-	if (!AST_check(token))
-		return (NULL);
-	ast = AST(token, NULL);
-	printf("\n--- AST Structure ---\n");
-	print_ast(ast, "", 0);
-	printf("---------------------\n\n");
-	return (ast);
-}
-=======
 */
->>>>>>> main

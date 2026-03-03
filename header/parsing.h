@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/03 11:55:53 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/03 12:02:02 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_redir
 typedef struct s_tree
 {
 	char			**arg;
+	int				flag;
 	t_enum			type;
 	t_redir			*redirs;
 	t_token			*data;
@@ -102,7 +103,7 @@ void	file_flag(t_token **tokens);
 
 /*	AST	main func */
 
-t_tree				*AST_launcher(t_token *token, t_env *env);
+t_tree				*AST_launcher(t_token *token);
 t_tree				*AST_OP_NODE(t_token *op_pos);
 t_tree				*AST(t_token *start, t_token *end);
 t_token				*AST_EVAL_OP(t_token *start, t_token *end);
