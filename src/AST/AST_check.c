@@ -24,8 +24,8 @@ int	AST_check_start(t_token *token)
 
 int AST_check(t_token *token)
 {
-    if (!AST_check_start(token))
-        return (0);
+    // if (!AST_check_start(token))
+    //     return (0);
     if (!check_consecutive_op(&token))
         return (0);
     return (1);

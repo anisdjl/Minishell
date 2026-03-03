@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/02 15:56:37 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/03 11:55:53 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,18 @@ typedef struct s_token
 	struct s_token *next; // le noeud d'apres (liste chainee)
 }					t_token;
 
+typedef struct s_redir
+{
+	char			*value;
+	int				type;
+	struct s_redir	*next;
+}					t_redir;
+
 typedef struct s_tree
 {
 	char			**arg;
 	t_enum			type;
-	int 			flag;
+	t_redir			*redirs;
 	t_token			*data;
 	struct s_tree	*right;
 	struct s_tree	*left;
