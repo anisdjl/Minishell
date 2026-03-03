@@ -78,3 +78,23 @@ t_token	*find_op(t_token *start, t_token *end, t_enum type) // On garde le derni
 	}
 	return (op);
 }
+
+t_token	*AST_EVAL_OP(t_token *start, t_token *end)
+{
+	t_token	*op_pos;
+
+	op_pos = find_op(start, end, OR);
+	if (!op_pos)
+		op_pos = find_op(start, end, AND);
+	if (!op_pos)
+		op_pos = find_op(start, end, PIPE);
+	if (!op_pos)
+		op_pos = find_op(start, end, RIGHT_A);
+	if (!op_pos)
+		op_pos = find_op(start, end, LEFT_A);
+	if (!op_pos)
+		op_pos = find_op(start, end, HERE_DOC);
+	if (!op_pos)
+		op_pos = find_op(start, end, APPEND);
+	return (op_pos);
+}

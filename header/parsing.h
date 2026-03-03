@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/02 11:57:01 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/02 15:56:37 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,13 @@ t_tree				*AST_OP_NODE(t_token *op_pos);
 t_tree				*AST(t_token *start, t_token *end);
 t_token				*AST_EVAL_OP(t_token *start, t_token *end);
 t_tree				*AST_build_subshell(t_token *start, t_token *end);
+t_tree				*AST_build_redir(t_token *start, t_token *end);
 t_tree				*AST_VALUE_NODE(t_token *start, t_token *end);
 
 /* AST Check */
 
 int 				AST_check(t_token *token);
+t_token				*AST_EVAL_OP(t_token *start, t_token *end);
 
 /* AST Utils */
 

@@ -34,3 +34,14 @@ t_tree	*AST_build_subshell(t_token *start, t_token *end)
 	node->right = NULL;
 	return (node);
 }
+
+t_tree	*AST_build_redir(t_token *start, t_token *end)
+{
+	t_tree	*node;
+
+	printf("Build redir\n");
+	node = ft_malloc(sizeof(t_tree), 1);
+	node->left = AST(start->next, end);
+	node->right = NULL; 
+	return (node);
+}

@@ -1,23 +1,17 @@
 #include "../../minishell.h"
 
-t_token	*AST_EVAL_OP(t_token *start, t_token *end)
+t_tree *AST_FILE_NODE(t_token *pos)
 {
-	t_token	*op_pos;
+	t_tree	*node;
 
-	op_pos = find_op(start, end, OR);
-	if (!op_pos)
-		op_pos = find_op(start, end, AND);
-	if (!op_pos)
-		op_pos = find_op(start, end, PIPE);
-	if (!op_pos)
-		op_pos = find_op(start, end, RIGHT_A);
-	if (!op_pos)
-		op_pos = find_op(start, end, LEFT_A);
-	if (!op_pos)
-		op_pos = find_op(start, end, HERE_DOC);
-	if (!op_pos)
-		op_pos = find_op(start, end, APPEND);
-	return (op_pos);
+	node = ft_malloc(sizeof(t_tree), 1);
+	node->arg = ft_malloc(sizeof(char *), 2);
+	node->type = pos->type;
+	node->data = pos;
+	node->flag = pos->flag;
+	node->arg[0] = pos->value;
+	node->arg[1] = NULL;
+	return (node);
 }
 
 t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
@@ -77,7 +71,12 @@ t_tree	*AST(t_token *start, t_token *end)
 	}
 	if (!op_pos && (start->type == RIGHT_A || start->type == LEFT_A))
 	{
-		printf("[AST] Redir find ...");
+		printf("[AST] Redir find ...\n");
+		return (NULL);
+	}
+	if (!op_pos)
+	{
+		printf("[AST] Undefined\n");
 		return (NULL);
 	}
 	node = AST_OP_NODE(op_pos);
