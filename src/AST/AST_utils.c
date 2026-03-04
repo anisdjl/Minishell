@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void print_ast(t_tree *tree, char *prefix, int is_left)
+/*void print_ast(t_tree *tree, char *prefix, int is_left)
 {
     if (!tree)
         return;
@@ -42,7 +42,7 @@ void print_ast(t_tree *tree, char *prefix, int is_left)
         print_ast(tree->left, new_prefix, 1);
         print_ast(tree->right, new_prefix, 0);
     }
-}
+}*/
 int	count_word(t_token *start, t_token *end)
 {
 	int	count;

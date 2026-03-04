@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/02 15:54:08 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:16:19 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#define _APPLE_C_SOURCE
+#define _DARWIN_C_SOURCE
 # include <stdio.h>
 # include <fcntl.h>
 # include <readline/readline.h>
@@ -20,7 +22,6 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <errno.h>
-# include <wait.h>
 # include "header/parsing.h"
 # include "header/utils.h"
 # include "libft/libft.h"
@@ -30,12 +31,12 @@
 # include "sys/types.h"
 # include "exec/exec.h"
 # include "libft/libft.h"
+# include <signal.h>
 
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
 void	ft_free_malloc(void *ptr);
 void	ft_free_all_malloc(); // une boucle qui free tout
-void	ft_exit(char *line);
 
 #endif
 

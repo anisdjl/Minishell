@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/02 15:29:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:32:50 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv, char **envp)
         if (!check_parentheses(line) || !check_quotes(line))
             continue;
         lexer = ft_lexer(line);
-        debug_tokens(&lexer->content);
+        //debug_tokens(&lexer->content);
 		exec(AST_launcher(lexer->content), get_env(envp));
         ft_free_all_malloc();
         free(line);

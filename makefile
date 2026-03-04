@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/02 15:03:05 by adjelili         ###   ########.fr        #
+#    Updated: 2026/03/03 17:38:56 by anis             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = main.c \
 	src/AST/AST_utils.c \
 	env/env.c \
 	exec/exec.c \
+	exec/builtin.c
 #	exec/exec2.c
 
 OBJ = $(SRC:.c=.o)
@@ -44,10 +45,10 @@ LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT_LIB)
-	$(CC) $(CFLAG) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
 
 $(LIBFT_LIB) :
-	$(MAKE) $(CFLAG) -C $(LIBFT_PATH)
+	$(MAKE) -C $(LIBFT_PATH)
 
 %.o : %.c
 	$(CC) $(INCLUDES) -c $< -o $@
