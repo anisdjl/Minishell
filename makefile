@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/03 17:38:56 by anis             ###   ########.fr        #
+#    Updated: 2026/03/04 10:57:26 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ SRC = main.c \
 	src/AST/AST_utils.c \
 	env/env.c \
 	exec/exec.c \
-	exec/builtin.c
-#	exec/exec2.c
+	exec/builtin.c \
+	exec/exec2.c
 
 OBJ = $(SRC:.c=.o)
 

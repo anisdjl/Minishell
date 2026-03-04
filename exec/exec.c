@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/03 18:17:36 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/04 10:58:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	exec_cmd(t_tree *node, t_env *env)
 	// else if (ft_strlen(node->arg[0]) == 5
 	// 	&& ft_strncmp(node->arg[0], "unset", 5) == 0)
 	// 	unset_command(node, env);
-	else if (ft_strlen(node->arg[0]) == 3
-		&& ft_strncmp(node->arg[0], "env", 3) == 0)
-		env_command(node, env);
+	// else if (ft_strlen(node->arg[0]) == 3
+	// 	&& ft_strncmp(node->arg[0], "env", 3) == 0)
+	// 	env_command(node, env);
 	// else if (ft_strlen(node->arg[0]) == 4
 	// 	&& ft_strncmp(node->arg[0], "exit", 4) == 0)
 	// 	exit_command(node, env);
@@ -167,39 +167,6 @@ char	*find_path(char *cmd, char **env)
 	// ft_free_data(data);
 	// ft_free_paths(cmd);
 	exit(127);
-}
-
-char **env_to_tab(t_env **env)
-{
-	t_env	*tmp;
-	char	**env_tab;
-	int		y;
-
-	if (!env || !*env)
-		return (NULL);
-	y = 0;
-	tmp = (*env);
-	env_tab = ft_malloc(1, sizeof(char *) * ft_lstsize_env(*env) + 1);
-	while (tmp)
-	{
-		env_tab[y] = ft_strjoin(tmp->key, tmp->value);
-		tmp = tmp->next;
-		y++;
-	}
-	return (env_tab);
-}
-
-int	ft_lstsize_env(t_env *lst)
-{
-	int	y;
-
-	y = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		y++;
-	}
-	return (y);
 }
 
 char	**get_paths(char **envp)

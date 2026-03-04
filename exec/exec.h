@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/03 18:06:18 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/04 10:52:56 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int		exec_normal_command(t_tree *node, t_env *env);
 char	**get_paths(char **envp);
 int		cd_command(t_tree *node, t_env *env);
 int 	pwd_command(t_tree *node, t_env *env);
+int		size_of_table(char **tab);
 
 #endif
