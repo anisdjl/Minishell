@@ -52,7 +52,7 @@ t_tree	*AST(t_token *start, t_token *end)
 		return (NULL);
 	if (start->type == L_PARENTHESE)
 	{
-		match = AST_find_subparent(start); //check si on a 
+		match = AST_find_subparent(start); //check pos de )
 		if (match->next == end) //si au debut ou si le subshell est mise a part
 			return (AST_build_subshell(start, AST_find_subparent(start)));
 	}
