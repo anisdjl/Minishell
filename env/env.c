@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/27 15:27:49 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/04 18:04:34 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,5 @@ t_env *get_env(char **envp)
 		ft_lstadd_back_env(&env, new);
 		y++;
 	}
-	
-	// new = env;
-	// while(new)
-	// {
-	// 	printf("%s%s\n", new->key, new->value);
-	// 	new = new->next;
-	// }
 	return (env);
 }

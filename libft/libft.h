@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 15:41:46 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:25:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:48:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <stdint.h>
-# include "../header/parsing.h"
 # include "../minishell.h"
 // typedef struct s_list
 // {
