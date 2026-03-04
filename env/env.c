@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/03 17:46:21 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/04 14:28:17 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*create_key(char *envp)
 	key[y] = '\0';
 	return (key);
 }
+
 t_env *get_env(char **envp)
 {
 	int y;
@@ -65,12 +66,5 @@ t_env *get_env(char **envp)
 		ft_lstadd_back_env(&env, new);
 		y++;
 	}
-	
-	// new = env;
-	// while(new)
-	// {
-	// 	printf("%s%s\n", new->key, new->value);
-	// 	new = new->next;
-	// }
 	return (env);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/04 10:57:26 by adjelili         ###   ########.fr        #
+#    Updated: 2026/03/04 14:29:09 by anis             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = main.c \
 	env/env.c \
 	exec/exec.c \
 	exec/builtin.c \
-	exec/exec2.c
+	exec/exec_utils.c
 
 OBJ = $(SRC:.c=.o)
 

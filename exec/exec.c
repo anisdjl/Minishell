@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/04 10:58:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:51:56 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	exec(t_tree *ast, t_env *env)
 
 int	exec_cmd(t_tree *node, t_env *env)
 {
-	// if (ft_strlen(node->arg[0]) == 4
-	// 	&& ft_strncmp(node->arg[0], "echo", 4) == 0)
-	// 	echo_command(node, env);
+	if (ft_strlen(node->arg[0]) == 4
+		&& ft_strncmp(node->arg[0], "echo", 4) == 0)
+		return (echo_command(node, env));
 	if (ft_strlen(node->arg[0]) == 2 
 		&& ft_strncmp(node->arg[0], "cd", 2) == 0)
 	 	return (cd_command(node, env));
@@ -78,12 +78,12 @@ int	exec_cmd(t_tree *node, t_env *env)
 	// else if (ft_strlen(node->arg[0]) == 6
 	// 	&& ft_strcmp(node->arg[0], "export", 6) == 0)
 	// 	export_command(node, env);
-	// else if (ft_strlen(node->arg[0]) == 5
-	// 	&& ft_strncmp(node->arg[0], "unset", 5) == 0)
-	// 	unset_command(node, env);
-	// else if (ft_strlen(node->arg[0]) == 3
-	// 	&& ft_strncmp(node->arg[0], "env", 3) == 0)
-	// 	env_command(node, env);
+	else if (ft_strlen(node->arg[0]) == 5
+		&& ft_strncmp(node->arg[0], "unset", 5) == 0)
+		return (unset_command(node, &env));
+	else if (ft_strlen(node->arg[0]) == 3
+		&& ft_strncmp(node->arg[0], "env", 3) == 0)
+		return (env_command(node, &env));
 	// else if (ft_strlen(node->arg[0]) == 4
 	// 	&& ft_strncmp(node->arg[0], "exit", 4) == 0)
 	// 	exit_command(node, env);
