@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/04 17:25:42 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/04 18:10:30 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_lexer
 }						t_lexer;
 
 void					debug_tokens(t_token **tokens);
-void	add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
+void					add_to_buffer(t_lexer *lexer, char line); // le remplissage de buffer
 void					create_token(t_lexer *lexer);
 void					lexing(t_lexer *lexer, char *line);
 t_lexer					*ft_lexer(char *line);
