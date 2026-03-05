@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/28 13:50:32 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:28:58 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,6 @@ int	check_quotes(char *line)
 	}
 	else
 		return (1);
-}
-
-int	check_consecutive_op(t_token **token)
-{
-	t_token	*tmp;
-	int		state;
-
-	tmp = (*token);
-	state = 1;
-	while (tmp->next)
-	{
-		if ((tmp->type == R_PARENTHESE && tmp->next->type == L_PARENTHESE)) //()
-			state = 0;
-		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
-				&& tmp->type != R_PARENTHESE && tmp->type != F_FILE) && ((tmp->next->type != WORD
-					&& tmp->next->type != L_PARENTHESE
-					&& tmp->next->type != R_PARENTHESE && tmp->next->type != F_FILE))) //
-			state = 0;
-		else if ((tmp->type == WORD || tmp->type == F_FILE) && tmp->next->type == L_PARENTHESE) // echo hello (echo hello)
-			state = 0;
-		else if (tmp->type == R_PARENTHESE && (tmp->next->type == WORD || tmp->next->type == F_FILE)) // reverse
-			state = 0;
-		else if (tmp->type == L_PARENTHESE && (tmp->next->type == AND || tmp->next->type == OR))
-			state = 0;
-		if (state == 0)
-			break ;
-		tmp = tmp->next;
-	}
-	if (state == 0)
-		printf("bash: syntax error near unexpected token '%s'\n", tmp->value);
-	return (state);
 }
 
 int	only_spaces(char *argv)

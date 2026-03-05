@@ -72,7 +72,6 @@ t_tree	*AST_launcher(t_token *token)
 	if (!token)	
 		return (NULL);
 	if (!AST_check(token)){
-		
 		return (NULL);
 	}
 	ast = AST(token, NULL);

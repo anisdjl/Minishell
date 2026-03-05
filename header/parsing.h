@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/04 18:10:30 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/05 12:29:15 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ void					print_ast(t_tree *tree, char *prefix, int is_left);
 int						AST_check_start(t_token *token);
 int						count_word(t_token *start, t_token *end);
 t_token					*AST_find_subparent(t_token *start);
+int						check_consecutive_op(t_token **token);
 
 #endif
