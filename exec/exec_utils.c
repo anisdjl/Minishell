@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/04 15:42:52 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 17:06:52 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,10 @@ int	check_n(char *args)
 		y++;
 	}
 	return (0);
+}
+
+void	save_fds(int *fd_in, int *fd_out)
+{
+	*fd_in = dup(0);
+	*fd_out = dup(1);
 }

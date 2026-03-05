@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/05 14:07:57 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 14:59:27 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	}
 	if (pid == 0) // on est dans le fils
 	{
-		redir_function(node);
+		if (redir_function(node) == 1)
+			return (1);
 		paths = get_paths(env_to_tab(&env));
 		if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
 		{
@@ -218,6 +219,12 @@ int	redir_in(t_redir *redir)
 {
 	int	fd_in;
 
+	if (access(redir->value, R_OK | F_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);
+	}
 	fd_in = open(redir->value, O_RDONLY);
 	if (fd_in < 0)
 	{
@@ -243,6 +250,12 @@ int	redir_out(t_redir *redir)
 		ft_putstr_fd("minishell: ", 2);
 		perror(redir->value);
 		return (1);	
+	}
+	if (access(redir->value, W_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);
 	}
 	dup2(fd_out, 1);
 	close(fd_out);

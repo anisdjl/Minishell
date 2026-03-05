@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/04 18:04:34 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 16:45:58 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*create_key(char *envp)
 	y = 0;
 	while (envp[y] != '=')
 		y++;
-	key = ft_malloc(1, sizeof(char) * y + 1);
+	key = malloc(sizeof(char) * y + 1);
 	y = 0;
 	while (envp[y] != '=')
 	{
@@ -60,7 +60,7 @@ t_env *get_env(char **envp)
 	y = 0;
 	while (envp[y])
 	{
-		new = ft_malloc(1, sizeof(t_env));
+		new = malloc(sizeof(t_env));
 		new->key = create_key(envp[y]);
 		new->value = ft_strchr(envp[y], '=');
 		ft_lstadd_back_env(&env, new);

@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/05 13:23:19 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 17:10:59 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int		unset_command(t_tree *node, t_env **env);
 int		redir_function(t_tree *node);
 int		redir_in(t_redir *redir);
 int		redir_out(t_redir *redir);
+void	save_fds(int *fd_in, int *fd_out);
+void	unset_node(t_env **env, t_env *ptr);
 
 #endif
