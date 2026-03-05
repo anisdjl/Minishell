@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/04 17:50:26 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 13:23:19 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ int		check_n(char *args);
 int		echo_command2(t_tree *node, t_env *env);
 int		valid_unset(char *args);
 int		unset_command(t_tree *node, t_env **env);
+int		redir_function(t_tree *node);
+int		redir_in(t_redir *redir);
+int		redir_out(t_redir *redir);
 
 #endif

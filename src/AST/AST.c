@@ -76,8 +76,8 @@ t_tree	*AST_launcher(t_token *token)
 		return (NULL);
 	}
 	ast = AST(token, NULL);
-	printf("\n--- AST Structure ---\n");
-    print_ast(ast, "", 0);
-    printf("---------------------\n\n");
+	// printf("\n--- AST Structure ---\n");
+    // print_ast(ast, 0);
+    // printf("---------------------\n\n");
 	return (ast);
 }
