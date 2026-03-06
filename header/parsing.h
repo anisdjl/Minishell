@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/05 12:29:15 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/06 12:08:44 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ t_token					*AST_EVAL_OP(t_token *start, t_token *end);
 /* AST Utils */
 
 t_token					*find_op(t_token *start, t_token *end, t_enum type);
-void					print_ast(t_tree *tree, char *prefix, int is_left);
 int						AST_check_start(t_token *token);
+void 					print_ast(t_tree *node, int level);
+void 					print_redirs(t_redir *redir);
 int						count_word(t_token *start, t_token *end);
 t_token					*AST_find_subparent(t_token *start);
 int						check_consecutive_op(t_token **token);

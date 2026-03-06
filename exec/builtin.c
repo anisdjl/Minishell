@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/04 17:49:02 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/06 11:35:08 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 int	cd_command(t_tree *node, t_env *env)
 {
-	char	current_dir[100];
+	char	current_dir[4096];
+	int	fd_in;
+	int	fd_out;
 
-	getcwd(current_dir, 100); // peut etre elle qui fait des leaks ??
-	if (size_of_table(node->arg) > 2)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(node->arg[0], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd("too many arguments\n", 2);
-		return (1);
-	}
-	if (chdir(node->arg[1]) != 0)
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
+	getcwd(current_dir, 4096);
+	if (chdir(node->arg[1]) != 0 || size_of_table(node->arg) > 2)
 	{
 		ft_putstr_fd(node->arg[0], 2);
 		write(2, ": ", 2);
 		perror(node->arg[1]);
+		reset_and_close(&fd_in, &fd_out);
 		return (1);
 	}
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
@@ -40,8 +38,12 @@ int pwd_command(t_tree *node, t_env *env)
 	char	current_dir[4096];
 	t_env	*tmp;
 	void	*ptr;
-
+	int		fd_in;
+	int		fd_out;
+	
 	tmp = env;
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
 	ptr = getcwd(current_dir, 4096);
 	if (ptr)
 		printf("%s\n", current_dir);
@@ -57,15 +59,20 @@ int pwd_command(t_tree *node, t_env *env)
 			tmp = tmp->next;
 		}
 	}
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
 int	env_command(t_tree *node, t_env **env)
 {
 	t_env	*tmp;
+	int	fd_in;
+	int	fd_out;
 
 	if (!env || !*env)
 		return (0);
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
 	tmp = *env;
 	while(tmp)
 	{
@@ -73,6 +80,7 @@ int	env_command(t_tree *node, t_env **env)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
@@ -80,9 +88,13 @@ int	env_command(t_tree *node, t_env **env)
 int	echo_command(t_tree *node, t_env *env)
 {
 	int	y;
+	int	fd_in;
+	int	fd_out;
 
 	if (node->arg[1] && !check_n(node->arg[1])) // option -n
 	{
+		save_fds(&fd_in, &fd_out);
+		redir_function(node);
 		y = 2;
 		if (node->arg[2] == NULL)
 			return (0);
@@ -97,6 +109,7 @@ int	echo_command(t_tree *node, t_env *env)
 				ft_putchar_fd(' ', 1);
 			y++;
 		}
+		reset_and_close(&fd_in, &fd_out);
 	}
 	else
 		return (echo_command2(node, env));
@@ -106,8 +119,12 @@ int	echo_command(t_tree *node, t_env *env)
 int	echo_command2(t_tree *node, t_env *env)
 {
 	int	y;
+	int	fd_in;
+	int	fd_out;
 
 	y = 1;
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
 	if (node->arg[1] == NULL)
 	{
 		ft_putchar_fd('\n', 1);
@@ -120,48 +137,6 @@ int	echo_command2(t_tree *node, t_env *env)
 		y++;
 	}
 	ft_putchar_fd('\n', 1);
-	return (0);
-}
-
-int	unset_command(t_tree *node, t_env **env) // pas encore teste
-{
-	t_env	*tmp;
-	int		y;
-
-	y = 1;
-	if (!env || !*env)
-		return (0);
-	tmp = *env;
-	while (node->arg)
-	{
-		if (valid_unset(node->arg[y]))
-			printf("%s: not a valid identifier\n", node->arg[y]);
-		else
-		{
-			while (tmp)
-			{
-				if (ft_strncmp(node->arg[y], tmp->key, ft_strlen(node->arg[y])))
-					ft_free_malloc(tmp);
-				tmp = tmp->next;
-			}
-		}
-		y++;
-	}
-	return (0);
-}
-
-int	valid_unset(char *args) // no int no empty param no -
-{
-	int	y;
-
-	y = 0;
-	if (args[0] == '\0' || only_spaces(args))
-		return (1);
-	while (args[y])
-	{
-		if ((args[y] >= '0' && args[y] <= '9') || args[y] == '-')
-			return (1);
-		y++;
-	}
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
