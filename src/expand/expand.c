@@ -25,8 +25,9 @@ void expand(char **s)
     i = 0;
     while (s[i])
     {
-        if (!find_expand(s[i]))
+        if (!find_expand(s[i])){
             printf("expand find !");
+        }
         i++;
    }
 }
