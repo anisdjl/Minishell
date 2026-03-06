@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/06 12:08:44 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/06 18:33:18 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,25 @@ typedef struct s_token
 	struct s_token *next; // le noeud d'apres (liste chainee)
 }						t_token;
 
+typedef struct s_value_node
+{
+	char 				*value;
+	int					type;
+	int					flag;
+	struct s_value_node *next;
+}	t_value_node;
+
 typedef struct s_redir
 {
 	char				*value;
 	int					type;
+	int					flag;
 	struct s_redir		*next;
 }						t_redir;
 
 typedef struct s_tree
 {
-	char				**arg;
+	t_value_node 		*n_value;
 	int					flag;
 	t_enum				type;
 	t_redir				*redirs;
@@ -73,9 +82,9 @@ typedef struct s_tree
 
 typedef struct s_lexer
 {
-	t_token *content; // un noeud de la liste chainee
+	t_token 			*content; // un noeud de la liste chainee
 	t_state				state;
-	int current_flag; // ne pas toucher ou utiliser
+	int 				current_flag; // ne pas toucher ou utiliser
 	char				buff[4096];
 	int					index;
 	int					was_quoted;
@@ -121,10 +130,15 @@ t_token					*AST_EVAL_OP(t_token *start, t_token *end);
 
 t_token					*find_op(t_token *start, t_token *end, t_enum type);
 int						AST_check_start(t_token *token);
-void 					print_ast(t_tree *node, int level);
+void					print_ast(t_tree *tree, char *prefix, int is_left);
 void 					print_redirs(t_redir *redir);
 int						count_word(t_token *start, t_token *end);
 t_token					*AST_find_subparent(t_token *start);
 int						check_consecutive_op(t_token **token);
+
+/* AST lst Utils */
+
+t_value_node		 	*ft_lstnew_value(char *content);
+void					ft_lstadd_back_value(t_value_node **lst, t_value_node *new);
 
 #endif

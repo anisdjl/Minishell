@@ -13,12 +13,15 @@ int find_expand(char *s)
     }
     return (1);
 }
-void do_expand(char *s)
+void do_expand(char *s, t_env *env)
 {
+    int i;
+
+    i = 1;
     
 }
 
-void expand(char **s)
+void expand(char **s, t_env *env)
 {
     int i;
 
@@ -26,6 +29,7 @@ void expand(char **s)
     while (s[i])
     {
         if (!find_expand(s[i])){
+            do_expand(s[i], env);
             printf("expand find !");
         }
         i++;

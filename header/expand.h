@@ -4,6 +4,6 @@
 typedef struct s_env	t_env;
 typedef struct s_tree   t_tree;
 
-void expand(char **s);
+void expand(char **s, t_env *env);
 
 #endif

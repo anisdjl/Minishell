@@ -3,18 +3,21 @@
 t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 {
 	t_tree	*node;
+	t_value_node *new_value;
 	int		i;
 
 	i = 0;
 	node = ft_malloc(sizeof(t_tree), 1);
-	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
-	if (!node->arg)
-		return (NULL);
-	node->type = WORD;
+    node->type = WORD;
 	while (start && start != end)
 	{
 		if (start->type == WORD)
-			node->arg[i++] = start->value;
+		{
+			new_value = ft_lstnew_value(start->value);
+			new_value->type = start->type;
+			new_value->flag = start->flag;
+			ft_lstadd_back_value(&node->n_value, new_value);
+		}
 		else if (start->type >= 4 && start->type <= 7)
 		{
 			add_redir(node, start);
@@ -23,20 +26,21 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 		}
 		start = start->next;
 	}
-	node->arg[i] = NULL;
 	return (node);
 }
 
 t_tree	*AST_OP_NODE(t_token *op_pos)
 {
-	t_tree	*node;
+	t_tree			*node;
+	t_value_node 	*new_value;
 
 	node = ft_malloc(sizeof(t_tree), 1);
-	node->arg = ft_malloc(sizeof(char *), 2);
+	new_value = ft_lstnew_value(op_pos->value);
+	new_value->type = op_pos->type;
+	new_value->flag = op_pos->flag;
+	ft_lstadd_back_value(&node->n_value, new_value);
 	node->type = op_pos->type;
 	node->data = op_pos;
-	node->arg[0] = op_pos->value;
-	node->arg[1] = NULL;
 	return (node);
 }
 
@@ -68,17 +72,18 @@ t_tree	*AST(t_token *start, t_token *end)
 t_tree	*AST_launcher(t_token *token)
 {
 	t_tree *ast; // construit directement l'AST à partir du premier token
-	char *s[] = {"echo", "$USER", NULL};
+	// char *s[] = {"echo", "$USER", NULL};
 
 	if (!token)	
 		return (NULL);
-	if (!AST_check(token)){
+	if (!AST_check(token))
 		return (NULL);
-	}
 	ast = AST(token, NULL);
-	expand(s);
+	// expand(s, env);
 	printf("\n--- AST Structure ---\n");
     print_ast(ast, "", 0);
     printf("---------------------\n\n");
 	return (ast);
 }
+
+// Expand dans AST, pour wildcard : realloc

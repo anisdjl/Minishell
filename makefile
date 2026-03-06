@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/06 12:08:32 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/06 18:35:44 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ SRC = main.c \
 	src/AST/AST.c \
 	src/AST/AST_subshell.c \
 	src/AST/AST_utils.c \
+	src/AST/AST_utils2.c \
 	src/expand/expand.c \
-	env/env.c \
-	exec/exec.c \
-	exec/builtin.c \
-	exec/exec_utils.c \
-	exec/unset.c
+	env/env.c
+#	exec/exec.c \
+#	exec/builtin.c \
+#	exec/exec_utils.c \
+#	exec/unset.c
 
 OBJ = $(SRC:.c=.o)
 

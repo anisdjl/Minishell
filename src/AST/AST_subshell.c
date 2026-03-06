@@ -30,7 +30,6 @@ t_tree	*AST_build_subshell(t_token *start, t_token *end)
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->type = L_PARENTHESE;
 	node->flag = start->flag;
-	node->arg = NULL; // (
 	node->left = AST(start->next, match);
 	node->right = NULL;
 	return (node);
@@ -39,7 +38,7 @@ t_tree	*AST_build_subshell(t_token *start, t_token *end)
 void add_redir(t_tree *node, t_token *redirs_pos)
 {
 	t_redir *redirs_node;
-	t_redir *tmp;	
+	t_redir *tmp;
 
 	if (!redirs_pos->next){ // equivaut a ->    outfile > donc rien apres le redire 
 		printf("bash: syntax error near unexpected token `newline'\n");

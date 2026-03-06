@@ -1,38 +1,45 @@
 #include "../../minishell.h"
 
-// void print_ast(t_tree *tree, char *prefix, int is_left)
-// {
-//     if (!tree) return;
-//     printf("%s%s", prefix, is_left ? "├── " : "└── ");
+void print_ast(t_tree *tree, char *prefix, int is_left)
+{
+    t_value_node    *v_node;
+    t_redir         *r;
 
-//     if (tree->type == WORD || tree->type == L_PARENTHESE)
-//     {
-//         if (tree->type == WORD) printf("\033[32m[CMD]\033[0m");
-//         else printf("\033[35m( SUBSHELL )\033[0m");
-        
-//         if (tree->arg)
-//             for (int i = 0; tree->arg[i]; i++) printf(" %s", tree->arg[i]);
+    if (!tree) return;
+    printf("%s%s", prefix, is_left ? "├── " : "└── ");
 
-//         t_redir *r = tree->redirs;
-//         while (r)
-//         {
-//             char *sym = (r->type == LEFT_A) ? "<" : (r->type == RIGHT_A) ? ">" : 
-//                         (r->type == APPEND) ? ">>" : "<<";
-//             printf("\n%s%s    \033[90m╰─\033[0m \033[36m%s %s\033[0m", 
-//                    prefix, is_left ? "│" : " ", sym, r->value);
-//             r = r->next;
-//         }
-//     }
-//     else if (tree->type == PIPE) printf("\033[33m[PIPE |]\033[0m");
-//     else if (tree->type == OR)   printf("\033[31m[OR ||]\033[0m");
-//     else if (tree->type == AND)  printf("\033[34m[AND &&]\033[0m");
+    if (tree->type == WORD || tree->type == L_PARENTHESE)
+    {
+        if (tree->type == WORD) printf("\033[32m[CMD]\033[0m");
+        else printf("\033[35m( SUBSHELL )\033[0m");
+    
+        v_node = tree->n_value;
+        while (v_node)
+        {
+            if (v_node->value)
+                printf(" %s", v_node->value);
+            v_node = v_node->next;
+        }
+        r = tree->redirs;
+        while (r)
+        {
+            char *sym = (r->type == LEFT_A) ? "<" : (r->type == RIGHT_A) ? ">" : 
+                        (r->type == APPEND) ? ">>" : "<<";
+            printf("\n%s%s    \033[90m╰─\033[0m \033[36m%s %s\033[0m", 
+                   prefix, is_left ? "│" : " ", sym, r->value);
+            r = r->next;
+        }
+    }
+    else if (tree->type == PIPE) printf("\033[33m[PIPE |]\033[0m");
+    else if (tree->type == OR)   printf("\033[31m[OR ||]\033[0m");
+    else if (tree->type == AND)  printf("\033[34m[AND &&]\033[0m");
 
-//     printf("\n");
-//     char new_prefix[256];
-//     snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_left ? "│   " : "    ");
-//     print_ast(tree->left, new_prefix, 1);
-//     print_ast(tree->right, new_prefix, 0);
-// }
+    printf("\n");
+    char new_prefix[256];
+    snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix, is_left ? "│   " : "    ");
+    print_ast(tree->left, new_prefix, 1);
+    print_ast(tree->right, new_prefix, 0);
+}
 
 void print_redirs(t_redir *redir)
 {
@@ -40,39 +47,6 @@ void print_redirs(t_redir *redir)
     {
         printf(" [REDIR: type %d -> %s]", redir->type, redir->value);
         redir = redir->next;
-    }
-}
-
-void print_ast(t_tree *node, int level)
-{
-    if (!node)
-        return;
-
-    // 1. On affiche l'indentation proportionnelle au niveau de l'arbre
-    for (int i = 0; i < level; i++)
-        printf("    ");
-
-    // 2. Affichage des infos du noeud actuel
-    printf("|- TYPE: %d", node->type);
-    
-    if (node->arg && node->arg[0])
-    {
-        printf(" | ARGS:");
-        for (int i = 0; node->arg[i]; i++)
-            printf(" [%s]", node->arg[i]);
-    }
-
-    if (node->redirs)
-        print_redirs(node->redirs);
-
-    printf("\n");
-
-    // 3. Récursion : on descend dans l'arbre
-    // On affiche d'abord la gauche puis la droite (ou l'inverse, selon ta logique de pipe)
-    if (node->left || node->right)
-    {
-        print_ast(node->left, level + 1);
-        print_ast(node->right, level + 1);
     }
 }
 
