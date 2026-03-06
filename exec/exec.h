@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/06 11:36:16 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/06 18:43:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define EXEC_H
 
 #include "../minishell.h"
+
+
+typedef struct	s_pid
+{
+	int				pid;
+	struct s_pid	*next;
+}	t_pid;
 
 int		ft_lstsize_env(t_env *lst);
 int		exec(t_tree *ast, t_env *env);
@@ -37,6 +44,12 @@ int		redir_function(t_tree *node);
 int		redir_in(t_redir *redir);
 int		redir_out(t_redir *redir);
 void	save_fds(int *fd_in, int *fd_out);
-void	unset_node(t_env **env, t_env *ptr);
+void	unset_node(t_env **env, char *arg);
 void	reset_and_close(int *fd_in, int *fd_out);
+// int		ft_lstsize_arg(t_node_value *node_value);
+int		child(t_tree *node, t_env *env);
+int		env_command_for_export(t_tree *node, t_env **env);
+int		export(t_tree *node, t_env *env);
+int		env_command_for_export(t_tree *node, t_env **env);
+
 #endif

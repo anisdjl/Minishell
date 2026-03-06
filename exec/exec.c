@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/05 14:59:27 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/06 18:47:22 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	exec_cmd(t_tree *node, t_env *env)
 	else if (ft_strlen(node->arg[0]) == 3
 		&& ft_strncmp(node->arg[0], "pwd", 3) == 0)
 		return (pwd_command(node, env));
-	// else if (ft_strlen(node->arg[0]) == 6
-	// 	&& ft_strcmp(node->arg[0], "export", 6) == 0)
-	// 	export_command(node, env);
+	else if (ft_strlen(node->arg[0]) == 6
+		&& ft_strncmp(node->arg[0], "export", 6) == 0)
+		return (export(node, env));
 	else if (ft_strlen(node->arg[0]) == 5
 		&& ft_strncmp(node->arg[0], "unset", 5) == 0)
 		return (unset_command(node, &env));
@@ -94,14 +94,58 @@ int	exec_cmd(t_tree *node, t_env *env)
 	return (1);
 }
 
+int	export(t_tree *node, t_env *env)
+{
+	int	y;
+	t_env	*new;
+
+	y = 1;
+	if (node->arg[1] == NULL)
+		return (env_command_for_export(node, &env));
+	while (node->arg[y])
+	{
+		new = malloc(sizeof(t_env));
+		if (!new)
+		{
+			ft_free_all_malloc();
+			exit(EXIT_FAILURE);
+		}
+		new->next = NULL;
+		new->key = create_key(node->arg[y]);
+		new->value = ft_strchr(node->arg[y], '=');
+		ft_lstadd_back_env(&env, new);
+		y++;
+	}
+	return (0);
+}
+
+int	env_command_for_export(t_tree *node, t_env **env)
+{
+	t_env	*tmp;
+	int	fd_in;
+	int	fd_out;
+
+	if (!env || !*env)
+		return (0);
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
+	tmp = *env;
+	while(tmp)
+	{
+		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+			printf("export %s%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	reset_and_close(&fd_in, &fd_out);
+	return (0);
+}
+
 int	exec_normal_command(t_tree *node, t_env *env)
 {
-	int	pid;
-	char	*path;
-	int		status = 0;
-	char	**paths;
-	
+	int		pid;
+	int		status;
 
+	status = 0;
 	if ((pid = fork()) < 0)
 	{
 		ft_free_all_malloc();
@@ -111,23 +155,37 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	{
 		if (redir_function(node) == 1)
 			return (1);
-		paths = get_paths(env_to_tab(&env));
-		if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
-		{
-			printf("command not found\n");
-			return(0);
-		}
-		if (!given_path(node->arg[0]))
-			path = find_path(node->arg[0], paths);
-		else
-			path = ft_strdup(node->arg[0]);
-		execve(path, node->arg, env_to_tab(&env));
-		printf("error  while executing the command\n");
+		status = child(node, env);
 	}
 	waitpid(pid, NULL, 0);
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	return (status);
+}
+
+int	child(t_tree *node, t_env *env)
+{
+	char	*path;
+	char	**paths;
+	char	**env_tab;
+
+	env_tab = env_to_tab(&env);
+	paths = get_paths(env_to_tab(&env));
+	if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
+	{
+		ft_putstr_fd("minsihell: ", 2);
+		ft_putstr_fd(node->arg[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		return (126);
+	}
+	if (!given_path(node->arg[0]))
+		path = find_path(node->arg[0], paths);
+	else
+		path = ft_strdup(node->arg[0]);
+	execve(path, node->arg, env_tab);
+	printf("error  while executing the command\n");
+	ft_free_all_malloc();
+	return (127);
 }
 
 int	given_path(char *cmd)
