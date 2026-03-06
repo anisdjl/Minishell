@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/03 14:32:50 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/05 16:43:57 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ int main(int argc, char **argv, char **envp)
 {
     char *line;
     int fd;
-    t_lexer    *lexer;
-	t_env *env = get_env(envp);
-	char **tab = env_to_tab(&env);
-    fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND, 0644);
-    if (fd < 0)
-        return (0);
+    t_lexer		*lexer;
+	t_env		*env;
+
+	env = get_env(envp);
     while (1)
     {
         line = readline("minishell> ");
@@ -33,8 +31,7 @@ int main(int argc, char **argv, char **envp)
         if (!check_parentheses(line) || !check_quotes(line))
             continue;
         lexer = ft_lexer(line);
-        //debug_tokens(&lexer->content);
-		exec(AST_launcher(lexer->content), get_env(envp));
+		exec(AST_launcher(lexer->content), env);
         ft_free_all_malloc();
         free(line);
     }

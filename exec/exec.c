@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/04 10:58:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:59:27 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,23 @@ int	exec(t_tree *ast, t_env *env)
 {
 	int	status;
 	
+	if (!ast)
+		return (1);
 	status = 0;
-	// if (ast->type == AND)
-	// {
-	// 	status = exec(ast->left, env);
-	// 	if (status == 0)
-	// 		return (exec(ast->right, env));
-	// 	return (status);
-	// }
-	// else if (ast->type == OR)
-	// {
-	// 	status = exec(ast->left, env);
-	// 	if (status != 0)
-	// 		return (exec(ast->right, env));
-	// 	return (status);
-	// }
+	if (ast->type == AND)
+	{
+		status = exec(ast->left, env);
+		if (status == 0)
+			return (exec(ast->right, env));
+		return (status);
+	}
+	else if (ast->type == OR)
+	{
+		status = exec(ast->left, env);
+		if (status != 0)
+			return (exec(ast->right, env));
+		return (status);
+	}
 	// else if (ast->type == PIPE)
 	// 	return (handle_pipes(ast, env));
 	// else if (ast->type == WORD)
@@ -66,9 +68,9 @@ int	exec(t_tree *ast, t_env *env)
 
 int	exec_cmd(t_tree *node, t_env *env)
 {
-	// if (ft_strlen(node->arg[0]) == 4
-	// 	&& ft_strncmp(node->arg[0], "echo", 4) == 0)
-	// 	echo_command(node, env);
+	if (ft_strlen(node->arg[0]) == 4
+		&& ft_strncmp(node->arg[0], "echo", 4) == 0)
+		return (echo_command(node, env));
 	if (ft_strlen(node->arg[0]) == 2 
 		&& ft_strncmp(node->arg[0], "cd", 2) == 0)
 	 	return (cd_command(node, env));
@@ -78,12 +80,12 @@ int	exec_cmd(t_tree *node, t_env *env)
 	// else if (ft_strlen(node->arg[0]) == 6
 	// 	&& ft_strcmp(node->arg[0], "export", 6) == 0)
 	// 	export_command(node, env);
-	// else if (ft_strlen(node->arg[0]) == 5
-	// 	&& ft_strncmp(node->arg[0], "unset", 5) == 0)
-	// 	unset_command(node, env);
-	// else if (ft_strlen(node->arg[0]) == 3
-	// 	&& ft_strncmp(node->arg[0], "env", 3) == 0)
-	// 	env_command(node, env);
+	else if (ft_strlen(node->arg[0]) == 5
+		&& ft_strncmp(node->arg[0], "unset", 5) == 0)
+		return (unset_command(node, &env));
+	else if (ft_strlen(node->arg[0]) == 3
+		&& ft_strncmp(node->arg[0], "env", 3) == 0)
+		return (env_command(node, &env));
 	// else if (ft_strlen(node->arg[0]) == 4
 	// 	&& ft_strncmp(node->arg[0], "exit", 4) == 0)
 	// 	exit_command(node, env);
@@ -107,6 +109,8 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	}
 	if (pid == 0) // on est dans le fils
 	{
+		if (redir_function(node) == 1)
+			return (1);
 		paths = get_paths(env_to_tab(&env));
 		if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
 		{
@@ -188,4 +192,72 @@ char	**get_paths(char **envp)
 			y++;
 	}
 	return (NULL);
+}
+
+int	redir_function(t_tree *node)
+{
+	t_redir	*tmp;
+	int		return_value;
+
+	if (!node->redirs)
+		return (0);
+	tmp = node->redirs;
+	while (tmp)
+	{
+		if (tmp->type == 6)
+			return_value = (redir_in(tmp));
+		else if (tmp->type == 5 || tmp->type == 7)
+			return_value = (redir_out(tmp));
+		if (return_value != 0)
+			return (return_value);
+		tmp = tmp->next;
+	}
+	return (return_value);
+}
+
+int	redir_in(t_redir *redir)
+{
+	int	fd_in;
+
+	if (access(redir->value, R_OK | F_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);
+	}
+	fd_in = open(redir->value, O_RDONLY);
+	if (fd_in < 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);
+	}
+	dup2(fd_in, 0);
+	close(fd_in);
+	return (0);
+}
+
+int	redir_out(t_redir *redir)
+{
+	int	fd_out;
+
+	if (redir->type == 5)
+		fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else if (redir->type == 7)
+		fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fd_out < 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);	
+	}
+	if (access(redir->value, W_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(redir->value);
+		return (1);
+	}
+	dup2(fd_out, 1);
+	close(fd_out);
+	return (0);
 }

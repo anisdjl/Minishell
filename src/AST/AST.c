@@ -1,25 +1,5 @@
 #include "../../minishell.h"
 
-t_token	*AST_EVAL(t_token *start, t_token *end)
-{
-	t_token	*op_pos;
-
-	op_pos = find_op(start, end, OR);
-	if (!op_pos)
-		op_pos = find_op(start, end, AND);
-	if (!op_pos)
-		op_pos = find_op(start, end, PIPE);
-	if (!op_pos)
-		op_pos = find_op(start, end, RIGHT_A);
-	if (!op_pos)
-		op_pos = find_op(start, end, LEFT_A);
-	if (!op_pos)
-		op_pos = find_op(start, end, HERE_DOC);
-	if (!op_pos)
-		op_pos = find_op(start, end, APPEND);
-	return (op_pos);
-}
-
 t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 {
 	t_tree	*node;
@@ -30,16 +10,20 @@ t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
 	node->arg = ft_malloc(sizeof(char *), count_word(start, end) + 1);
 	if (!node->arg)
 		return (NULL);
-	while (start != end && start->type == WORD)
+	node->type = WORD;
+	while (start && start != end)
 	{
-		node->arg[i] = start->value;
+		if (start->type == WORD)
+			node->arg[i++] = start->value;
+		else if (start->type >= 4 && start->type <= 7)
+		{
+			add_redir(node, start);
+			if (start->next) // > outfile
+				start = start->next;
+		}
 		start = start->next;
-		i++;
 	}
 	node->arg[i] = NULL;
-	node->left = NULL;
-	node->right = NULL;
-	node->type = WORD;
 	return (node);
 }
 
@@ -60,27 +44,21 @@ t_tree	*AST(t_token *start, t_token *end)
 {
 	t_tree	*node;
 	t_token	*op_pos;
+	t_token *match;
 
 	node = NULL;
 	op_pos = NULL;
-	if (start == NULL)
+	if (start == NULL || start == end)
 		return (NULL);
-	op_pos = AST_EVAL(start, end);
-	if (!op_pos && start->type == WORD)
+	if (start->type == L_PARENTHESE)
+	{
+		match = AST_find_subparent(start); //check pos de )
+		if (match->next == end) //si au debut ou si le subshell est mise a part
+			return (AST_build_subshell(start, AST_find_subparent(start)));
+	}
+	op_pos = AST_EVAL_OP(start, end);
+	if (!op_pos)
 		return (AST_VALUE_NODE(start, end));
-	if (!op_pos && start->type == L_PARENTHESE)
-    {
-		printf("[AST] Subshell find ...\n");
-        return (AST_build_subshell(start, end));
-    }
-	if (!op_pos && (start->type == RIGHT_A || start->type == LEFT_A)){	
-		printf("[AST] Redir find ...");
-		return (NULL);
-	}
-	if (!op_pos ){ // temporaire
-		printf("[AST] Undefined\n");
-		return (NULL);
-	}
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);
 	node->right = AST(op_pos->next, end);
@@ -94,11 +72,12 @@ t_tree	*AST_launcher(t_token *token)
 	if (!token)	
 		return (NULL);
 	if (!AST_check(token)){
+		
 		return (NULL);
 	}
 	ast = AST(token, NULL);
-	/*printf("\n--- AST Structure ---\n");
-    print_ast(ast, "", 0);
-    printf("---------------------\n\n");*/
+	// printf("\n--- AST Structure ---\n");
+    // print_ast(ast, 0);
+    // printf("---------------------\n\n");
 	return (ast);
 }

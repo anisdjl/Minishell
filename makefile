@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/04 10:57:26 by adjelili         ###   ########.fr        #
+#    Updated: 2026/03/06 11:12:40 by anis             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,15 @@ SRC = main.c \
 	garbage_collector/gc1.c \
 	garbage_collector/gc2.c \
 	tokenization/check.c \
-	src/AST/AST_check_start.c \
+	src/AST/AST_check.c \
 	src/AST/AST.c \
 	src/AST/AST_subshell.c \
 	src/AST/AST_utils.c \
 	env/env.c \
 	exec/exec.c \
 	exec/builtin.c \
-	exec/exec2.c
+	exec/exec_utils.c \
+	exec/unset.c
 
 OBJ = $(SRC:.c=.o)
 

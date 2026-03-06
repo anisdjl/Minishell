@@ -11,7 +11,7 @@ int	AST_check_start(t_token *token)
         }
 	while (token->next)
 		token = token->next;
-	if (token->type != WORD && token->type != R_PARENTHESE)
+	if (token->type != WORD && token->type != R_PARENTHESE && token->type != F_FILE)
     {
         if (token->type == HERE_DOC || token->type == APPEND)
             printf("bash: syntax error near unexpected token 'newline'\n");
@@ -24,10 +24,10 @@ int	AST_check_start(t_token *token)
 
 int AST_check(t_token *token)
 {
-    if (!AST_check_start(token))
-        return (0);
+    // if (!AST_check_start(token))
+    //     return (0);
     if (!check_consecutive_op(&token))
         return (0);
     return (1);
 }
-
+// if (flag & F_EXPAND)
