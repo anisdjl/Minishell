@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/05 17:20:23 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/06 11:35:08 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,15 @@ int	cd_command(t_tree *node, t_env *env)
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	getcwd(current_dir, 4096);
-	if (size_of_table(node->arg) > 2)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(node->arg[0], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd("too many arguments\n", 2);
-		(dup2(fd_in, 0), dup2(fd_out, 1));
-		(close(fd_in), close(fd_out));
-		return (1);
-	}
-	if (chdir(node->arg[1]) != 0)
+	if (chdir(node->arg[1]) != 0 || size_of_table(node->arg) > 2)
 	{
 		ft_putstr_fd(node->arg[0], 2);
 		write(2, ": ", 2);
 		perror(node->arg[1]);
-		(dup2(fd_in, 0), dup2(fd_out, 1));
-		(close(fd_in), close(fd_out));
+		reset_and_close(&fd_in, &fd_out);
 		return (1);
 	}
-	(dup2(fd_in, 0), dup2(fd_out, 1));
-	(close(fd_in), close(fd_out));
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
@@ -50,8 +38,8 @@ int pwd_command(t_tree *node, t_env *env)
 	char	current_dir[4096];
 	t_env	*tmp;
 	void	*ptr;
-	int	fd_in;
-	int	fd_out;
+	int		fd_in;
+	int		fd_out;
 	
 	tmp = env;
 	save_fds(&fd_in, &fd_out);
@@ -71,8 +59,7 @@ int pwd_command(t_tree *node, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-	(dup2(fd_in, 0), dup2(fd_out, 1));
-	(close(fd_in), close(fd_out));
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
@@ -93,8 +80,7 @@ int	env_command(t_tree *node, t_env **env)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	(dup2(fd_in, 0), dup2(fd_out, 1));
-	(close(fd_in), close(fd_out));
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
 
@@ -123,8 +109,7 @@ int	echo_command(t_tree *node, t_env *env)
 				ft_putchar_fd(' ', 1);
 			y++;
 		}
-		(dup2(fd_in, 0), dup2(fd_out, 1));
-		(close(fd_in), close(fd_out));
+		reset_and_close(&fd_in, &fd_out);
 	}
 	else
 		return (echo_command2(node, env));
@@ -152,81 +137,6 @@ int	echo_command2(t_tree *node, t_env *env)
 		y++;
 	}
 	ft_putchar_fd('\n', 1);
-	(dup2(fd_in, 0), dup2(fd_out, 1));
-	(close(fd_in), close(fd_out));
+	reset_and_close(&fd_in, &fd_out);
 	return (0);
-}
-
-int	unset_command(t_tree *node, t_env **env)
-{
-	t_env	*tmp;
-	int		y;
-	int	fd_in;
-	int	fd_out;
-
-	y = 1;
-	save_fds(&fd_in, &fd_out);
-	redir_function(node);
-	if (!env || !*env)
-		return (0);
-	tmp = *env;
-	while (node->arg[y])
-	{
-		if (valid_unset(node->arg[y]))
-			printf("%s: not a valid identifier\n", node->arg[y]);
-		else
-		{
-			while (tmp)
-			{
-				if (!ft_strncmp(node->arg[y], tmp->key, ft_strlen(node->arg[y])))
-				{
-					unset_node(env, tmp);
-				}
-				tmp = tmp->next;
-			}
-		}
-		y++;
-	}
-	(dup2(fd_in, 0), dup2(fd_out, 1));
-	(close(fd_in), close(fd_out));
-	return (0);
-}
-
-int	valid_unset(char *args) // no int no empty param no -
-{
-	int	y;
-
-	y = 0;
-	if (args[0] == '\0' || only_spaces(args))
-		return (1);
-	while (args[y])
-	{
-		if ((args[y] >= '0' && args[y] <= '9') || args[y] == '-')
-			return (1);
-		y++;
-	}
-	return (0);
-}
-
-void	unset_node(t_env **env, t_env *ptr)
-{
-	t_env	*current;
-	t_env	*prev;
-
-	current = (*env);
-	prev = NULL;
-	while (current)
-	{
-		if (current == ptr)
-		{
-			if (prev)
-				prev->next = current->next;
-			else
-				*env = current->next;
-			free(current->key);
-			free(current);
-		}
-		prev = current;
-		current = current->next;
-	}
 }

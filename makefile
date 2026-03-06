@@ -6,7 +6,7 @@
 #    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/04 18:04:05 by anis             ###   ########.fr        #
+#    Updated: 2026/03/06 11:12:40 by anis             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC = main.c \
 	env/env.c \
 	exec/exec.c \
 	exec/builtin.c \
-	exec/exec_utils.c
+	exec/exec_utils.c \
+	exec/unset.c
 
 OBJ = $(SRC:.c=.o)
 
