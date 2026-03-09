@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/06 18:47:22 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:30:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,52 +94,6 @@ int	exec_cmd(t_tree *node, t_env *env)
 	return (1);
 }
 
-int	export(t_tree *node, t_env *env)
-{
-	int	y;
-	t_env	*new;
-
-	y = 1;
-	if (node->arg[1] == NULL)
-		return (env_command_for_export(node, &env));
-	while (node->arg[y])
-	{
-		new = malloc(sizeof(t_env));
-		if (!new)
-		{
-			ft_free_all_malloc();
-			exit(EXIT_FAILURE);
-		}
-		new->next = NULL;
-		new->key = create_key(node->arg[y]);
-		new->value = ft_strchr(node->arg[y], '=');
-		ft_lstadd_back_env(&env, new);
-		y++;
-	}
-	return (0);
-}
-
-int	env_command_for_export(t_tree *node, t_env **env)
-{
-	t_env	*tmp;
-	int	fd_in;
-	int	fd_out;
-
-	if (!env || !*env)
-		return (0);
-	save_fds(&fd_in, &fd_out);
-	redir_function(node);
-	tmp = *env;
-	while(tmp)
-	{
-		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
-			printf("export %s%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-	reset_and_close(&fd_in, &fd_out);
-	return (0);
-}
-
 int	exec_normal_command(t_tree *node, t_env *env)
 {
 	int		pid;
@@ -170,7 +124,7 @@ int	child(t_tree *node, t_env *env)
 	char	**env_tab;
 
 	env_tab = env_to_tab(&env);
-	paths = get_paths(env_to_tab(&env));
+	paths = get_paths(env_tab);
 	if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
 	{
 		ft_putstr_fd("minsihell: ", 2);

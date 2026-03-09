@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/06 15:37:26 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:31:41 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char **env_to_tab(t_env **env)
 		tmp = tmp->next;
 		y++;
 	}
+	env_tab[y] = NULL;
 	return (env_tab);
 }
 

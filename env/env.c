@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/06 16:25:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 13:46:06 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new_env)
 	{
 		ptr = *lst;
 		while (ptr->next)
-		{
 			ptr = ptr->next;
-		}
 		ptr->next = new_env;
 	}
 }
@@ -60,7 +58,8 @@ t_env *get_env(char **envp)
 	int y;
 	t_env	*env;
 	t_env	*new;
-	
+	void	*ptr;
+
 	env = NULL;
 	new = NULL;
 	y = 0;
@@ -75,11 +74,57 @@ t_env *get_env(char **envp)
 		}
 		new->next = NULL;
 		new->key = create_key(envp[y]);
-		new->value = ft_strchr(envp[y], '=');
+		ptr = ft_strchr(envp[y], '=');
+		if (ptr)
+			new->value = ft_strdup_env(ptr);
+		else
+			new->value = NULL;
 		ft_lstadd_back_env(&env, new);
 		y++;
 	}
 	return (env);
+}
+
+char	*ft_strdup_env(const char *s)
+{
+	char	*new_str;
+	int		a;
+
+	a = 0;
+	while (s[a])
+		a++;
+	new_str = malloc(sizeof(char) * a + 1);
+	if (!new_str)
+		return (0); // free tout le reste 
+	a = 0;
+	while (s[a])
+	{
+		new_str[a] = s[a];
+		a++;
+	}
+	new_str[a] = '\0';
+	return (new_str);
+}
+
+int	env_command_for_export(t_tree *node, t_env **env)
+{
+	t_env	*tmp;
+	int	fd_in;
+	int	fd_out;
+
+	if (!env || !*env)
+		return (0);
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
+	tmp = *env;
+	while(tmp)
+	{
+		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+			printf("export %s%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	reset_and_close(&fd_in, &fd_out);
+	return (0);
 }
 
 // void	free_env(t_env **env) elle ne marche pas
