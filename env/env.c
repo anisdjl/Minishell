@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/05 16:45:58 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/09 15:55:36 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,33 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new_env)
 {
 	t_env	*ptr;
 
+	ptr = NULL;
 	if (*lst == NULL)
-	{
 		*lst = new_env;
-	}
 	else
 	{
 		ptr = *lst;
 		while (ptr->next)
-		{
 			ptr = ptr->next;
-		}
 		ptr->next = new_env;
 	}
 }
 
 char	*create_key(char *envp)
 {
-	int y;
+	int 	y;
 	char	*key;
 
 	y = 0;
 	while (envp[y] != '=')
 		y++;
-	key = malloc(sizeof(char) * y + 1);
+	key = malloc(sizeof(char) * (y + 1));
+	if (!key)
+	{
+		ft_free_all_malloc();
+		//ft_free_env();
+		exit(EXIT_FAILURE);
+	}
 	y = 0;
 	while (envp[y] != '=')
 	{
@@ -49,22 +52,76 @@ char	*create_key(char *envp)
 	key[y] = '\0';
 	return (key);
 }
+char	*ft_strdup_env(const char *s)
+{
+	char	*new_str;
+	int		a;
+
+	a = 0;
+	while (s[a])
+		a++;
+	new_str = malloc(sizeof(char) * a + 1);
+	if (!new_str)
+		return (0); // free tout le reste 
+	a = 0;
+	while (s[a])
+	{
+		new_str[a] = s[a];
+		a++;
+	}
+	new_str[a] = '\0';
+	return (new_str);
+}
 
 t_env *get_env(char **envp)
 {
 	int y;
 	t_env	*env;
 	t_env	*new;
-	
+	void	*ptr;
+
 	env = NULL;
+	new = NULL;
 	y = 0;
 	while (envp[y])
 	{
 		new = malloc(sizeof(t_env));
+		if (!new)
+		{
+			ft_free_all_malloc();
+			//ft_free_env();
+			exit(EXIT_FAILURE);
+		}
+		new->next = NULL;
 		new->key = create_key(envp[y]);
-		new->value = ft_strchr(envp[y], '=');
+		ptr = ft_strchr(envp[y], '=');
+		if (ptr)
+			new->value = ft_strdup_env(ptr);
+		else
+			new->value = NULL;
 		ft_lstadd_back_env(&env, new);
 		y++;
 	}
 	return (env);
+}
+
+int	env_command_for_export(t_tree *node, t_env **env)
+{
+	t_env	*tmp;
+	int	fd_in;
+	int	fd_out;
+
+	if (!env || !*env)
+		return (0);
+	save_fds(&fd_in, &fd_out);
+	redir_function(node);
+	tmp = *env;
+	while(tmp)
+	{
+		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+			printf("export %s%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	reset_and_close(&fd_in, &fd_out);
+	return (0);
 }
