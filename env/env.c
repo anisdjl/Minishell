@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 15:55:36 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/09 16:48:44 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*create_key(char *envp)
 	char	*key;
 
 	y = 0;
-	while (envp[y] != '=')
+	while (envp[y] && envp[y] != '=')
 		y++;
 	key = malloc(sizeof(char) * (y + 1));
 	if (!key)
@@ -44,7 +44,7 @@ char	*create_key(char *envp)
 		exit(EXIT_FAILURE);
 	}
 	y = 0;
-	while (envp[y] != '=')
+	while (envp[y] && envp[y] != '=')
 	{
 		key[y] = envp[y];
 		y++;
@@ -105,6 +105,27 @@ t_env *get_env(char **envp)
 	return (env);
 }
 
+char	*ft_strdup_env(const char *s)
+{
+	char	*new_str;
+	int		a;
+
+	a = 0;
+	while (s[a])
+		a++;
+	new_str = malloc(sizeof(char) * a + 1);
+	if (!new_str)
+		return (0); // free tout le reste 
+	a = 0;
+	while (s[a])
+	{
+		new_str[a] = s[a];
+		a++;
+	}
+	new_str[a] = '\0';
+	return (new_str);
+}
+
 int	env_command_for_export(t_tree *node, t_env **env)
 {
 	t_env	*tmp;
@@ -118,10 +139,34 @@ int	env_command_for_export(t_tree *node, t_env **env)
 	tmp = *env;
 	while(tmp)
 	{
-		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
 			printf("export %s%s\n", tmp->key, tmp->value);
+		else
+			printf("export %s\n", tmp->key);
 		tmp = tmp->next;
 	}
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
+
+// void	free_env(t_env **env) elle ne marche pas
+// {
+// 	t_env	*current;
+// 	t_env	*next;
+
+// 	if (!env || !*env)
+// 		return ;
+// 	current = *env;
+// 	next = NULL;
+// 	while (current)
+// 	{
+// 		if (current->next)
+// 			next = current->next;
+// 		free(current);
+// 		if (next)
+// 			current = next;
+// 		else
+// 			return ;
+// 	}
+// }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:43:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/04 18:04:44 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/09 13:46:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ typedef struct s_env
 void	ft_lstadd_back_env(t_env **lst, t_env *new_env);
 t_env 	*get_env(char **envp);
 char	*create_key(char *envp);
+int		env_command_for_export(t_tree *node, t_env **env);
+char	*ft_strdup_env(const char *s);
+//void	free_env(t_env **env);
 
 #endif
