@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 16:49:02 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/09 17:06:58 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,26 @@ int	exec(t_tree *ast, t_env *env)
 
 int	exec_cmd(t_tree *node, t_env *env)
 {
-	if (ft_strlen(node->arg[0]) == 4
-		&& ft_strncmp(node->arg[0], "echo", 4) == 0)
+	char	**arg;
+
+	arg = args_to_tab(node->n_value);
+	if (ft_strlen(arg[0]) == 4
+		&& ft_strncmp(arg[0], "echo", 4) == 0)
 		return (echo_command(node, env));
-	if (ft_strlen(node->arg[0]) == 2 
-		&& ft_strncmp(node->arg[0], "cd", 2) == 0)
+	if (ft_strlen(arg[0]) == 2 
+		&& ft_strncmp(arg[0], "cd", 2) == 0)
 	 	return (cd_command(node, env));
-	else if (ft_strlen(node->arg[0]) == 3
-		&& ft_strncmp(node->arg[0], "pwd", 3) == 0)
+	else if (ft_strlen(arg[0]) == 3
+		&& ft_strncmp(arg[0], "pwd", 3) == 0)
 		return (pwd_command(node, env));
-	else if (ft_strlen(node->arg[0]) == 6
-		&& ft_strncmp(node->arg[0], "export", 6) == 0)
+	else if (ft_strlen(arg[0]) == 6
+		&& ft_strncmp(arg[0], "export", 6) == 0)
 		return (export(node, &env));
-	else if (ft_strlen(node->arg[0]) == 5
-		&& ft_strncmp(node->arg[0], "unset", 5) == 0)
+	else if (ft_strlen(arg[0]) == 5
+		&& ft_strncmp(arg[0], "unset", 5) == 0)
 		return (unset_command(node, &env));
-	else if (ft_strlen(node->arg[0]) == 3
-		&& ft_strncmp(node->arg[0], "env", 3) == 0)
+	else if (ft_strlen(arg[0]) == 3
+		&& ft_strncmp(arg[0], "env", 3) == 0)
 		return (env_command(node, &env));
 	// else if (ft_strlen(node->arg[0]) == 4
 	// 	&& ft_strncmp(node->arg[0], "exit", 4) == 0)
@@ -122,21 +125,23 @@ int	child(t_tree *node, t_env *env)
 	char	*path;
 	char	**paths;
 	char	**env_tab;
+	char	**arg;
 
+	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
-	if (only_spaces(node->arg[0]) || node->arg[0][0] == '\0')
+	if (only_spaces(arg[0]) || arg[0][0] == '\0')
 	{
 		ft_putstr_fd("minsihell: ", 2);
-		ft_putstr_fd(node->arg[0], 2);
+		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		return (126);
 	}
-	if (!given_path(node->arg[0]))
-		path = find_path(node->arg[0], paths);
+	if (!given_path(arg[0]))
+		path = find_path(arg[0], paths);
 	else
-		path = ft_strdup(node->arg[0]);
-	execve(path, node->arg, env_tab);
+		path = ft_strdup(arg[0]);
+	execve(path, arg, env_tab);
 	printf("error  while executing the command\n");
 	ft_free_all_malloc();
 	return (127);

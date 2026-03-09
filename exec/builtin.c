@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 16:21:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:23:31 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ int	cd_command(t_tree *node, t_env *env)
 	char	current_dir[4096];
 	int	fd_in;
 	int	fd_out;
+	char	**arg;
 
+	arg = args_to_tab(node->n_value);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	getcwd(current_dir, 4096);
-	if (chdir(node->arg[1]) != 0 || size_of_table(node->arg) > 2)
+	if (chdir(arg[1]) != 0 || size_of_table(arg) > 2)
 	{
-		ft_putstr_fd(node->arg[0], 2);
+		ft_putstr_fd(arg[0], 2);
 		write(2, ": ", 2);
-		perror(node->arg[1]);
+		perror(arg[1]);
 		reset_and_close(&fd_in, &fd_out);
 		return (1);
 	}
@@ -90,22 +92,24 @@ int	echo_command(t_tree *node, t_env *env)
 	int	y;
 	int	fd_in;
 	int	fd_out;
+	char	**arg;
 
-	if (node->arg[1] && !check_n(node->arg[1])) // option -n
+	arg = args_to_tab(node->n_value);
+	if (arg[1] && !check_n(arg[1])) // option -n
 	{
 		save_fds(&fd_in, &fd_out);
 		redir_function(node);
 		y = 2;
-		if (node->arg[2] == NULL)
+		if (arg[2] == NULL)
 			return (0);
-		while (node->arg[y] && !check_n(node->arg[y]))
+		while (arg[y] && !check_n(arg[y]))
 			y++;
-		if (y == size_of_table(node->arg))
+		if (y == size_of_table(arg))
 			return (0);
-		while (node->arg[y])
+		while (arg[y])
 		{
-			ft_putstr_fd(node->arg[y], 1);
-			if (y < size_of_table(node->arg) - 1)
+			ft_putstr_fd(arg[y], 1);
+			if (y < size_of_table(arg) - 1)
 				ft_putchar_fd(' ', 1);
 			y++;
 		}
@@ -121,18 +125,20 @@ int	echo_command2(t_tree *node, t_env *env)
 	int	y;
 	int	fd_in;
 	int	fd_out;
+	char	**arg;
 
+	arg = args_to_tab(node->n_value);
 	y = 1;
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
-	if (node->arg[1] == NULL)
+	if (arg[1] == NULL)
 	{
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	while (node->arg[y])
+	while (arg[y])
 	{
-		ft_putstr_fd(node->arg[y], 1);
+		ft_putstr_fd(arg[y], 1);
 		ft_putchar_fd(' ', 1);
 		y++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 16:48:44 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/09 17:09:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,27 +103,6 @@ t_env *get_env(char **envp)
 		y++;
 	}
 	return (env);
-}
-
-char	*ft_strdup_env(const char *s)
-{
-	char	*new_str;
-	int		a;
-
-	a = 0;
-	while (s[a])
-		a++;
-	new_str = malloc(sizeof(char) * a + 1);
-	if (!new_str)
-		return (0); // free tout le reste 
-	a = 0;
-	while (s[a])
-	{
-		new_str[a] = s[a];
-		a++;
-	}
-	new_str[a] = '\0';
-	return (new_str);
 }
 
 int	env_command_for_export(t_tree *node, t_env **env)

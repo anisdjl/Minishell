@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 16:36:47 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:14:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 void	export_update_create(t_tree *node, t_env **env, int y)
 {
 	char	*key;
+	char	**arg;
 
-	key = create_key(node->arg[y]);
+	arg = args_to_tab(node->n_value);
+	key = create_key(arg[y]);
 	if (check_existant(*env, key))
 	{
-		update_env(*env, node->arg[y], key);
+		update_env(*env, arg[y], key);
 		free(key);
 	}
 	else
 	{
-		create_new_node(env, node->arg[y]);
+		create_new_node(env, arg[y]);
 		free(key);
 	}
 }
@@ -33,16 +35,18 @@ int	export(t_tree *node, t_env **env)
 {
 	int	y;
 	int		status;
+	char	**arg;
 
+	arg = args_to_tab(node->n_value);
 	if (!env || !*env)
 		return (0);
 	status = 0;
-	if (node->arg[1] == NULL)
+	if (arg[1] == NULL)
 		return (env_command_for_export(node, env));
 	y = 1;
-	while (node->arg[y])
+	while (arg[y])
 	{
-		if (valid_export(node->arg[y]))
+		if (valid_export(arg[y]))
 			status = 1;
 		else
 			export_update_create(node, env, y);

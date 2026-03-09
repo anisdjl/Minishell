@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 16:48:50 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/09 17:34:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,34 +90,35 @@ void	reset_and_close(int *fd_in, int *fd_out)
 	close(*fd_out);
 }
 
-// char	**args_to_tab(t_value_node *node_values)
-// {
-// 	char			**args;
-// 	t_value_node	*tmp;
-// 	int				y;
+char	**args_to_tab(t_value_node *node_values)
+{
+	char			**args;
+	t_value_node	*tmp;
+	int				y;
 
-// 	y = ft_lstsize_arg(&node_values)
-// 	args = ft_malloc(1, sizeof(char *) * (y + 1));
-// 	y = 0;
-// 	while (tmp)
-// 	{
-// 		args[y] = ft_strdup(node_values->value);
-// 		tmp = tmp->next;
-// 		y++; 
-// 	}
-// 	return (args);
-// }
+	y = ft_lstsize_arg(node_values);
+	tmp = node_values;
+	args = ft_malloc(1, sizeof(char *) * (y + 1));
+	y = 0;
+	while (tmp)
+	{
+		args[y] = ft_strdup(tmp->value);
+		tmp = tmp->next;
+		y++; 
+	}
+	args[y] = NULL;
+	return (args);
+}
 
+int	ft_lstsize_arg(t_value_node *node_value)
+{
+	int	y;
 
-// int	ft_lstsize_arg(t_node_value *node_value)
-// {
-// 	int	y;
-
-// 	y = 0;
-// 	while (node_value)
-// 	{
-// 		node_value = node->next;
-// 		y++;
-// 	}
-// 	return (y);
-// }
+	y = 0;
+	while (node_value)
+	{
+		node_value = node_value->next;
+		y++;
+	}
+	return (y);
+}

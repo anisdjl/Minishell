@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 15:51:35 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:13:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ void	create_new_node(t_env **env, char *arg);
 void	update_env(t_env *env, char *arg, char *splitted);
 void	export_update_create(t_tree *node, t_env **env, int y);
 int		check_existant(t_env *env, char *key);
+char	**args_to_tab(t_value_node *node_values);
+int	ft_lstsize_arg(t_value_node *node_value);
 
 #endif
