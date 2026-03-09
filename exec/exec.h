@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 14:57:43 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:41:02 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	reset_and_close(int *fd_in, int *fd_out);
 // int		ft_lstsize_arg(t_node_value *node_value);
 int		child(t_tree *node, t_env *env);
 int		env_command_for_export(t_tree *node, t_env **env);
-int		export(t_tree *node, t_env *env);
+int		export(t_tree *node, t_env **env);
 void	create_new_node(t_env *env, char *arg);
 void	update_env(t_env *env, char *arg, char *splitted);
 void	export_update_create(t_tree *node, t_env **env, int y);

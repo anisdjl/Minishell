@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 11:30:50 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:41:26 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	exec_cmd(t_tree *node, t_env *env)
 		return (pwd_command(node, env));
 	else if (ft_strlen(node->arg[0]) == 6
 		&& ft_strncmp(node->arg[0], "export", 6) == 0)
-		return (export(node, env));
+		return (export(node, &env));
 	else if (ft_strlen(node->arg[0]) == 5
 		&& ft_strncmp(node->arg[0], "unset", 5) == 0)
 		return (unset_command(node, &env));

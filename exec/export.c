@@ -3,33 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 15:07:15 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:45:00 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	export(t_tree *node, t_env *env)
+int	export(t_tree *node, t_env **env)
 {
 	int	y;
-	t_env	*new;
-	void	*ptr;
 	int		status;
 
+	if (!env || !*env)
+		return (0);
 	status = 0;
-	y = 0;
 	if (node->arg[1] == NULL)
-		return (env_command_for_export(node, &env));
+		return (env_command_for_export(node, env));
 	y = 1;
 	while (node->arg[y])
 	{
 		if (valid_export(node->arg[y]))
 			status = 1;
 		else
-			export_update_create(node, &env, y);
+			export_update_create(node, env, y);
 		y++;
 	}
 	return (status);
@@ -37,17 +36,14 @@ int	export(t_tree *node, t_env *env)
 
 void	export_update_create(t_tree *node, t_env **env, int y)
 {
-	char	**splitted;
-	t_env	*tmp;
-	void	*ptr;
+	char	*key;
 
-	splitted = ft_split(node->arg[y], '=');
-	if (!env || !*env)
-		return ;
-	if ((splitted[1]) && check_existant(*env, splitted[1]))
-		update_env(*env, node->arg[y], splitted[1]);
+	key = create_key(node->arg[y]);
+	if (check_existant(*env, key))
+		update_env(*env, node->arg[y], key);
 	else
-		create_new_node(env, node->arg[y]);
+		create_new_node(*env, node->arg[y]);
+	free(key);
 }
 
 void	update_env(t_env *env, char *arg, char *splitted)
@@ -73,7 +69,7 @@ void	update_env(t_env *env, char *arg, char *splitted)
 	}
 }
 
-void	create_new_node(t_env **env, char *arg)
+void	create_new_node(t_env *env, char *arg)
 {
 	void	*ptr;
 	t_env	*new;
@@ -91,7 +87,7 @@ void	create_new_node(t_env **env, char *arg)
 		new->value = ft_strdup(ptr);
 	else
 		new->value = NULL;
-	ft_lstadd_back_env(env, new);
+	ft_lstadd_back_env(&env, new);
 }
 
 int	check_existant(t_env *env, char *key)
