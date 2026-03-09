@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 13:46:06 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:32:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*create_key(char *envp)
 	char	*key;
 
 	y = 0;
-	while (envp[y] != '=')
+	while (envp[y] && envp[y] != '=')
 		y++;
 	key = malloc(sizeof(char) * (y + 1));
 	if (!key)
@@ -44,7 +44,7 @@ char	*create_key(char *envp)
 		exit(EXIT_FAILURE);
 	}
 	y = 0;
-	while (envp[y] != '=')
+	while (envp[y] && envp[y] != '=')
 	{
 		key[y] = envp[y];
 		y++;
@@ -119,8 +119,10 @@ int	env_command_for_export(t_tree *node, t_env **env)
 	tmp = *env;
 	while(tmp)
 	{
-		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
 			printf("export %s%s\n", tmp->key, tmp->value);
+		else
+			printf("export %s\n", tmp->key);
 		tmp = tmp->next;
 	}
 	reset_and_close(&fd_in, &fd_out);

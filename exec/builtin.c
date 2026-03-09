@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 11:11:18 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:21:48 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	env_command(t_tree *node, t_env **env)
 	tmp = *env;
 	while(tmp)
 	{
-		if (ft_strlen(tmp->key) > 0 && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}

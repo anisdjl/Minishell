@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 15:45:00 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/09 16:36:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	export_update_create(t_tree *node, t_env **env, int y)
+{
+	char	*key;
+
+	key = create_key(node->arg[y]);
+	if (check_existant(*env, key))
+	{
+		update_env(*env, node->arg[y], key);
+		free(key);
+	}
+	else
+	{
+		create_new_node(env, node->arg[y]);
+		free(key);
+	}
+}
 
 int	export(t_tree *node, t_env **env)
 {
@@ -34,18 +51,6 @@ int	export(t_tree *node, t_env **env)
 	return (status);
 }
 
-void	export_update_create(t_tree *node, t_env **env, int y)
-{
-	char	*key;
-
-	key = create_key(node->arg[y]);
-	if (check_existant(*env, key))
-		update_env(*env, node->arg[y], key);
-	else
-		create_new_node(*env, node->arg[y]);
-	free(key);
-}
-
 void	update_env(t_env *env, char *arg, char *splitted)
 {
 	t_env	*tmp;
@@ -56,20 +61,20 @@ void	update_env(t_env *env, char *arg, char *splitted)
 	{
 		if (ft_strncmp(tmp->key, splitted, ft_strlen(splitted)) == 0
 			&& ft_strlen(tmp->key) == ft_strlen(splitted))
-			{
-				free(tmp->value);
-				ptr = ft_strchr(arg, '=');
-				if (ptr)
-					tmp->value = ft_strdup(ptr);
-				else
-					tmp->value = NULL;
-				return ;				
-			}
+		{
+			free(tmp->value);
+			ptr = ft_strchr(arg, '=');
+			if (ptr)
+				tmp->value = ft_strdup_env(ptr);
+			else
+				tmp->value = NULL;
+			return ;				
+		}
 		tmp = tmp->next;
 	}
 }
 
-void	create_new_node(t_env *env, char *arg)
+void	create_new_node(t_env **env, char *arg)
 {
 	void	*ptr;
 	t_env	*new;
@@ -84,10 +89,10 @@ void	create_new_node(t_env *env, char *arg)
 	new->key = create_key(arg);
 	ptr = ft_strchr(arg, '=');
 	if (ptr)
-		new->value = ft_strdup(ptr);
+		new->value = ft_strdup_env(ptr);
 	else
 		new->value = NULL;
-	ft_lstadd_back_env(&env, new);
+	ft_lstadd_back_env(env, new);
 }
 
 int	check_existant(t_env *env, char *key)
