@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/10 15:50:45 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/10 17:46:09 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC = main.c \
 	exec/exec_utils.c \
 	exec/unset.c \
 	exec/export.c \
-	src/expand/expand.c
+	src/expand/expand.c \
+	src/expand/wash_quote.c
 
 OBJ = $(SRC:.c=.o)
 

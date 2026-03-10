@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 15:55:50 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/10 17:41:45 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	echo_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
