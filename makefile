@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/09 17:17:37 by adjelili         ###   ########.fr        #
+#    Updated: 2026/03/10 15:50:45 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC = main.c \
 	exec/builtin.c \
 	exec/exec_utils.c \
 	exec/unset.c \
-	exec/export.c
+	exec/export.c \
+	src/expand/expand.c
 
 OBJ = $(SRC:.c=.o)
 

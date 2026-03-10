@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 17:23:31 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:55:50 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	echo_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
+	wash_machine(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
