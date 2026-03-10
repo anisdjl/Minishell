@@ -1,44 +1,25 @@
 #include "../../minishell.h"
 
-int do_expand(char *s)
+void wash_machine(t_value_node *value)
 {
-	int i;
+	char *wash_version;
 
-	i = 0;
+	
 }
-void claim_expand(char *s, t_env *env)
-{
-	int i;
-    char *claim_var;
 
-	i = 0;
-	while (s[i] && s[i] > 32)
-		i++;
-	claim_var = ft_malloc(sizeof(char), i + 1);
-	i = 0;
-	while (claim_var[i])
+void expand(t_value_node *value, t_env *env)
+{
+	wash_machine(value);
+}
+
+void domain_expand(t_tree *node, t_env *env)
+{
+	if (!node || !node->n_value)
+		return (NULL);
+	while (node->n_value)
 	{
-		claim_var[i] = s[i];
-		i++;
+		expand(node->n_value, env);
+		node->n_value =  node->n_value->next;
 	}
-}
-
-void expand(t_tree *node, t_env *env)
-{
-    while (node->n_value->next)
-    {
-        if (node->data->flag & F_DQUOTE || node->data->flag == 0)
-		{
-			if (ft_strchr(node->data->value, '$'))
-				claim_expand(ft_strchr(node->data->value, '$'), env);
-		}
-        else if (node->data->flag & F_SQUOTE)
-		{
-			printf("Changement d'approche");
-		}
-        else 
-			break;
-        node = node->n_value->next;
-    }
 }
 // echo "salut "
