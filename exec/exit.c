@@ -6,9 +6,16 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 10:39:27 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:48:48 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	exit_command(t_tree *node, t_env *env)
+{
+	char	**arg;
+
+	arg = args_to_tab(node->n_value);
+	if ()
+}
