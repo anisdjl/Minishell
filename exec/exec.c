@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 11:50:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 12:24:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,25 @@ int	exec(t_tree *ast, t_env *env)
 	status = 0;
 	if (ast->type == AND)
 	{
-		status = exec(ast->left, env);
-		if (status == 0)
+		env->exit_status->exit_status = exec(ast->left, env);
+		if (env->exit_status->exit_status == 0)
 			return (exec(ast->right, env));
 		return (status);
 	}
 	else if (ast->type == OR)
 	{
-		status = exec(ast->left, env);
-		if (status != 0)
+		env->exit_status->exit_status = exec(ast->left, env);
+		if (env->exit_status->exit_status != 0)
 			return (exec(ast->right, env));
 		return (status);
 	}
 	// else if (ast->type == PIPE)
 	// 	return (handle_pipes(ast, env));
 	else if (ast->type == WORD)
-		return (exec_cmd(ast, env));
+	{
+		env->exit_status->exit_status = exec_cmd(ast, env);
+		return (env->exit_status->exit_status);
+	}
 	return (1);
 }
 
@@ -114,9 +117,9 @@ int	exec_normal_command(t_tree *node, t_env *env)
 			return (1);
 		status = child(node, env);
 	}
-	waitpid(pid, NULL, 0); // c'est lui qui ne focntionne pas
+	waitpid(pid, &status, 0); // c'est lui qui ne focntionne pas
 	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
+		env->exit_status->exit_status = WEXITSTATUS(status);
 	return (status);
 }
 
