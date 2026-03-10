@@ -20,9 +20,11 @@ void	wash_machine(t_value_node *n_value)
 		else if (n_value->value[i] == '\"' && in_squote == 0)
 			(in_dquote = !in_dquote, i++);
 		else
+		{
 			wash_version[j] = n_value->value[i];
+			j++;
+		}
 		i++;
-		j++;
 	}
 	wash_version[j] = '\0';
 	n_value->value = wash_version;
