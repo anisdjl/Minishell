@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 12:24:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:16:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ int	exec_cmd(t_tree *node, t_env *env)
 	else if (ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "env", 3) == 0)
 		return (env_command(node, &env));
-	// else if (ft_strlen(node->arg[0]) == 4
-	// 	&& ft_strncmp(node->arg[0], "exit", 4) == 0)
-	// 	exit_command(node, env);
+	else if (ft_strlen(arg[0]) == 4
+		&& ft_strncmp(arg[0], "exit", 4) == 0)
+		return (exit_command(node, env));
 	else
 		return (exec_normal_command(node, env));
 	return (1);
@@ -129,7 +129,8 @@ int	child(t_tree *node, t_env *env)
 	char	**paths;
 	char	**env_tab;
 	char	**arg;
-
+	
+	wash_machine(node->n_value);
 	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);

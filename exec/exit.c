@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 17:11:39 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:21:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exit_command(t_tree *node, t_env *env)
 		//ft_free_env
 		exit(les);
 	}
-	else if (size_of_table(arg == 2 && !non_numeric(arg[1])))
+	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
 		numeric_exit(arg, arg[1], env);
 	else if (non_numeric(arg[1]))
 		exit_non_numeric(arg, env);
