@@ -72,16 +72,15 @@ t_tree	*AST(t_token *start, t_token *end)
 t_tree	*AST_launcher(t_token *token)
 {
 	t_tree *ast; // construit directement l'AST à partir du premier token
-	// char *s[] = {"echo", "$USER", NULL};
 
 	if (!token)	
 		return (NULL);
 	if (!AST_check(token))
 		return (NULL);
 	ast = AST(token, NULL);
-	// printf("\n--- AST Structure ---\n");
-    // print_ast(ast, "", 0);
-    // printf("---------------------\n\n");
+	printf("\n--- AST Structure ---\n");
+    print_ast(ast, "", 0);
+    printf("---------------------\n\n");
 	return (ast);
 }
 

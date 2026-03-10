@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/06 18:33:18 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/10 12:39:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ typedef enum s_state
 
 typedef struct s_token
 {
-	char *value;          // le mot, la commande ou le separateur
-	t_enum type;          // pour l'enum
-	int flag;            
-		// avec le bit shifting pour la priorite des operations
-	struct s_token *next; // le noeud d'apres (liste chainee)
+	char 	*value;          	// le mot, la commande ou le separateur
+	t_enum 	type;          		// pour l'enum
+	int		flag;             	// avec le bit shifting pour la priorite des operations
+	struct s_token *next; 		// le noeud d'apres (liste chainee)
 }						t_token;
 
 typedef struct s_value_node
