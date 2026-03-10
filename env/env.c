@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 17:09:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:47:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_env *get_env(char **envp)
 		ft_lstadd_back_env(&env, new);
 		y++;
 	}
+	env->exit_status = ft_malloc(1, sizeof(t_exit_status));
+	env->exit_status->exit_status = 0;
 	return (env);
 }
 

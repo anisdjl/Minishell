@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/09 17:06:58 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:50:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	exec(t_tree *ast, t_env *env)
 	}
 	// else if (ast->type == PIPE)
 	// 	return (handle_pipes(ast, env));
-	// else if (ast->type == WORD)
-	return (exec_cmd(ast, env));
+	else if (ast->type == WORD)
+		return (exec_cmd(ast, env));
 	return (1);
 }
 
@@ -114,7 +114,7 @@ int	exec_normal_command(t_tree *node, t_env *env)
 			return (1);
 		status = child(node, env);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, NULL, 0); // c'est lui qui ne focntionne pas
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	return (status);

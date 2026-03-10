@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/09 17:34:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:00:45 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ char **env_to_tab(t_env **env)
 		return (NULL);
 	y = 0;
 	tmp = (*env);
-	env_tab = ft_malloc(1, sizeof(char *) * ft_lstsize_env(*env) + 1);
+	env_tab = ft_malloc(1, sizeof(char *) * (ft_lstsize_env(*env) + 1));
 	while (tmp)
 	{
-		env_tab[y] = ft_strjoin(tmp->key, tmp->value);
+		if (tmp->value)
+			env_tab[y] = ft_strjoin(tmp->key, tmp->value);
+		else
+			env_tab[y] = ft_strdup(tmp->key);
 		tmp = tmp->next;
 		y++;
 	}

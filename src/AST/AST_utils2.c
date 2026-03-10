@@ -4,7 +4,7 @@ t_value_node *ft_lstnew_value(char *content)
 {
 	t_value_node *lst;
 
-	lst = malloc(sizeof(t_value_node));
+	lst = ft_malloc(1, sizeof(t_value_node));
 	if (lst == 0)
 		return (0);
 	lst->value = content;
