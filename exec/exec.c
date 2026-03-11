@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 13:32:18 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:07:33 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	waitpid(pid, &status, 0); // c'est lui qui ne focntionne pas
 	if (WIFEXITED(status))
 		env->exit_status->exit_status = WEXITSTATUS(status);
-	return (status);
+	return (env->exit_status->exit_status);
 }
 
 int	child(t_tree *node, t_env *env)
@@ -113,9 +113,9 @@ int	child(t_tree *node, t_env *env)
 		ft_putstr_fd("minsihell: ", 2);
 		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		return (126);
+		exit (126);
 	}
-	if (!given_path(arg[0]))
+	if (arg && arg[0] && !given_path(arg[0]))
 		path = find_path(arg[0], paths);
 	else
 		path = ft_strdup(arg[0]);

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 12:38:14 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:28:02 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int main(int argc, char **argv, char **envp)
     {
         line = readline("minishell> ");
         if (!line || line[0] == '\n' || line[0] == '\0' || only_spaces(line))
-            continue;
-        // if (!ft_strncmp(line, "exit", 4) && ft_strlen(line) == 4)
-        //     return (0);
+        {   
+			free(line); 
+			continue;
+		}
         history(line);
         if (!check_parentheses(line) || !check_quotes(line))
             continue;

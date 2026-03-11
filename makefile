@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/11 14:24:15 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/11 15:03:59 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ SRC = main.c \
 	exec/exec_utils.c \
 	exec/unset.c \
 	exec/export.c \
+	exec/exec_utils2.c \
+	exec/redir.c \
+	exec/exit.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c
 

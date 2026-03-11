@@ -6,16 +6,17 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 13:30:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:03:52 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// #include "../minishell.h"
 
 // int	handle_pipes(t_tree *node, t_env *env)
 // {
 // 	int	pipe_fd[2];
 // 	int	pid;
+// 	int
 
 // 	if (pipe(pipe_fd) == -1);
 // 	{

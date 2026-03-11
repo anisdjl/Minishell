@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 13:33:09 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 14:49:59 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*find_path(char *cmd, char **env)
 	}
 	free (path_v1);
 	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(" : command not found\n", 2);
+	ft_putstr_fd(" : command not found ici\n", 2);
 	// ft_free_pipes(pipes, data);
 	// ft_free_data(data);
 	// ft_free_paths(cmd);
