@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/11 12:39:54 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:29:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,6 @@ int	check_n(char *args)
 		y++;
 	}
 	return (0);
-}
-
-void	save_fds(int *fd_in, int *fd_out)
-{
-	*fd_in = dup(0);
-	*fd_out = dup(1);
-}
-
-void	reset_and_close(int *fd_in, int *fd_out)
-{
-	dup2(*fd_in, 0);
-	dup2(*fd_out, 1);
-	close(*fd_in);
-	close(*fd_out);
 }
 
 char	**args_to_tab(t_value_node *node_values)

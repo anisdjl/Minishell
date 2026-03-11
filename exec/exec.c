@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 12:43:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:32:18 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,56 +43,30 @@ int	exec(t_tree *ast, t_env *env)
 	return (1);
 }
 
-// int	handle_pipes(t_tree *node, t_env *env)
-// {
-// 	int	pipe_fd[2];
-// 	int	pid;
-
-// 	if (pipe(pipe_fd) == -1);
-// 	{
-// 		ft_free_all_malloc();
-// 		exit(EXIT_FAILURE); // ou relancer minishell ?
-// 	}
-// 	pid = fork();
-// 	(close(pipe_fd[0]), close(pipe_fd[1]));
-// 	if (pid < 0)
-// 	{
-// 		ft_free_all_malloc();
-// 		exit(EXIT_FAILURE); // ou relancer minishell
-// 	}
-// 	if (pid == 0)
-// 	{
-// 		if (node->type == )
-// 		dup2(pipe_fd[1], )
-// 		exec(node->left, env);
-// 	}
-// 	// wait_for_childrens
-// }
-
 int	exec_cmd(t_tree *node, t_env *env)
 {
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);
-	if (arg && ft_strlen(arg[0]) == 4
+	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
 		return (echo_command(node, env));
-	if (arg && ft_strlen(arg[0]) == 2 
+	if (arg && arg[0] && ft_strlen(arg[0]) == 2 
 		&& ft_strncmp(arg[0], "cd", 2) == 0)
 	 	return (cd_command(node, env));
-	else if (arg && ft_strlen(arg[0]) == 3
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "pwd", 3) == 0)
 		return (pwd_command(node, env));
-	else if (arg && ft_strlen(arg[0]) == 6
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 6
 		&& ft_strncmp(arg[0], "export", 6) == 0)
 		return (export(node, &env));
-	else if (arg && ft_strlen(arg[0]) == 5
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 5
 		&& ft_strncmp(arg[0], "unset", 5) == 0)
 		return (unset_command(node, &env));
-	else if (arg && ft_strlen(arg[0]) == 3
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "env", 3) == 0)
 		return (env_command(node, &env));
-	else if (arg && ft_strlen(arg[0]) == 4
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "exit", 4) == 0)
 		return (exit_command(node, env));
 	else
@@ -134,7 +108,7 @@ int	child(t_tree *node, t_env *env)
 	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
-	if (only_spaces(arg[0]) || arg[0][0] == '\0')
+	if (arg && arg[0] && (only_spaces(arg[0]) || arg[0][0] == '\0'))
 	{
 		ft_putstr_fd("minsihell: ", 2);
 		ft_putstr_fd(arg[0], 2);
@@ -148,137 +122,5 @@ int	child(t_tree *node, t_env *env)
 	execve(path, arg, env_tab);
 	printf("error  while executing the command\n");
 	ft_free_all_malloc();
-	return (127);
-}
-
-int	given_path(char *cmd)
-{
-	int	a;
-
-	a = 0;
-	while (cmd[a])
-	{
-		if (cmd[a] == '/')
-			return (1);
-		else
-			a++;
-	}
-	return (0);
-}
-
-char	*find_path(char *cmd, char **env)
-{
-	int		y;
-	char	*path_v1;
-	char	*path_joined;
-
-	path_v1 = ft_strjoin("/", cmd);
-	y = 0;
-	while (env[y])
-	{
-		path_joined = ft_strjoin(env[y], path_v1);
-		if (access(path_joined, F_OK | X_OK) == 0)
-			return (free (path_v1), path_joined);
-		else
-		{
-			y++;
-			free(path_joined);
-		}
-	}
-	free (path_v1);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(" : command not found\n", 2);
-	// ft_free_pipes(pipes, data);
-	// ft_free_data(data);
-	// ft_free_paths(cmd);
-	exit(127);
-}
-
-char	**get_paths(char **envp)
-{
-	int		y;
-	char	**paths;
-	char	*path;
-
-	y = 0;
-	while (envp[y])
-	{
-		if (ft_strncmp(envp[y], "PATH=", 5) == 0)
-		{
-			path = ft_strchr(envp[y], '/');
-			paths = ft_split(path, ':');
-			return (paths);
-		}
-		else
-			y++;
-	}
-	return (NULL);
-}
-
-int	redir_function(t_tree *node)
-{
-	t_redir	*tmp;
-	int		return_value;
-
-	if (!node->redirs)
-		return (0);
-	tmp = node->redirs;
-	while (tmp)
-	{
-		if (tmp->type == 6)
-			return_value = (redir_in(tmp));
-		else if (tmp->type == 5 || tmp->type == 7)
-			return_value = (redir_out(tmp));
-		if (return_value != 0)
-			return (return_value);
-		tmp = tmp->next;
-	}
-	return (return_value);
-}
-
-int	redir_in(t_redir *redir)
-{
-	int	fd_in;
-
-	if (access(redir->value, R_OK | F_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	fd_in = open(redir->value, O_RDONLY);
-	if (fd_in < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(fd_in, 0);
-	close(fd_in);
-	return (0);
-}
-
-int	redir_out(t_redir *redir)
-{
-	int	fd_out;
-
-	if (redir->type == 5)
-		fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (redir->type == 7)
-		fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (fd_out < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);	
-	}
-	if (access(redir->value, W_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(fd_out, 1);
-	close(fd_out);
-	return (0);
+	exit (127);
 }

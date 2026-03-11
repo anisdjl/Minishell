@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 11:07:07 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:33:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,33 +112,6 @@ int	check_existant(t_env *env, char *key)
 		if (ft_strlen(tmp->key) == ft_strlen(key) && ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
 			return (1);
 		tmp = tmp->next;
-	}
-	return (0);
-}
-
-int	valid_export(char *args)
-{
-	int	y;
-
-	y = 0;
-	if (args[0] == '\0' || only_spaces(args) || (!((args[0] >= 'a' && args[0] <= 'z') 
-        || (args[0] >= 'A' && args[0] <= 'Z') 
-        || (args[0] == '_'))))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(args, 2);
-		ft_putstr_fd(": not a valid identifier\n", 2);	
-		return (1);
-	}
-	while (args[++y] && args[y] != '=')
-	{
-		if (!ft_isalnum(args[y]) && args[y] != '_')
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(args, 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);	
-			return (1);
-		}
 	}
 	return (0);
 }
