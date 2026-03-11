@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 17:20:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 11:07:07 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	export(t_tree *node, t_env **env)
 	int		status;
 	char	**arg;
 
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (!env || !*env)
 		return (0);

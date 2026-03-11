@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 17:19:27 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 11:05:58 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	cd_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
@@ -45,7 +45,7 @@ int pwd_command(t_tree *node, t_env *env)
 	int		fd_out;
 	
 	tmp = env;
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	ptr = getcwd(current_dir, 4096);
@@ -96,7 +96,7 @@ int	echo_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{

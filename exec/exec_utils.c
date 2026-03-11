@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 11:00:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 12:39:54 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ char	**args_to_tab(t_value_node *node_values)
 	t_value_node	*tmp;
 	int				y;
 
+	if (!node_values)
+		return (NULL);
 	y = ft_lstsize_arg(node_values);
 	tmp = node_values;
 	args = ft_malloc(1, sizeof(char *) * (y + 1));

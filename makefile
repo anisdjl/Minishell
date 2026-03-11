@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/10 17:20:31 by adjelili         ###   ########.fr        #
+#    Updated: 2026/03/11 11:03:42 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC = main.c \
 	exec/unset.c \
 	exec/export.c \
 	src/expand/expand.c \
-	exec/exit.c 
+	exec/exit.c \
+	src/expand/wash_quote.c
 
 OBJ = $(SRC:.c=.o)
 

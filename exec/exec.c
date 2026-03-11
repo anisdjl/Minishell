@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 17:16:57 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 12:43:55 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,25 @@ int	exec_cmd(t_tree *node, t_env *env)
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);
-	if (ft_strlen(arg[0]) == 4
+	if (arg && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
 		return (echo_command(node, env));
-	if (ft_strlen(arg[0]) == 2 
+	if (arg && ft_strlen(arg[0]) == 2 
 		&& ft_strncmp(arg[0], "cd", 2) == 0)
 	 	return (cd_command(node, env));
-	else if (ft_strlen(arg[0]) == 3
+	else if (arg && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "pwd", 3) == 0)
 		return (pwd_command(node, env));
-	else if (ft_strlen(arg[0]) == 6
+	else if (arg && ft_strlen(arg[0]) == 6
 		&& ft_strncmp(arg[0], "export", 6) == 0)
 		return (export(node, &env));
-	else if (ft_strlen(arg[0]) == 5
+	else if (arg && ft_strlen(arg[0]) == 5
 		&& ft_strncmp(arg[0], "unset", 5) == 0)
 		return (unset_command(node, &env));
-	else if (ft_strlen(arg[0]) == 3
+	else if (arg && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "env", 3) == 0)
 		return (env_command(node, &env));
-	else if (ft_strlen(arg[0]) == 4
+	else if (arg && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "exit", 4) == 0)
 		return (exit_command(node, env));
 	else
@@ -130,7 +130,7 @@ int	child(t_tree *node, t_env *env)
 	char	**env_tab;
 	char	**arg;
 	
-	wash_machine(node->n_value);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
