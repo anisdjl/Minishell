@@ -6,12 +6,19 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 11:37:46 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:12:54 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#ifndef LLONG_MAX
+# define LLONG_MAX 9223372036854775807LL
+#endif
+#ifndef LLONG_MIN
+# define LLONG_MIN (-9223372036854775807LL - 1LL)
+#endif
 
 #define _APPLE_C_SOURCE
 #define _DARWIN_C_SOURCE

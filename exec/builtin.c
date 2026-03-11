@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 17:41:45 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/11 14:24:24 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	cd_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
@@ -44,6 +45,7 @@ int pwd_command(t_tree *node, t_env *env)
 	int		fd_out;
 	
 	tmp = env;
+	wash_start(node->n_value);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	ptr = getcwd(current_dir, 4096);

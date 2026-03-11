@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 11:00:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:29:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,14 @@ int	check_n(char *args)
 	return (0);
 }
 
-void	save_fds(int *fd_in, int *fd_out)
-{
-	*fd_in = dup(0);
-	*fd_out = dup(1);
-}
-
-void	reset_and_close(int *fd_in, int *fd_out)
-{
-	dup2(*fd_in, 0);
-	dup2(*fd_out, 1);
-	close(*fd_in);
-	close(*fd_out);
-}
-
 char	**args_to_tab(t_value_node *node_values)
 {
 	char			**args;
 	t_value_node	*tmp;
 	int				y;
 
+	if (!node_values)
+		return (NULL);
 	y = ft_lstsize_arg(node_values);
 	tmp = node_values;
 	args = ft_malloc(1, sizeof(char *) * (y + 1));
