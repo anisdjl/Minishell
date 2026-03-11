@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/11 14:24:15 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/11 15:04:23 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
 
 $(LIBFT_LIB) :
 	$(MAKE) -C $(LIBFT_PATH)
