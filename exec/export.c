@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 13:33:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:55:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	export_update_create(t_tree *node, t_env **env, int y)
 {
 	char	*key;
 	char	**arg;
+	int		fd_in;
+	int		fd_out;
 
 	arg = args_to_tab(node->n_value);
 	key = create_key(arg[y]);
@@ -31,16 +33,21 @@ void	export_update_create(t_tree *node, t_env **env, int y)
 	}
 }
 
-int	export(t_tree *node, t_env **env)
+int	export_cmd(t_tree *node, t_env **env)
 {
 	int	y;
 	int		status;
 	char	**arg;
+	int 	fd_in;
+	int		fd_out;
 
 	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (!env || !*env)
 		return (0);
+	save_fds(&fd_in, &fd_out);
+	if (redir_function(node))
+		return (1);
 	status = 0;
 	if (arg[1] == NULL)
 		return (env_command_for_export(node, env));

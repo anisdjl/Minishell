@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 16:00:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/12 13:36:48 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_env *get_env(char **envp)
 	}
 	env->exit_status = malloc(sizeof(t_exit_status) * 1);
 	env->exit_status->exit_status = 0;
+	env->pid = NULL;
 	return (env);
 }
 
