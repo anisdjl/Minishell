@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:43:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 14:59:17 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/12 17:47:53 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,19 @@ typedef struct s_exit_status
 	int	exit_status;
 }	t_exit_status;
 
+typedef	struct s_pid
+{
+	int	pid;
+	struct s_pid *next;
+}	t_pid;
+
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
 	t_exit_status	*exit_status;
+	t_pid	*pid;
 }					t_env;
 
 void	ft_lstadd_back_env(t_env **lst, t_env *new_env);

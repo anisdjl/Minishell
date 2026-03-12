@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exit_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 16:50:24 by adjelili         ###   ########.fr       */
+/*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
+/*   Updated: 2026/03/12 16:44:42 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	exit_command(t_tree *node, t_env *env)
+int	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
 	char	**arg;
 	int		les;
-	int		fd_in;
-	int		fd_out;
 
-	save_fds(&fd_in, &fd_out);
-	if (redir_function(node))
-		exit (1);
 	les = env->exit_status->exit_status;
 	arg = args_to_tab(node->n_value);
+	if (redir_for_pipes(node, fd_in, fd_out))
+		exit(1);
 	if (size_of_table(arg) == 1)
 	{
-		ft_putstr_fd("exit\n", 2);
+		//ft_putstr_fd("exit\n", 2);
 		ft_free_all_malloc();
 		//ft_free_env
 		exit(les);
@@ -37,15 +34,15 @@ int	exit_command(t_tree *node, t_env *env)
 		exit_non_numeric(arg, env);
 	else if (size_of_table(arg) > 2)
 	{
-		ft_putstr_fd("exit\n", 2);
+		// ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		env->exit_status->exit_status = 1;
+		exit (146);
 	}
 }
 
-void	exit_non_numeric(char **arg, t_env *env)
+void	exit_non_numeric_pipes(char **arg, t_env *env)
 {
-	ft_putstr_fd("exit\n", 2);
+	//ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
@@ -54,7 +51,7 @@ void	exit_non_numeric(char **arg, t_env *env)
 	exit(2);
 }
 
-void	numeric_exit(char **arg, char *nptr, t_env *env)
+void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 {
 	int	y;
 	int	sign;
@@ -78,21 +75,4 @@ void	numeric_exit(char **arg, char *nptr, t_env *env)
 		y++;
 	}
 	exit((unsigned char)(total * sign));
-}
-
-int	non_numeric(char *arg)
-{
-	int y;
-	int	nb_operator;
-
-	y = 0;
-	if (arg[0] == '+' || arg[0] == '-')
-		y++;
-	while (arg[y])
-	{
-		if (!ft_isdigit(arg[y]))
-			return (1);
-		y++;
-	}
-	return (0);
 }

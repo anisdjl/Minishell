@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/12 14:38:25 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/12 17:47:46 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,13 @@ SRC = main.c \
 	exec/exec_utils.c \
 	exec/unset.c \
 	exec/export.c \
+	exec/exec_utils2.c \
+	exec/redir.c \
+	exec/exit.c \
+	exec/pipes.c \
+	exec/builtin_pipes.c \
+	exec/builtin_pipes2.c \
+	exec/exit_pipes.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c
 

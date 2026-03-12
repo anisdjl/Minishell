@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/10 17:16:02 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:55:07 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_pid
 
 int		ft_lstsize_env(t_env *lst);
 int		exec(t_tree *ast, t_env *env);
-int		handle_pipes(t_tree *node, t_env *env);
+int		handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out);
 int		exec_cmd(t_tree *node, t_env *env);
 char 	**env_to_tab(t_env **env);
 char	*find_path(char *cmd, char **env);
@@ -46,10 +46,9 @@ int		redir_out(t_redir *redir);
 void	save_fds(int *fd_in, int *fd_out);
 void	unset_node(t_env **env, char *arg);
 void	reset_and_close(int *fd_in, int *fd_out);
-// int		ft_lstsize_arg(t_node_value *node_value);
 int		child(t_tree *node, t_env *env);
 int		env_command_for_export(t_tree *node, t_env **env);
-int		export(t_tree *node, t_env **env);
+int		export_cmd(t_tree *node, t_env **env);
 void	create_new_node(t_env **env, char *arg);
 void	update_env(t_env *env, char *arg, char *splitted);
 void	export_update_create(t_tree *node, t_env **env, int y);
@@ -60,5 +59,27 @@ int		exit_command(t_tree *node, t_env *env);
 void	exit_non_numeric(char **arg, t_env *env);
 void	numeric_exit(char **arg, char *nptr, t_env *env);
 int		non_numeric(char *arg);
+int		exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out);
+int		child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out);
+void	exec_pipe(char *path, char **paths, char **env_tab, char **arg);
+void	add_pid_to_list(t_env *env, int pid);
+int		wait_all_pids(t_env *env);
+t_pid	*ft_lstnew_pid(int content);
+void	ft_lstadd_back_pid(t_pid **lst, t_pid *new);
+int		redir_for_pipes(t_tree *node, int *fd_in, int *fd_out);
+int		redir_in_pipe(t_redir *redir, int *fd_in);
+int		redir_out_pipe(t_redir *redir, int *fd_out);
+int		cd_command_pipe(t_tree *node, t_env *env, int *fd_in , int *fd_out);
+int 	pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		env_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
+int		echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out);
+int		unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
+int		export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
+int		exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
+void	exit_non_numeric_pipes(char **arg, t_env *env);
+void	numeric_exit_pipes(char **arg, char *nptr, t_env *env);
 
 #endif

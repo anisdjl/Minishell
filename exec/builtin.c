@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/11 14:24:24 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/12 15:57:13 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int pwd_command(t_tree *node, t_env *env)
 	tmp = env;
 	wash_start(node->n_value);
 	save_fds(&fd_in, &fd_out);
-	redir_function(node);
+	if (redir_function(node));
+		return (1);
 	ptr = getcwd(current_dir, 4096);
 	if (ptr)
 		printf("%s\n", current_dir);
@@ -76,7 +77,8 @@ int	env_command(t_tree *node, t_env **env)
 	if (!env || !*env)
 		return (0);
 	save_fds(&fd_in, &fd_out);
-	redir_function(node);
+	if (redir_function(node));
+		return (1);
 	tmp = *env;
 	while(tmp)
 	{
@@ -101,7 +103,8 @@ int	echo_command(t_tree *node, t_env *env)
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
 		save_fds(&fd_in, &fd_out);
-		redir_function(node);
+		if (redir_function(node));
+			return (1);
 		y = 2;
 		if (arg[2] == NULL)
 			return (0);
