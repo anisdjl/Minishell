@@ -1,6 +1,14 @@
 #include "../../minishell.h"
 
-// addition de la taille sur chaque expand trouver
+void init_exp_data(s_expand *exp_data)
+{
+	exp_data->i = 0;
+    exp_data->size = 0;
+    exp_data->in_dquote = 0;
+    exp_data->in_squote = 0;
+}
+
+// variable
 char	*extract_var(t_value_node *n_value, int pos) // le cas $_ et le cas $? non gere
 {
 	int		i;
@@ -13,10 +21,12 @@ char	*extract_var(t_value_node *n_value, int pos) // le cas $_ et le cas $? non 
 	i = 0;
 	while (n_value->value[pos] && ft_isalnum(n_value->value[pos])) // extraction
 		expand_var[i++] = n_value->value[pos++];
+    expand_var[i] = '\0';
 	return (expand_var);
 }
 
-char  *extract_env_var(t_value_node *n_value, t_env *env, char *search)
+// valeur
+char  *extract_env_value(t_value_node *n_value, t_env *env, char *search)
 {
     int i;
     char *expand;
@@ -40,12 +50,12 @@ char  *extract_env_var(t_value_node *n_value, t_env *env, char *search)
     return (expand);
 }
 
+// addition de la taille sur chaque expand trouver
 int	predict_expand_size(t_value_node *n_value, t_env *env)
 {
     s_expand exp_data;
 
-	exp_data.i = 0;
-    exp_data.size = 0;
+    init_exp_data(&exp_data);
 	while (n_value->value[exp_data.i])
 	{
 		if (n_value->value[exp_data.i] == '\'')
@@ -55,13 +65,9 @@ int	predict_expand_size(t_value_node *n_value, t_env *env)
 		if (n_value->value[exp_data.i] == '$' && !exp_data.in_squote)
 		{
 			exp_data.expand = extract_var(n_value, exp_data.i + 1);
-			exp_data.expand_value = extract_env_var(n_value, env, exp_data.expand);
-            printf("expand var : %s\n", exp_data.expand);
+			exp_data.expand_value = extract_env_value(n_value, env, exp_data.expand);
             if (exp_data.expand_value)
             {
-                printf("======== Debug ========\nSize : %i\n", ft_strlen(exp_data.expand_value));
-                printf("expand : %s\n=======================\n", exp_data.expand_value);
-
                 exp_data.size = exp_data.size + ft_strlen(exp_data.expand_value);
                 exp_data.i = exp_data.i + ft_strlen(exp_data.expand);
             }
@@ -69,6 +75,6 @@ int	predict_expand_size(t_value_node *n_value, t_env *env)
         exp_data.size++;
 		exp_data.i++;
 	}
-    return (exp_data.size - 1);
+    return (exp_data.size);
 }
 

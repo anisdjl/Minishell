@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 17:47:38 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/13 18:25:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ t_tree *tmp_tree(void)
     tree->type = WORD;
     tree->n_value = NULL;
     ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("echo"));
-    ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("\"$USER@$HOME\""));
+    ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("'$USER'\"$HOME\"'$PWD'"));
     tree->redirs = NULL;
     tree->left = NULL;
     tree->right = NULL;
 
     return (tree);
 }
-
 /*====================*/
 
 int main(int argc, char **argv, char **envp)
@@ -40,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 
 	env = get_env(envp);
-    domain_expand(tmp_tree(), env);
+    domain_expand(tmp_tree(), env); // Sert au test de l'expand
     while (1)
     {
         line = readline("minishell> ");

@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/12 17:47:46 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/13 18:17:41 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,6 @@ SRC = main.c \
 	exec/exec_utils.c \
 	exec/unset.c \
 	exec/export.c \
-	exec/exec_utils2.c \
-	exec/redir.c \
-	exec/exit.c \
 	exec/pipes.c \
 	exec/builtin_pipes.c \
 	exec/builtin_pipes2.c \
@@ -61,7 +58,7 @@ LFLAGS = -L$(READLINE_DIR)/lib -lreadline
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT_LIB)
-	$(CC) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LFLAGS) -o $(NAME)
 
 $(LIBFT_LIB) :
 	$(MAKE) -C $(LIBFT_PATH)
