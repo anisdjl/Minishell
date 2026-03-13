@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 16:55:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/13 05:11:50 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	exec_normal_command(t_tree *node, t_env *env)
 			env->exit_status->exit_status = WEXITSTATUS(status);
 		return (env->exit_status->exit_status);
 	}
+	return(env->exit_status->exit_status);
 }
 
 int	child(t_tree *node, t_env *env)
