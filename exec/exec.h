@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/12 16:55:07 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/13 05:10:49 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 # define EXEC_H
 
 #include "../minishell.h"
-
-
-typedef struct	s_pid
-{
-	int				pid;
-	struct s_pid	*next;
-}	t_pid;
 
 int		ft_lstsize_env(t_env *lst);
 int		exec(t_tree *ast, t_env *env);

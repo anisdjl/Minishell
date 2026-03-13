@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/12 15:57:13 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/13 05:12:05 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	env_command(t_tree *node, t_env **env)
 	if (!env || !*env)
 		return (0);
 	save_fds(&fd_in, &fd_out);
-	if (redir_function(node));
+	if (redir_function(node))
 		return (1);
 	tmp = *env;
 	while(tmp)
