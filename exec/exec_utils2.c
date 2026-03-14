@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 16:09:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:30:09 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 char	*find_path(char *cmd, char **env)
 {

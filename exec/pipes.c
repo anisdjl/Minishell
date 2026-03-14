@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 10:32:51 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:30:35 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 int	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
@@ -48,10 +48,11 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 	}
 	if (pid == 0)
 	{
-		if (redir_for_pipes(node, &fd_in, &fd_out))
-			exit(1);
 		if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
+		{
+			redir_for_pipes(node, &fd_in, &fd_out);
 			child_pipe(node, env, fd_in, fd_out);
+		}
 	}
 	return (pid);
 }
@@ -155,6 +156,7 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 	t_redir	*tmp;
 	int		return_value;
 
+	return_value = 0;
 	if (!node->redirs)
 		return (0);
 	tmp = node->redirs;
@@ -180,7 +182,7 @@ int	redir_in_pipe(t_redir *redir, int *fd_in)
 		return (1);
 	}
 	*fd_in = open(redir->value, O_RDONLY);
-	if (fd_in < 0)
+	if (*fd_in < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(redir->value);

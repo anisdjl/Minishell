@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/13 05:10:49 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/14 12:51:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int		exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 void	exit_non_numeric_pipes(char **arg, t_env *env);
 void	numeric_exit_pipes(char **arg, char *nptr, t_env *env);
+int		subshell(t_tree *node, t_env *env);
 
 #endif

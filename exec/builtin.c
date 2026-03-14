@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/13 05:12:05 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/14 15:30:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 int	cd_command(t_tree *node, t_env *env)
 {
@@ -47,8 +47,7 @@ int pwd_command(t_tree *node, t_env *env)
 	tmp = env;
 	wash_start(node->n_value);
 	save_fds(&fd_in, &fd_out);
-	if (redir_function(node));
-		return (1);
+	redir_function(node); // PROBLEME ICI pwd ne marche plus a cause des redirs il renvoit tout le temps 1
 	ptr = getcwd(current_dir, 4096);
 	if (ptr)
 		printf("%s\n", current_dir);

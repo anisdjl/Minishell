@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 17:12:54 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:04:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define LLONG_MIN (-9223372036854775807LL - 1LL)
 #endif
 
+#define _XOPEN_SOURCE 700
 #define _APPLE_C_SOURCE
 #define _DARWIN_C_SOURCE
 # include <stdio.h>
@@ -40,7 +41,7 @@
 # include "exec/exec.h"
 # include "libft/libft.h"
 # include <signal.h>
-
+# include "signals/signals.h"
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
 void	ft_free_malloc(void *ptr);
