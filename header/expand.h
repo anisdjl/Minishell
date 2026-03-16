@@ -4,16 +4,18 @@
 typedef struct s_env	t_env;
 typedef struct s_tree	t_tree;
 
-typedef struct t_expand
+typedef struct s_expand
 {
 	int		i;
+    int		j;
+    int		k;
     int     size;
     int     in_squote;
     int     in_dquote;
     char    *expand;
     char    *expand_value;
     char	*clean_vers;
-}   s_expand;
+}   t_expand;
 
 /* Wash quote */
 
@@ -30,5 +32,10 @@ char                    *extract_env_value(t_value_node *n_value, t_env *env, ch
 void					domain_expand(t_tree *node, t_env *env);
 int						predict_expand_size(t_value_node *n_value, t_env *env);
 
+/* Expand utils */
+
+void	expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void    expand_return(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void    expand_$$(t_expand *exp_data, t_value_node *n_value, t_env *env);
 
 #endif

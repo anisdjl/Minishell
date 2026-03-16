@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/13 18:25:27 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/16 17:29:29 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_tree *tmp_tree(void)
     if (!tree) return (NULL);
     tree->type = WORD;
     tree->n_value = NULL;
-    ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("echo"));
-    ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("'$USER'\"$HOME\"'$PWD'"));
+    ft_lstadd_back_value(&tree->n_value, ft_lstnew_value("\"$USER$\""));
     tree->redirs = NULL;
     tree->left = NULL;
     tree->right = NULL;

@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/13 18:17:41 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/16 15:45:49 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC = main.c \
 	exec/builtin_pipes2.c \
 	exec/exit_pipes.c \
 	src/expand/expand.c \
-	src/expand/wash_quote.c
+	src/expand/wash_quote.c \
+	src/expand/expand_utils.c
 
 OBJ = $(SRC:.c=.o)
 

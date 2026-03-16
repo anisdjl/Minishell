@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void init_exp_data(s_expand *exp_data)
+void init_exp_data(t_expand *exp_data)
 {
 	exp_data->i = 0;
     exp_data->size = 0;
@@ -53,7 +53,7 @@ char  *extract_env_value(t_value_node *n_value, t_env *env, char *search)
 // addition de la taille sur chaque expand trouver
 int	predict_expand_size(t_value_node *n_value, t_env *env)
 {
-    s_expand exp_data;
+    t_expand exp_data;
 
     init_exp_data(&exp_data);
 	while (n_value->value[exp_data.i])
