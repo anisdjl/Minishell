@@ -14,7 +14,6 @@ void	expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env)
 {
     if (n_value->value[exp_data->i] == '$' && !ft_isalnum(n_value->value[exp_data->i + 1]))
     {
-        printf("atteint \n");
         expand_$(exp_data, n_value, env);
         return;
     }

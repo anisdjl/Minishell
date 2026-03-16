@@ -34,7 +34,8 @@ char  *extract_env_value(t_value_node *n_value, t_env *env, char *search)
     i = 1;
     while (env)
     {
-        if (ft_strncmp(env->key, search, ft_strlen(search)) == 0 && ft_strlen(env->key) == ft_strlen(search))
+        if (ft_strncmp(env->key, search, ft_strlen(search)) == 0 
+            && ft_strlen(env->key) == ft_strlen(search))
             break;
         env = env->next;
     }
