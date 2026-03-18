@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:28:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/11 13:29:30 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:30:41 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 void	save_fds(int *fd_in, int *fd_out)
 {
@@ -34,6 +34,7 @@ int	redir_function(t_tree *node)
 	if (!node->redirs)
 		return (0);
 	tmp = node->redirs;
+	return_value = 0;
 	while (tmp)
 	{
 		if (tmp->type == 6)

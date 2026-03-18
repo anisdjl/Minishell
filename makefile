@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/16 15:45:49 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/18 10:40:29 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC = main.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c \
 	src/expand/expand_utils.c
+	signals/signals.c
 
 OBJ = $(SRC:.c=.o)
 

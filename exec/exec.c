@@ -6,11 +6,11 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 13:14:06 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/18 13:18:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 int	exec(t_tree *ast, t_env *env)
 {
@@ -34,14 +34,39 @@ int	exec(t_tree *ast, t_env *env)
 	else if (ast->type == PIPE)
 	{
 		handle_pipes(ast, env, 0, 1);
-		wait_all_pids(env);		//ici le boucle wait all pipes
+		wait_all_pids(env);//ici le boucle wait all pipes
 	}
+	else if (ast->type == L_PARENTHESE)
+		return (subshell(ast, env));
 	else if (ast->type == WORD)
 	{
 		env->exit_status->exit_status = exec_cmd(ast, env);
 		return (env->exit_status->exit_status);
 	}
 	return (1);
+}
+
+int	subshell(t_tree *node, t_env *env)
+{
+	int	pid_subshell;
+	int	status;
+
+	status = 0;
+	pid_subshell = fork();
+	if (pid_subshell < 0)
+	{
+		ft_free_all_malloc();
+		//free env
+		exit(EXIT_FAILURE);
+	}
+	if (pid_subshell == 0)
+	{
+		exit(exec(node->left, env));
+	}
+	waitpid(pid_subshell, &status, 0);
+	if (WIFEXITED(status))
+		env->exit_status->exit_status = WEXITSTATUS(status);
+	return (env->exit_status->exit_status);
 }
 
 int	exec_cmd(t_tree *node, t_env *env)

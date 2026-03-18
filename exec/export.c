@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 16:55:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:30:26 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 void	export_update_create(t_tree *node, t_env **env, int y)
 {
