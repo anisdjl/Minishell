@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/16 17:47:05 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/16 17:52:14 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 
 	env = get_env(envp);
-    domain_expand(tmp_tree(), env); // Sert au test de l'expand
+    domain_expand(tmp_tree(), env); // domain_expand(le noeud de l'ast a etendre, l'environnement);
     while (1)
     {
         line = readline("minishell> ");

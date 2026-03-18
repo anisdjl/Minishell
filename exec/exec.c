@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/13 05:11:50 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/18 13:14:06 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec(t_tree *ast, t_env *env)
 {
 	if (!ast)
 		return (1);
+	domain_expand(ast, env);
 	if (ast->type == AND)
 	{
 		env->exit_status->exit_status = exec(ast->left, env);
