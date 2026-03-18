@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 16:33:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:29:35 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 int	cd_command_pipe(t_tree *node, t_env *env, int *fd_in , int *fd_out)
 {
@@ -110,7 +110,7 @@ int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 		(close((*fd_in)), close((*fd_out)));
 	}
 	else
-		return (echo_command2(node, env));
+		return (echo_command2_pipe(node, env, fd_in, fd_out));
 	exit (0);
 }
 
@@ -121,7 +121,6 @@ int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 
 	arg = args_to_tab(node->n_value);
 	y = 1;
-	save_fds(fd_in, fd_out);
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit(1);
 	if (arg[1] == NULL)
@@ -144,6 +143,10 @@ int	builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out)
 {
 	char	**arg;
 
+	if (*fd_in != 0)
+		(dup2(*fd_in, 0), close(*fd_in));
+	if (*fd_out != 1)
+		(dup2(*fd_out, 1), close(*fd_out));
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)

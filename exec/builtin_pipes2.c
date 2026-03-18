@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:50:41 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 16:48:25 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:29:55 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "exec.h"
 
 int	unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 {
@@ -49,7 +49,7 @@ int	export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 		exit (0);
 	status = 0;
 	if (arg[1] == NULL)
-		return (env_command_for_export(node, env));
+		return (env_command_for_export_pipe(node, env, fd_in, fd_out));
 	y = 1;
 	while (arg[y])
 	{
@@ -68,8 +68,8 @@ int	env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_o
 	t_env	*tmp;
 
 	if (!env || !*env)
-		return (0);
-	if (redir_for_pipes(node, fd_in, fd_out));
+		exit (0);
+	if (redir_for_pipes(node, fd_in, fd_out))
 		exit (1);
 	tmp = *env;
 	while(tmp)
@@ -81,5 +81,5 @@ int	env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_o
 		tmp = tmp->next;
 	}
 	(close((*fd_in)), close((*fd_out)));
-	return (0);
+	exit (0);
 }
