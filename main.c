@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 13:18:23 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/18 13:58:57 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv, char **envp)
 
 	sig();
 	env = get_env(envp);
-    domain_expand(tmp_tree(), env); // domain_expand(le noeud de l'ast a etendre, l'environnement);
+    // domain_expand(tmp_tree(), env); // domain_expand(le noeud de l'ast a etendre, l'environnement);
     while (1)
     {
 		if (g_signal != 0)

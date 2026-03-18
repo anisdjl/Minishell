@@ -26,7 +26,7 @@ void	expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env)
 			exp_data->clean_vers[exp_data->k++] = exp_data->expand_value[exp_data->j++];
 		exp_data->i = exp_data->i + ft_strlen(exp_data->expand) + 1;
 	}
-	else
+	else // n'a rien trouver dans l'env
 	{
 		exp_data->i++;
 		while (n_value->value[exp_data->i] && ft_isalnum(n_value->value[exp_data->i])) 
@@ -36,14 +36,14 @@ void	expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env)
 
 void expand_return(t_expand *exp_data, t_value_node *n_value, t_env *env)
 {
-	exp_data->expand = extract_var(n_value, exp_data->i + 1);
+	exp_data->expand = NULL;
 	exp_data->expand_value = ft_itoa(env->exit_status->exit_status);
 	if (exp_data->expand_value)
 	{
 		exp_data->j = 0;
 		while (exp_data->expand_value[exp_data->j])
 			exp_data->clean_vers[exp_data->k++] = exp_data->expand_value[exp_data->j++];
-		exp_data->i = exp_data->i + ft_strlen(exp_data->expand) + 1;
+		exp_data->i = exp_data->i + 2;
 	}
 	else
 	{
