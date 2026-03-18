@@ -49,7 +49,7 @@ void	domain_expand(t_tree *node, t_env *env)
 	{
 		expand(node->n_value, env);
 		wash_machine(node->n_value);
-		printf("Value : %s\n", node->n_value->value);
+		// printf("Value : %s\n", node->n_value->value);
 		node->n_value = node->n_value->next;
 	}
 }

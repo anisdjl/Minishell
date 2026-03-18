@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:22 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:24:52 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exit_command(t_tree *node, t_env *env)
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_free_all_malloc();
-		//ft_free_env
+		free_env(&env);
 		exit(les);
 	}
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
@@ -50,7 +50,7 @@ void	exit_non_numeric(char **arg, t_env *env)
 	ft_putstr_fd(arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 	ft_free_all_malloc();
-	//ft_free_env
+	free_env(&env);
 	exit(2);
 }
 

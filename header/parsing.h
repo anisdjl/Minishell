@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/12 14:37:46 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/18 16:37:42 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_redir
 	char				*value;
 	int					type;
 	int					flag;
+	char				*file_name;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -72,6 +73,7 @@ typedef struct s_tree
 {
 	t_value_node 		*n_value;
 	int					flag;
+	int					fd_r;
 	t_enum				type;
 	t_redir				*redirs;
 	t_token				*data;

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 09:24:50 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/18 11:06:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/18 11:23:14 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 static void	*ft_create_string(char *str, int nbchar, long nb)
 {
 	if (nb < 0)
-	{
-		str = malloc(sizeof(char) * (nbchar + 2));
-	}
+		str = ft_malloc(1, sizeof(char) * (nbchar + 2));
 	else
-	{		
-		str = malloc(sizeof(char) * (nbchar + 1));
-	}
+		str = ft_malloc(1, sizeof(char) * (nbchar + 1));
 	return (str);
 }
 

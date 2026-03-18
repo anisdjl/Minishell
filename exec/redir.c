@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:28:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:41 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:20:10 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	redir_function(t_tree *node)
 			return_value = (redir_in(tmp));
 		else if (tmp->type == 5 || tmp->type == 7)
 			return_value = (redir_out(tmp));
+		else if (tmp->type == HERE_DOC)
+			return_value = heredoc_redir(node);
 		if (return_value != 0)
 			return (return_value);
 		tmp = tmp->next;
