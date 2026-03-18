@@ -34,8 +34,8 @@ int						predict_expand_size(t_value_node *n_value, t_env *env);
 
 /* Expand utils */
 
-void	expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env);
-void    expand_return(t_expand *exp_data, t_value_node *n_value, t_env *env);
-void    expand_$$(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void	                expand_classic(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void                    expand_return(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void                    expand_$$(t_expand *exp_data, t_value_node *n_value, t_env *env);
 
 #endif

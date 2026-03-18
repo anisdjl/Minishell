@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/12 14:37:46 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/18 17:04:18 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_token					*AST_EVAL_OP(t_token *start, t_token *end);
 /* AST Utils */
 
 t_token					*find_op(t_token *start, t_token *end, t_enum type);
-int						AST_check_start(t_token *token);
+int						AST_check_menu(t_token *token);
 void					print_ast(t_tree *tree, char *prefix, int is_left);
 void 					print_redirs(t_redir *redir);
 int						count_word(t_token *start, t_token *end);
