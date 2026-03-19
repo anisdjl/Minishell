@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/19 15:01:19 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/19 16:46:33 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,12 @@ SRC = main.c \
 	garbage_collector/gc1.c \
 	garbage_collector/gc2.c \
 	tokenization/check.c \
-	src/AST/AST_check.c \
+	src/AST/synthax_check.c \
 	src/AST/AST.c \
 	src/AST/AST_subshell.c \
 	src/AST/AST_utils.c \
 	src/AST/AST_utils2.c \
+	src/AST/consecutive_op.c \
 	src/expand/extraction.c \
 	env/env.c \
 	exec/exec.c \
@@ -44,7 +45,7 @@ SRC = main.c \
 	exec/exit_pipes.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c \
-	src/expand/expand_utils.c \
+	src/expand/expand_case.c \
 	src/expand/expand_split.c \
 	signals/signals.c
 
