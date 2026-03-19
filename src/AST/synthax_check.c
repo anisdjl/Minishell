@@ -35,8 +35,8 @@ int	check_cons_op_subshell(t_token **token)
 		if (tmp->type == L_PARENTHESE && (tmp->next->type == AND
 				|| tmp->next->type == OR)) //  ( && echo hello)
 			state = 0;
-		else if (tmp->type == L_PARENTHESE && (tmp->next->type == AND
-				|| tmp->next->type == OR))
+		else if ((tmp->type == AND || tmp->type == OR)
+			&& (tmp->next->type == R_PARENTHESE)) // (echo hello &&)
 			state = 0;
 		tmp = tmp->next;
 	}
@@ -81,7 +81,7 @@ int	check_consecutive_op(t_token **token)
 	while (tmp->next)
 	{
 		if ((tmp->type == AND || tmp->type == OR)
-			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A)) // || <<, || <, && <<,&& < 
+			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A)) 
 			state = 1;
 		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
 				&& tmp->type != R_PARENTHESE && tmp->type != F_FILE)

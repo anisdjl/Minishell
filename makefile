@@ -6,7 +6,7 @@
 #    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/19 17:54:59 by eprieur          ###   ########.fr        #
+#    Updated: 2026/03/19 17:56:37 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRC = main.c \
 	src/expand/wash_quote.c \
 	src/expand/expand_case.c \
 	src/expand/expand_split.c \
-	src/expand/expand_utils.c \
 	signals/signals.c
 
 OBJ = $(SRC:.c=.o)
