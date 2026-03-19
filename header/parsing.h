@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/19 15:53:53 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/19 17:55:08 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_redir
 	char				*value;
 	int					type;
 	int					flag;
+	char				*file_name;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -72,6 +73,7 @@ typedef struct s_tree
 {
 	t_value_node 		*n_value;
 	int					flag;
+	int					fd_r;
 	t_enum				type;
 	t_redir				*redirs;
 	t_token				*data;

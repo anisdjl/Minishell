@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/12 13:36:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:58:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_env *get_env(char **envp)
 		if (!new)
 		{
 			ft_free_all_malloc();
-			//ft_free_env();
+			free_env(&env);
 			exit(EXIT_FAILURE);
 		}
 		new->next = NULL;
@@ -129,6 +129,48 @@ int	env_command_for_export(t_tree *node, t_env **env)
 	}
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
+}
+
+void	free_env(t_env **env) // une boucle qui free tout
+{
+	t_env	*tmp;
+	t_env	*next;
+
+	if (!env || !*env)
+		return ;
+	tmp = (*env);
+	free(tmp->exit_status);
+	free_pid(&(*env)->pid);
+	while (tmp)
+	{
+		next = tmp->next;
+		tmp->next = NULL;
+		if (tmp->key)
+		free(tmp->key);
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	(*env) = NULL;
+}
+
+void	free_pid(t_pid **pid)
+{
+	t_pid	*tmp;
+	t_pid	*next;
+
+	if (!pid || !*pid)
+		return ;
+	tmp = (*pid);
+	while (tmp)
+	{
+		next = tmp->next;
+		tmp->next = NULL;
+		free(tmp);
+		tmp = next;
+	}
+	(*pid) = NULL;
 }
 
 // void	free_env(t_env **env) elle ne marche pas

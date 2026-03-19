@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/19 16:50:50 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/19 17:54:36 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int main(int argc, char **argv, char **envp)
     int fd;
     t_lexer		*lexer;
 	t_env		*env;
+	t_tree		*ast;
 
 	sig();
 	env = get_env(envp);
-    // domain_expand(tmp_tree(), env); // domain_expand(le noeud de l'ast a etendre, l'environnement);
+   // domain_expand(tmp_tree(), env); // Sert au test de l'expand
     while (1)
     {
 		if (g_signal != 0)
@@ -34,7 +35,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			// write(1, "\n", 1);
 			ft_free_all_malloc();
-			// free_env;
+			free_env(&env);
 			exit(0);
 		}
 		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line))
@@ -46,8 +47,9 @@ int main(int argc, char **argv, char **envp)
 		if (!check_parentheses(line) || !check_quotes(line))
 			continue;
 		lexer = ft_lexer(line);
-		// debug_tokens(&lexer->content);
-		exec(AST_launcher(lexer->content), env);
+		ast = AST_launcher(lexer->content);
+		pre_exec(ast, env);
+		exec(ast, env);
 		// printf("%d\n", env->exit_status->exit_status);
 		ft_free_all_malloc();
 		//free env
