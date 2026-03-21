@@ -57,7 +57,7 @@ int		expand_spe_case(t_expand *exp_data, t_value_node *n_value, t_env *env)
 		expand_$$(exp_data, n_value, env);
 		return (1);
 	}
-    else if (n_value->value[exp_data->i] == '$' && !ft_isalnum(n_value->value[exp_data->i + 1]))
+    else if (n_value->value[exp_data->i] == '$' && n_value->value[exp_data->i + 1] == '$')
     {
         expand_$(exp_data, n_value, env);
         return (1);
