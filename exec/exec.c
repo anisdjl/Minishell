@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 14:53:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:27:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exec(t_tree *ast, t_env *env)
 {
 	if (!ast)
 		return (1);
-	domain_expand(ast, env);
+	//domain_expand(ast, env);
 	if (ast->type == AND)
 	{
 		env->exit_status->exit_status = exec(ast->left, env);
@@ -73,7 +73,7 @@ int	exec_cmd(t_tree *node, t_env *env)
 {
 	char	**arg;
 
-	// domain_expand(node, env);
+	domain_expand(node, env);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
@@ -106,6 +106,7 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	int		pid;
 	int		status;
 
+	wash_start(node->n_value);
 	status = 0;
 	if ((pid = fork()) < 0)
 	{
@@ -114,6 +115,8 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	}
 	if (pid == 0) // on est dans le fils
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redir_function(node) == 1)
 			exit (1);
 		child(node, env);
@@ -121,6 +124,13 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	else if (pid != 0)
 	{
 		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status))
+    	{
+        	if (WTERMSIG(status) == SIGINT)
+            	write(1, "\n", 1);
+        	else if (WTERMSIG(status) == SIGQUIT)
+            	write(1, "Quit (core dumped)\n", 1);
+    }
 		if (WIFEXITED(status))
 			env->exit_status->exit_status = WEXITSTATUS(status);
 		return (env->exit_status->exit_status);
@@ -152,7 +162,7 @@ int	child(t_tree *node, t_env *env)
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
 	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(arg[0], 2),
-	ft_putstr_fd(": permission denied\n", 2));
+	ft_putstr_fd(": No such file or directory\n", 2));
 	ft_free_all_malloc();
 	exit (127);
 }

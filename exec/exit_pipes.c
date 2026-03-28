@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 10:53:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:23:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 void	exit_non_numeric_pipes(char **arg, t_env *env)
 {
 	//ft_putstr_fd("exit\n", 2);
-	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd("minishell: exit:", 2);
 	ft_putstr_fd(arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 	ft_free_all_malloc();

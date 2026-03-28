@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/28 11:16:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:16:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int	cd_command(t_tree *node, t_env *env)
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	getcwd(current_dir, 4096);
-	if (chdir(arg[1]) != 0 || size_of_table(arg) > 2)
+	if (size_of_table(arg) > 2)
+	{
+		ft_putstr_fd("minishell: too many arguments\n", 2);
+		return (1);
+	}
+	if (chdir(arg[1]) != 0)
 	{
 		ft_putstr_fd(arg[0], 2);
 		write(2, ": ", 2);
@@ -144,7 +149,8 @@ int	echo_command2(t_tree *node, t_env *env)
 	while (arg[y])
 	{
 		ft_putstr_fd(arg[y], 1);
-		ft_putchar_fd(' ', 1);
+		if (y < size_of_table(arg) - 1)
+			ft_putchar_fd(' ', 1);
 		y++;
 	}
 	ft_putchar_fd('\n', 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/19 18:19:47 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/28 18:05:23 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,29 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 	t_tree		*ast;
 
-	sig();
+	//sig();
 	env = get_env(envp);
    // domain_expand(tmp_tree(), env); // Sert au test de l'expand
     while (1)
     {
 		if (g_signal != 0)
 			env->exit_status->exit_status += g_signal;
-		//sig(env);
+		set_interactive_signals();
 		line = readline("minishell> ");
 		if (!line)
 		{
-			// write(1, "\n", 1);
-			ft_free_all_malloc();
-			free_env(&env);
-			exit(0);
+			break;
+			// // write(1, "\n", 1);
+			// ft_free_all_malloc();
+			// free_env(&env);
+			// exit(0);
 		}
-		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line))
+		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line)) // ajouter la secu pour le tab dans only spaces
 		{   
 			free(line); 
 			continue;
 		}
+		set_execution_signals();
 		history(line);
 		if (!check_parentheses(line) || !check_quotes(line))
 			continue;
