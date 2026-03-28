@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 12:03:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 16:54:54 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 10:52:12 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	create_file(t_tree *node, t_env *env, t_redir *redir)
 	return (0);
 }
 
-int	heredoc_redir(t_tree *node)
+void	heredoc_redir(t_tree *node)
 {
 	int	fd_in;
 	dup2(node->fd_r, 0);

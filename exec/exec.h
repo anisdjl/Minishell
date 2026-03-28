@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/18 15:17:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 10:56:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ int		echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out);
 int		unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 int		export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
-int		exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 void	exit_non_numeric_pipes(char **arg, t_env *env);
 void	numeric_exit_pipes(char **arg, char *nptr, t_env *env);
 int		subshell(t_tree *node, t_env *env);
 char	*generate_herdoc_name(int index);
-int		heredoc_redir(t_tree *node);
+void	heredoc_redir(t_tree *node);
 int		create_file(t_tree *node, t_env *env, t_redir *redir);
 void	write_in_file(t_tree *node, t_env *env, t_redir *redir);
 void	here_doc(t_tree *node, t_env *env);

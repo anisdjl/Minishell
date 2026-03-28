@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 15:18:12 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 10:57:45 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	exec_cmd(t_tree *node, t_env *env)
 {
 	char	**arg;
 
-	//domain_expand(node, env);
+	// domain_expand(node, env);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
