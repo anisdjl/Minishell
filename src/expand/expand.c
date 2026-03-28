@@ -12,7 +12,7 @@ void	init_expand(t_expand *exp_data, t_value_node *n_value, t_env *env)
 	exp_data->in_dquote = 0;
 	exp_data->in_squote = 0;
 	exp_data->clean_vers = ft_malloc(sizeof(char), size);
-	// printf("taille alloue : %i\n", size);
+	printf("taille alloue : %i\n", size);
 }
 
 void	expand(t_value_node *n_value, t_env *env)
@@ -46,8 +46,7 @@ void	domain_expand(t_tree *node, t_env *env)
 	while (tmp)
 	{
 		expand(tmp, env);
-		wash_machine(tmp);
-		// printf("Value : %s\n", tmp->value);
+		printf("Value : %s\n", tmp->value);
 		tmp = tmp->next;
 	}
 }
