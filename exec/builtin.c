@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 11:16:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	echo_command(t_tree *node, t_env *env)
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
 		save_fds(&fd_in, &fd_out);
-		if (redir_function(node));
+		if (redir_function(node))
 			return (1);
 		y = 2;
 		if (arg[2] == NULL)
