@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:35 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 11:17:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
+void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	int	fd[2];
 	int	pid;
@@ -57,7 +57,7 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 	return (pid);
 }
 
-int	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
+void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	char	*path;
 	char	**paths;

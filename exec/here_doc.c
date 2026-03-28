@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 12:03:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 16:54:54 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 11:13:54 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,17 @@ int	create_file(t_tree *node, t_env *env, t_redir *redir)
 
 int	heredoc_redir(t_tree *node)
 {
+	int value;
+
 	int	fd_in;
-	dup2(node->fd_r, 0);
+	value =	dup2(node->fd_r, 0);
+	if (value < 0)
+	{
+		perror("Error: ");
+		return (value);
+	}
 	close(node->fd_r);
+	return (0);
 	// if (access(node->redirs->file_name, R_OK | F_OK) == -1)
 	// {
 	// 	ft_putstr_fd("minishell: ", 2);

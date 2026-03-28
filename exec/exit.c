@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 17:24:52 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 11:10:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exit_command(t_tree *node, t_env *env)
+void	exit_command(t_tree *node, t_env *env)
 {
 	char	**arg;
 	int		les;

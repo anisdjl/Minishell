@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 10:53:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
+void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
 	char	**arg;
 	int		les;
