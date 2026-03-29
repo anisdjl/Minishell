@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 17:42:43 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 15:22:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 	}
 	if (pid == 0)
 	{
+		if (redir_for_pipes(node, &fd_in, &fd_out))
+			exit (1);
 		if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
 		{
-			redir_for_pipes(node, &fd_in, &fd_out);
 			child_pipe(node, env, fd_in, fd_out);
 		}
 	}
@@ -89,8 +90,23 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
 	execve(path, arg, env_tab);
-	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(arg[0], 2),
-	ft_putstr_fd(": permission denied\n", 2));
+	if (errno == EACCES)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+   		ft_putstr_fd(": Permission denied\n", 2);
+    	exit(126);
+	}
+	if (errno == EISDIR)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+    	ft_putstr_fd(": Is a directory\n", 2);
+    	exit(126);
+	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	ft_free_all_malloc();
 	exit (127);
 }
@@ -175,44 +191,65 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 
 int	redir_in_pipe(t_redir *redir, int *fd_in)
 {
-	if (access(redir->value, R_OK | F_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	*fd_in = open(redir->value, O_RDONLY);
-	if (*fd_in < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(*fd_in, 0);
-	close(*fd_in);
-	return (0);
-}
+    int		fd;
+    char	*path;
 
+    path = strip_quotes_redir(redir->value);
+    if (!path)
+        return (1);
+    if (redir_is_directory(path))
+        return (free(path), 1);
+    if (access(path, F_OK | R_OK) == -1)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        perror(path);
+        return (free(path), 1);
+    }
+    fd = open(path, O_RDONLY);
+    if (fd < 0)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        perror(path);
+        return (free(path), 1);
+    }
+    if (dup2(fd, STDIN_FILENO) == -1)
+    {
+        close(fd);
+        return (free(path), 1);
+    }
+    close(fd);
+    *fd_in = 0;
+    free(path);
+    return (0);
+}
 
 int	redir_out_pipe(t_redir *redir, int *fd_out)
 {
-	if (redir->type == 5)
-		*fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (redir->type == 7)
-		*fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (*fd_out < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);	
-	}
-	if (access(redir->value, W_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(*fd_out, 1);
-	close(*fd_out);
-	return (0);
+    int		fd;
+    char	*path;
+
+    path = strip_quotes_redir(redir->value);
+    if (!path)
+        return (1);
+    if (redir_is_directory(path))
+        return (free(path), 1);
+    if (redir->type == 5)
+        fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    else
+        fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0644);
+    if (fd < 0)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        perror(path);
+        return (free(path), 1);
+    }
+    if (dup2(fd, STDOUT_FILENO) == -1)
+    {
+        close(fd);
+        return (free(path), 1);
+    }
+    close(fd);
+    *fd_out = 1;
+    free(path);
+    return (0);
 }

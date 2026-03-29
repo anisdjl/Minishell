@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/28 11:21:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 14:56:03 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ int		create_file(t_tree *node, t_env *env, t_redir *redir);
 void	write_in_file(t_tree *node, t_env *env, t_redir *redir);
 void	here_doc(t_tree *node, t_env *env);
 void	pre_exec(t_tree *node, t_env *env);
+char	*strip_quotes_redir(const char *src);
+int		redir_is_directory(char *path);
 
 #endif

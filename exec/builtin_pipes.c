@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 18:15:50 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 15:17:55 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	cd_command_pipe(t_tree *node, t_env *env, int *fd_in , int *fd_out)
 	char	current_dir[4096];
 	char	**arg;
 
-	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit(1);
@@ -46,7 +45,6 @@ int pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	void	*ptr;
 	
 	tmp = env;
-	wash_start(node->n_value);
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit(1);
 	ptr = getcwd(current_dir, 4096);
@@ -92,7 +90,6 @@ int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	int	y;
 	char	**arg;
 
-	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
@@ -149,10 +146,12 @@ int	builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out)
 {
 	char	**arg;
 
+	wash_start(node->n_value);
 	if (*fd_in != 0)
-		(dup2(*fd_in, 0), close(*fd_in));
+		dup2(*fd_in, 0);
 	if (*fd_out != 1)
-		(dup2(*fd_out, 1), close(*fd_out));
+		dup2(*fd_out, 1);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)

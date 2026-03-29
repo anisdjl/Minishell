@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:05:40 by anis              #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:44 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 12:28:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	unset_command(t_tree *node, t_env **env)
 
 	arg = args_to_tab(node->n_value);
 	((y = 1), save_fds(&fd_in, &fd_out));
-	redir_function(node);
-		//return (1);
+	if (redir_function(node))
+		return (1);
 	if (!env || !*env)
 		return (reset_and_close(&fd_in, &fd_out), 0);
 	while (arg[y])

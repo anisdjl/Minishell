@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 18:34:24 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 14:36:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	exec_cmd(t_tree *node, t_env *env)
 	char	**arg;
 
 	domain_expand(node, env);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
@@ -106,7 +107,6 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	int		pid;
 	int		status;
 
-	wash_start(node->n_value);
 	status = 0;
 	if ((pid = fork()) < 0)
 	{
@@ -144,8 +144,7 @@ int	child(t_tree *node, t_env *env)
 	char	**paths;
 	char	**env_tab;
 	char	**arg;
-	
-	wash_start(node->n_value);
+
 	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
@@ -161,8 +160,23 @@ int	child(t_tree *node, t_env *env)
 	else
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
-	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(arg[0], 2),
-	ft_putstr_fd(": No such file or directory\n", 2));
+	if (errno == EACCES)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+   		ft_putstr_fd(": Permission denied\n", 2);
+    	exit(126);
+	}
+	if (errno == EISDIR)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+    	ft_putstr_fd(": Is a directory\n", 2);
+    	exit(126);
+	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	ft_free_all_malloc();
 	exit (127);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/05 12:28:58 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/29 12:58:18 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	check_parentheses(char *line)
 	}
 	if (par != 0)
 	{
-		free(line);
-		printf("Syntax error : parenthese not closed\n");
-		return (0);
+		//free(line);
+		ft_putstr_fd("Syntax error : parenthese not closed\n", 2);
+		return (1);
 	}
 	else
 		return (1);
@@ -56,9 +56,9 @@ int	check_quotes(char *line)
 	}
 	if (in_dquote == 1 || in_squote == 1)
 	{
-		free(line);
-		printf("Syntax error : quote not closed\n");
-		return (0);
+		//free(line);
+		ft_putstr_fd("Syntax error : quote not closed\n", 2);
+		return (1);
 	}
 	else
 		return (1);

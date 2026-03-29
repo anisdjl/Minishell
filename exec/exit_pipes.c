@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 18:23:57 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 12:52:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 		exit(1);
 	if (size_of_table(arg) == 1)
 	{
-		//ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("exit\n", 2);
 		ft_free_all_malloc();
-		//ft_free_env
+		free_env(&env);
 		exit(les);
 	}
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
