@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 15:18:12 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 14:36:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec(t_tree *ast, t_env *env)
 {
 	if (!ast)
 		return (1);
+	//domain_expand(ast, env);
 	if (ast->type == AND)
 	{
 		env->exit_status->exit_status = exec(ast->left, env);
@@ -72,7 +73,8 @@ int	exec_cmd(t_tree *node, t_env *env)
 {
 	char	**arg;
 
-	//domain_expand(node, env);
+	domain_expand(node, env);
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
@@ -94,7 +96,7 @@ int	exec_cmd(t_tree *node, t_env *env)
 		return (env_command(node, &env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "exit", 4) == 0)
-		return (exit_command(node, env));
+		exit_command(node, env);
 	else
 		return (exec_normal_command(node, env));
 	return (1);
@@ -113,6 +115,8 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	}
 	if (pid == 0) // on est dans le fils
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redir_function(node) == 1)
 			exit (1);
 		child(node, env);
@@ -120,6 +124,13 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	else if (pid != 0)
 	{
 		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status))
+    	{
+        	if (WTERMSIG(status) == SIGINT)
+            	write(1, "\n", 1);
+        	else if (WTERMSIG(status) == SIGQUIT)
+            	write(1, "Quit (core dumped)\n", 1);
+    }
 		if (WIFEXITED(status))
 			env->exit_status->exit_status = WEXITSTATUS(status);
 		return (env->exit_status->exit_status);
@@ -133,8 +144,7 @@ int	child(t_tree *node, t_env *env)
 	char	**paths;
 	char	**env_tab;
 	char	**arg;
-	
-	wash_start(node->n_value);
+
 	arg = args_to_tab(node->n_value);
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
@@ -150,8 +160,23 @@ int	child(t_tree *node, t_env *env)
 	else
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
-	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(arg[0], 2),
-	ft_putstr_fd(": permission denied\n", 2));
+	if (errno == EACCES)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+   		ft_putstr_fd(": Permission denied\n", 2);
+    	exit(126);
+	}
+	if (errno == EISDIR)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+    	ft_putstr_fd(": Is a directory\n", 2);
+    	exit(126);
+	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	ft_free_all_malloc();
 	exit (127);
 }

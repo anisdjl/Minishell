@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:35 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 16:44:36 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
+void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	int	fd[2];
 	int	pid;
@@ -28,6 +28,8 @@ int	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 		close(fd[1]);
 		handle_pipes(node->right, env, fd[0], fd_out);
 		close(fd[0]);
+		if (fd_in != 0)
+            close(fd_in);
 	}
 	else if (node->type == WORD)
 	{
@@ -47,17 +49,23 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 		exit(EXIT_FAILURE); // + free env
 	}
 	if (pid == 0)
-	{
-		if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
-		{
-			redir_for_pipes(node, &fd_in, &fd_out);
-			child_pipe(node, env, fd_in, fd_out);
-		}
+    {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+        
+        if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
+        {
+            if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
+                exit(1);
+            child_pipe(node, env, fd_in, fd_out);
+        }
+        else
+            exit(env->exit_status->exit_status);
 	}
 	return (pid);
 }
 
-int	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
+void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	char	*path;
 	char	**paths;
@@ -89,8 +97,23 @@ int	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
 	execve(path, arg, env_tab);
-	(ft_putstr_fd("minishell: ", 2), ft_putstr_fd(arg[0], 2),
-	ft_putstr_fd(": permission denied\n", 2));
+	if (errno == EACCES)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+   		ft_putstr_fd(": Permission denied\n", 2);
+    	exit(126);
+	}
+	if (errno == EISDIR)
+	{
+    	ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+    	ft_putstr_fd(": Is a directory\n", 2);
+    	exit(126);
+	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	ft_free_all_malloc();
 	exit (127);
 }
@@ -173,46 +196,49 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 	return (return_value);
 }
 
-int	redir_in_pipe(t_redir *redir, int *fd_in)
+int redir_in_pipe(t_redir *redir, int *fd_in)
 {
-	if (access(redir->value, R_OK | F_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	*fd_in = open(redir->value, O_RDONLY);
-	if (*fd_in < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(*fd_in, 0);
-	close(*fd_in);
-	return (0);
+    struct stat st;
+
+    if (stat(redir->value, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(redir->value, 2);
+        ft_putendl_fd(": Is a directory", 2);
+        return (1);
+    }
+    if (access(redir->value, F_OK | R_OK) == -1)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        perror(redir->value);
+        return (1);
+    }
+    if (*fd_in != 0)
+        close(*fd_in);
+    *fd_in = open(redir->value, O_RDONLY);
+    return (0);
 }
 
-
-int	redir_out_pipe(t_redir *redir, int *fd_out)
+int redir_out_pipe(t_redir *redir, int *fd_out)
 {
-	if (redir->type == 5)
-		*fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (redir->type == 7)
-		*fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (*fd_out < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);	
-	}
-	if (access(redir->value, W_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(redir->value);
-		return (1);
-	}
-	dup2(*fd_out, 1);
-	close(*fd_out);
-	return (0);
+    struct stat st;
+
+    if (stat(redir->value, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_putstr_fd("minishell: Is a directory\n", 2);
+        return (1);
+    }
+    
+    if (redir->type == 5)
+        *fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    else if (redir->type == 7)
+        *fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
+    
+    if (*fd_out < 0)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        perror(redir->value);
+        return (1); 
+    }
+    return (0);
 }

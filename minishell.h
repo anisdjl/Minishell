@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 10:45:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 14:09:33 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <sys/stat.h>
 # include "header/parsing.h"
 # include "header/expand.h"
 # include "header/utils.h"
@@ -43,6 +44,7 @@
 # include <signal.h>
 # include "signals/signals.h"
 # include "header/expand.h"
+
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);
 void	ft_free_malloc(void *ptr);

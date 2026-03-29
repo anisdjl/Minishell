@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 14:30:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@ int	cd_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
-	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	save_fds(&fd_in, &fd_out);
-	redir_function(node);
+	if (redir_function(node))
+	{
+		reset_and_close(&fd_in, &fd_out);
+		return (1);
+	}
 	getcwd(current_dir, 4096);
-	if (chdir(arg[1]) != 0 || size_of_table(arg) > 2)
+	if (size_of_table(arg) > 2)
+	{
+		ft_putstr_fd("minishell: too many arguments\n", 2);
+		return (1);
+	}
+	if (chdir(arg[1]) != 0)
 	{
 		ft_putstr_fd(arg[0], 2);
 		write(2, ": ", 2);
@@ -45,9 +53,12 @@ int pwd_command(t_tree *node, t_env *env)
 	int		fd_out;
 	
 	tmp = env;
-	wash_start(node->n_value);
 	save_fds(&fd_in, &fd_out);
-	redir_function(node); // PROBLEME ICI pwd ne marche plus a cause des redirs il renvoit tout le temps 1
+	if (redir_function(node))
+	{
+		reset_and_close(&fd_in, &fd_out);
+		return (1);
+	} // PROBLEME ICI pwd ne marche plus a cause des redirs il renvoit tout le temps 1
 	ptr = getcwd(current_dir, 4096);
 	if (ptr)
 		printf("%s\n", current_dir);
@@ -77,7 +88,10 @@ int	env_command(t_tree *node, t_env **env)
 		return (0);
 	save_fds(&fd_in, &fd_out);
 	if (redir_function(node))
+	{
+		reset_and_close(&fd_in, &fd_out);
 		return (1);
+	}
 	tmp = *env;
 	while(tmp)
 	{
@@ -97,13 +111,15 @@ int	echo_command(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
-	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg[1] && !check_n(arg[1])) // option -n
 	{
 		save_fds(&fd_in, &fd_out);
-		if (redir_function(node));
+		if (redir_function(node))
+		{
+			reset_and_close(&fd_in, &fd_out);
 			return (1);
+		}
 		y = 2;
 		if (arg[2] == NULL)
 			return (0);
@@ -135,7 +151,11 @@ int	echo_command2(t_tree *node, t_env *env)
 	arg = args_to_tab(node->n_value);
 	y = 1;
 	save_fds(&fd_in, &fd_out);
-	redir_function(node);
+	if (redir_function(node))
+	{
+		reset_and_close(&fd_in, &fd_out);
+		return (1);
+	}
 	if (arg[1] == NULL)
 	{
 		ft_putchar_fd('\n', 1);
@@ -144,7 +164,8 @@ int	echo_command2(t_tree *node, t_env *env)
 	while (arg[y])
 	{
 		ft_putstr_fd(arg[y], 1);
-		ft_putchar_fd(' ', 1);
+		if (y < size_of_table(arg) - 1)
+			ft_putchar_fd(' ', 1);
 		y++;
 	}
 	ft_putchar_fd('\n', 1);

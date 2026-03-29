@@ -76,6 +76,6 @@ int	predict_expand_size(t_value_node *n_value, t_env *env)
         exp_data.size++;
 		exp_data.i++;
 	}
-    return (exp_data.size);
+    return (exp_data.size + 1);
 }
 

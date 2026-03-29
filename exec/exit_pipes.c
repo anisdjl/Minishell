@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 12:52:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
+void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
 	char	**arg;
 	int		les;
@@ -23,9 +23,9 @@ int	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 		exit(1);
 	if (size_of_table(arg) == 1)
 	{
-		//ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("exit\n", 2);
 		ft_free_all_malloc();
-		//ft_free_env
+		free_env(&env);
 		exit(les);
 	}
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
@@ -43,7 +43,7 @@ int	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 void	exit_non_numeric_pipes(char **arg, t_env *env)
 {
 	//ft_putstr_fd("exit\n", 2);
-	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd("minishell: exit:", 2);
 	ft_putstr_fd(arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 	ft_free_all_malloc();
