@@ -6,7 +6,7 @@
 /*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 16:31:20 by anis             ###   ########.fr       */
+/*   Updated: 2026/03/29 16:44:36 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 			exit(EXIT_FAILURE); // + free env
 		}
 		handle_pipes(node->left, env, fd_in , fd[1]);
-		// close(fd[1]);
-		if (fd_in != STDIN_FILENO) close(fd_in); // Nettoyage
-        close(fd[1]);
+		close(fd[1]);
 		handle_pipes(node->right, env, fd[0], fd_out);
 		close(fd[0]);
+		if (fd_in != 0)
+            close(fd_in);
 	}
 	else if (node->type == WORD)
 	{
@@ -49,13 +49,18 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 		exit(EXIT_FAILURE); // + free env
 	}
 	if (pid == 0)
-	{
-		if (redir_for_pipes(node, &fd_in, &fd_out))
-			exit (1);
-		if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
-		{
-			child_pipe(node, env, fd_in, fd_out);
-		}
+    {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+        
+        if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
+        {
+            if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
+                exit(1);
+            child_pipe(node, env, fd_in, fd_out);
+        }
+        else
+            exit(env->exit_status->exit_status);
 	}
 	return (pid);
 }
@@ -191,67 +196,49 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 	return (return_value);
 }
 
-int	redir_in_pipe(t_redir *redir, int *fd_in)
+int redir_in_pipe(t_redir *redir, int *fd_in)
 {
-    int		fd;
-    char	*path;
+    struct stat st;
 
-    path = strip_quotes_redir(redir->value);
-    if (!path)
+    if (stat(redir->value, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(redir->value, 2);
+        ft_putendl_fd(": Is a directory", 2);
         return (1);
-    if (redir_is_directory(path))
-        return (free(path), 1);
-    if (access(path, F_OK | R_OK) == -1)
+    }
+    if (access(redir->value, F_OK | R_OK) == -1)
     {
         ft_putstr_fd("minishell: ", 2);
-        perror(path);
-        return (free(path), 1);
+        perror(redir->value);
+        return (1);
     }
-    fd = open(path, O_RDONLY);
-    if (fd < 0)
-    {
-        ft_putstr_fd("minishell: ", 2);
-        perror(path);
-        return (free(path), 1);
-    }
-    if (dup2(fd, STDIN_FILENO) == -1)
-    {
-        close(fd);
-        return (free(path), 1);
-    }
-    close(fd);
-    *fd_in = 0;
-    free(path);
+    if (*fd_in != 0)
+        close(*fd_in);
+    *fd_in = open(redir->value, O_RDONLY);
     return (0);
 }
 
-int	redir_out_pipe(t_redir *redir, int *fd_out)
+int redir_out_pipe(t_redir *redir, int *fd_out)
 {
-    int		fd;
-    char	*path;
+    struct stat st;
 
-    path = strip_quotes_redir(redir->value);
-    if (!path)
+    if (stat(redir->value, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_putstr_fd("minishell: Is a directory\n", 2);
         return (1);
-    if (redir_is_directory(path))
-        return (free(path), 1);
+    }
+    
     if (redir->type == 5)
-        fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    else
-        fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0644);
-    if (fd < 0)
+        *fd_out = open(redir->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    else if (redir->type == 7)
+        *fd_out = open(redir->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
+    
+    if (*fd_out < 0)
     {
         ft_putstr_fd("minishell: ", 2);
-        perror(path);
-        return (free(path), 1);
+        perror(redir->value);
+        return (1); 
     }
-    if (dup2(fd, STDOUT_FILENO) == -1)
-    {
-        close(fd);
-        return (free(path), 1);
-    }
-    close(fd);
-    *fd_out = 1;
-    free(path);
     return (0);
 }
