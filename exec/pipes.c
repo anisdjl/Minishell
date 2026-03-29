@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anis <anis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 15:22:11 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 16:31:20 by anis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 			exit(EXIT_FAILURE); // + free env
 		}
 		handle_pipes(node->left, env, fd_in , fd[1]);
-		close(fd[1]);
+		// close(fd[1]);
+		if (fd_in != STDIN_FILENO) close(fd_in); // Nettoyage
+        close(fd[1]);
 		handle_pipes(node->right, env, fd[0], fd_out);
 		close(fd[0]);
 	}
