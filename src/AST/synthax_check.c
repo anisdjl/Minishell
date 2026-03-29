@@ -2,7 +2,7 @@
 
 int	AST_check_start(t_token *token)
 {
-	if (token->type == AND || token->type == OR)
+	if (token->type == AND || token->type == OR || token->type == PIPE)
 	{
 		printf("minishell: syntax error near unexpected token '%s'\n",
 			token->value);
@@ -110,7 +110,6 @@ int	AST_check(t_token *token)
 	return (1);
 }
 
-// if (flag & F_EXPAND)
 // (echo a &&)
 // (echo a ||)
 

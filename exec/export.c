@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:30:26 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:36:34 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	export_cmd(t_tree *node, t_env **env)
 	int 	fd_in;
 	int		fd_out;
 
-	wash_start(node->n_value);
+	// wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (!env || !*env)
 		return (0);

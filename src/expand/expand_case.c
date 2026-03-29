@@ -57,7 +57,8 @@ int		expand_spe_case(t_expand *exp_data, t_value_node *n_value, t_env *env)
 		expand_$$(exp_data, n_value, env);
 		return (1);
 	}
-    else if (n_value->value[exp_data->i] == '$' && n_value->value[exp_data->i + 1] == '$')
+    else if (n_value->value[exp_data->i] == '$' && !ft_isalnum(n_value->value[exp_data->i + 1]) 
+		&& n_value->value[exp_data->i + 1] != '\0' && n_value->value[exp_data->i + 1] != '?')
     {
         expand_$(exp_data, n_value, env);
         return (1);
@@ -82,6 +83,7 @@ void	do_expand(t_expand *exp_data, t_value_node *n_value, t_env *env)
 	{
 		if (!exp_data->in_dquote)
 			exp_data->expand_value = expand_split(exp_data->expand_value);
+		exp_data->j = 0;
 		while (exp_data->expand_value[exp_data->j])
 			exp_data->clean_vers[exp_data->k++] = exp_data->expand_value[exp_data->j++];
 		exp_data->i = exp_data->i + ft_strlen(exp_data->expand) + 1;
