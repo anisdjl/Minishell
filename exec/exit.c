@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 17:24:52 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/29 16:48:59 by volt             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	exit_command(t_tree *node, t_env *env)
 	int		les;
 	int		fd_in;
 	int		fd_out;
-
+	
 	save_fds(&fd_in, &fd_out);
 	if (redir_function(node))
 		exit (1);
 	les = env->exit_status->exit_status;
+	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (size_of_table(arg) == 1)
 	{
