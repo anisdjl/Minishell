@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:43:05 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 14:24:15 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:43:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	general_state(t_lexer *lexer, char *line, int *y)
 {
-	if (line[*y] == ' ')
+	if (line[*y] == ' ' || line[*y] == '\t')
 		create_token(lexer);
 	else if (line[*y] == '\'')
 	{

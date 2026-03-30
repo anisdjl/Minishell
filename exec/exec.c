@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 15:19:50 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:59:48 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	subshell(t_tree *node, t_env *env)
 	if (pid_subshell < 0)
 	{
 		ft_free_all_malloc();
-		//free env
+		free_env(&env);
 		exit(EXIT_FAILURE);
 	}
 	if (pid_subshell == 0)
@@ -75,6 +75,8 @@ int	exec_cmd(t_tree *node, t_env **env)
 
 	domain_expand(node, *env);
 	wash_start(node->n_value);
+	if (!node->n_value->value || only_spaces(node->n_value->value) || only_tabs(node->n_value->value))
+		return (0);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)

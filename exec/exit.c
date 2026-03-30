@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 18:00:52 by volt             ###   ########.fr       */
+/*   Updated: 2026/03/30 16:32:45 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	exit_command(t_tree *node, t_env *env)
 		exit_non_numeric(arg, env);
 	else if (size_of_table(arg) > 2)
 	{
-		//ft_putstr_fd("exit\n", 2);
-		ft_putstr_fd("minishell: too many arguments\n", 2); //ft_putstr_fd("minishell: exit: too many arguments\n", 2)
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		env->exit_status->exit_status = 1;
 		reset_and_close(&fd_in, &fd_out);
 	}
@@ -47,8 +47,8 @@ void	exit_command(t_tree *node, t_env *env)
 
 void	exit_non_numeric(char **arg, t_env *env)
 {
-	//ft_putstr_fd("exit\n", 2);
-	ft_putstr_fd("minishell ", 2); // ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
 	ft_free_all_malloc();
@@ -58,30 +58,31 @@ void	exit_non_numeric(char **arg, t_env *env)
 
 void	numeric_exit(char **arg, char *nptr, t_env *env)
 {
-	int	y;
-	int	sign;
-	long long	total;
-	int			digit;
+	int					y;
+	long long			sign;
+	unsigned long long	total;
 
-	total = 0;
-	sign = 1;
 	y = 0;
+	sign = 1;
+	total = 0;
 	if (nptr[y] == '-' || nptr[y] == '+')
-	{
-		if (nptr[y] == '-')
-			sign = -sign;
-		y++;
-	}
+		if (nptr[y++] == '-')
+			sign = -1;
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
-		digit = nptr[y] - '0';
-        if (sign == 1 && (total > (LLONG_MAX - digit) / 10))
-            exit_non_numeric(arg, env);
-        if (sign == -1 && (total > (-(LLONG_MIN + digit)) / 10))
+		if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
+				|| (total == (unsigned long long)LLONG_MAX / 10
+					&& (nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10)))
 			exit_non_numeric(arg, env);
-		total = total * 10 + nptr[y] - '0';
-		y++;
+		if (sign == -1 && (total > 9223372036854775808ULL / 10
+				|| (total == 9223372036854775808ULL / 10
+					&& (nptr[y] - '0') > 9223372036854775808ULL % 10)))
+			exit_non_numeric(arg, env);
+		total = total * 10 + (nptr[y++] - '0');
 	}
+	ft_putstr_fd("exit\n", 2);
+	ft_free_all_malloc();
+	free_env(&env);
 	exit((unsigned char)(total * sign));
 }
 

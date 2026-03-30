@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 15:19:50 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:41:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 			// free_env(&env);
 			// exit(0);
 		}
-		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line)) // ajouter la secu pour le tab dans only spaces
+		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line) || only_tabs(line)) // ajouter la secu pour le tab dans only spaces
 		{   
 			free(line); 
 			continue;
@@ -59,3 +59,4 @@ int main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+	

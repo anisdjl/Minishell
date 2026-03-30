@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 17:54:34 by volt             ###   ########.fr       */
+/*   Updated: 2026/03/30 16:40:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,21 @@ int	only_spaces(char *argv)
 	while (argv[i])
 	{
 		if (argv[i] != ' ')
+			return (0);
+		else
+			i++;
+	}
+	return (1);
+}
+
+int	only_tabs(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] != '\t')
 			return (0);
 		else
 			i++;

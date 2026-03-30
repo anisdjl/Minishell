@@ -81,7 +81,9 @@ int	check_consecutive_op(t_token **token)
 	while (tmp->next)
 	{
 		if ((tmp->type == AND || tmp->type == OR)
-			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A)) 
+			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A) 
+			&& (tmp->type == PIPE && (tmp->next->type == HERE_DOC 
+				|| tmp->next->type == APPEND || tmp->next->type == RIGHT_A || tmp->next->type == LEFT_A))) 
 			state = 1;
 		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
 				&& tmp->type != R_PARENTHESE && tmp->type != F_FILE)
@@ -92,8 +94,12 @@ int	check_consecutive_op(t_token **token)
 		tmp = tmp->next;
 	}
 	if (state == 0)
-		printf("minishell: syntax error near unexpected token '%s'\n",
-			tmp->value);
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+		//ft_putstr_fd(tmp->value, 2);
+		ft_putstr_fd("\n", 2);
+		return (1);
+	}
 	return (state);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/19 17:55:08 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/03/30 16:40:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int						check_parentheses(char *line);
 int						check_consecutive_op(t_token **token);
 int						only_spaces(char *argv);
 void					file_flag(t_token **tokens);
+int						only_tabs(char *argv);
 
 /*	AST	main func */
 
