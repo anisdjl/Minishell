@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/03/29 14:56:03 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:19:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include "../minishell.h"
 
 int		ft_lstsize_env(t_env *lst);
-int		exec(t_tree *ast, t_env *env);
+int		exec(t_tree *ast, t_env **env);
 void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out);
-int		exec_cmd(t_tree *node, t_env *env);
+int		exec_cmd(t_tree *node, t_env **env);
 char 	**env_to_tab(t_env **env);
 char	*find_path(char *cmd, char **env);
 int		given_path(char *cmd);

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/29 14:30:57 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:33:31 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	cd_command(t_tree *node, t_env *env)
 {
 	char	current_dir[4096];
-	int	fd_in;
-	int	fd_out;
+	int		fd_in;
+	int		fd_out;
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);

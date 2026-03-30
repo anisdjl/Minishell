@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 17:58:24 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:23:40 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_env *get_env(char **envp)
 			exit(EXIT_FAILURE);
 		}
 		new->next = NULL;
+		new->exit_status = NULL;
+		new->pid = NULL;
 		new->key = create_key(envp[y]);
 		ptr = ft_strchr(envp[y], '=');
 		if (ptr)

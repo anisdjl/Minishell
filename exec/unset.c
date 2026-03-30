@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 11:05:40 by anis              #+#    #+#             */
-/*   Updated: 2026/03/29 12:28:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:23:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,16 @@ void	unset_node(t_env **env, char *arg)
 			if (prev)
 				prev->next = current->next;
 			else
+			{
+				if (current->next)
+				{
+					current->next->exit_status = current->exit_status;
+					current->next->pid = current->pid;
+				}
 				*env = current->next;
+			}
+			if (current->value)
+				free(current->value);
 			free(current->key);
 			free(current);
 			return ;

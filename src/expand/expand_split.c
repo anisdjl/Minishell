@@ -18,10 +18,11 @@ char	*ft_strjoin_spe(char *s1, char *s2)
 	}
 	while (s2[j])
 		ns[i++] = s2[j++];
-	ns[i] = ' ';
+	//ns[i] = ' ';
 	ns[i + 1] = '\0';
 	return (ns);
 }
+
 char	*expand_split(char *expand_value)
 {
 	int		i;

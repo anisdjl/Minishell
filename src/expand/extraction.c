@@ -47,7 +47,7 @@ char  *extract_env_value(t_value_node *n_value, t_env *env, char *search)
         expand[i - 1] = env->value[i];
         i++;
     }
-    expand[i] = '\0';
+    expand[i - 1] = '\0';
     return (expand);
 }
 

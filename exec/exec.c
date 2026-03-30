@@ -3,45 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: volt <volt@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 18:00:14 by volt             ###   ########.fr       */
+/*   Updated: 2026/03/30 15:19:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exec(t_tree *ast, t_env *env)
+int	exec(t_tree *ast, t_env **env)
 {
 	if (!ast)
 		return (1);
 	//domain_expand(ast, env);
 	if (ast->type == AND)
 	{
-		env->exit_status->exit_status = exec(ast->left, env);
-		if (env->exit_status->exit_status == 0)
-			env->exit_status->exit_status = exec(ast->right, env);
-		return (env->exit_status->exit_status);
+		(*env)->exit_status->exit_status = exec(ast->left, env);
+		if ((*env)->exit_status->exit_status == 0)
+			(*env)->exit_status->exit_status = exec(ast->right, env);
+		return ((*env)->exit_status->exit_status);
 	}
 	else if (ast->type == OR)
 	{
-		env->exit_status->exit_status = exec(ast->left, env);
-		if (env->exit_status->exit_status != 0)
-			env->exit_status->exit_status=  exec(ast->right, env);
-		return (env->exit_status->exit_status);
+		(*env)->exit_status->exit_status = exec(ast->left, env);
+		if ((*env)->exit_status->exit_status != 0)
+			(*env)->exit_status->exit_status=  exec(ast->right, env);
+		return ((*env)->exit_status->exit_status);
 	}
 	else if (ast->type == PIPE)
 	{
-		handle_pipes(ast, env, 0, 1);
-		wait_all_pids(env);//ici le boucle wait all pipes
+		handle_pipes(ast, *env, 0, 1);
+		wait_all_pids(*env);//ici le boucle wait all pipes
 	}
 	else if (ast->type == L_PARENTHESE)
-		return (subshell(ast, env));
+		return (subshell(ast, *env));
 	else if (ast->type == WORD)
 	{
-		env->exit_status->exit_status = exec_cmd(ast, env);
-		return (env->exit_status->exit_status);
+		(*env)->exit_status->exit_status = exec_cmd(ast, env);
+		return ((*env)->exit_status->exit_status);
 	}
 	return (1);
 }
@@ -61,7 +61,7 @@ int	subshell(t_tree *node, t_env *env)
 	}
 	if (pid_subshell == 0)
 	{
-		exit(exec(node->left, env));
+		exit(exec(node->left, &env));
 	}
 	waitpid(pid_subshell, &status, 0);
 	if (WIFEXITED(status))
@@ -69,36 +69,36 @@ int	subshell(t_tree *node, t_env *env)
 	return (env->exit_status->exit_status);
 }
 
-int	exec_cmd(t_tree *node, t_env *env)
+int	exec_cmd(t_tree *node, t_env **env)
 {
 	char	**arg;
 
-	domain_expand(node, env);
+	domain_expand(node, *env);
 	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
-		return (echo_command(node, env));
+		return (echo_command(node, *env));
 	if (arg && arg[0] && ft_strlen(arg[0]) == 2 
 		&& ft_strncmp(arg[0], "cd", 2) == 0)
-	 	return (cd_command(node, env));
+	 	return (cd_command(node, *env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "pwd", 3) == 0)
-		return (pwd_command(node, env));
+		return (pwd_command(node, *env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 6
 		&& ft_strncmp(arg[0], "export", 6) == 0)
-		return (export_cmd(node, &env));
+		return (export_cmd(node, env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 5
 		&& ft_strncmp(arg[0], "unset", 5) == 0)
-		return (unset_command(node, &env));
+		return (unset_command(node, env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "env", 3) == 0)
-		return (env_command(node, &env));
+		return (env_command(node, env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "exit", 4) == 0)
-		exit_command(node, env);
+		exit_command(node, *env);
 	else
-		return (exec_normal_command(node, env));
+		return (exec_normal_command(node, *env));
 	return (1);
 }
 
