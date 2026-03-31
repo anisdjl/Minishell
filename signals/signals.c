@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 14:30:50 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:27:11 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:30:43 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 void my_handler(int sig)
 {
 	(void)sig;
+	g_signal = 1;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0); //en commentaire car ne marche pas sur mac mais il faut la remettre

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:59:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:10:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,9 @@ int	exec_normal_command(t_tree *node, t_env *env)
         	if (WTERMSIG(status) == SIGINT)
             	write(1, "\n", 1);
         	else if (WTERMSIG(status) == SIGQUIT)
-            	write(1, "Quit (core dumped)\n", 1);
-    }
+            	write(1, "Quit (core dumped)\n", 19);
+			env->exit_status->exit_status = 128 + WTERMSIG(status);
+    	}
 		if (WIFEXITED(status))
 			env->exit_status->exit_status = WEXITSTATUS(status);
 		return (env->exit_status->exit_status);

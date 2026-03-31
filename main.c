@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:41:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:35:02 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_signal = 0;
+volatile sig_atomic_t g_signal = 0;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -33,11 +33,11 @@ int main(int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (!line)
 		{
-			break;
-			// // write(1, "\n", 1);
-			// ft_free_all_malloc();
-			// free_env(&env);
-			// exit(0);
+			//break;
+			write(1, "exit", 4);
+			ft_free_all_malloc();
+			free_env(&env);
+			exit(0);
 		}
 		if (line[0] == '\n' || line[0] == '\0' || only_spaces(line) || only_tabs(line)) // ajouter la secu pour le tab dans only spaces
 		{   

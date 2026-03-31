@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:28:59 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 12:37:38 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # include <signal.h>
 # include "signals/signals.h"
 # include "header/expand.h"
+
+extern volatile sig_atomic_t g_signal;
 
 void 	history(char *line);
 void	*ft_malloc(size_t nmemb, size_t size);

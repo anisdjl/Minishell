@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 17:54:13 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 16:37:42 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 	paths = get_paths(env_tab);
 	if (arg && arg[0] && (only_spaces(arg[0]) || arg[0][0] == '\0'))
 	{
-		ft_putstr_fd("minsihell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		exit (126);

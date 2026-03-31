@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:28:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/29 14:55:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/03/31 16:41:53 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,27 +136,26 @@ int	redir_in(t_redir *redir)
     if (!path)
         return (1);
     if (redir_is_directory(path))
-        return (free(path), 1);
+        return (1);
     if (access(path, F_OK | R_OK) == -1)
     {
         ft_putstr_fd("minishell: ", 2);
         perror(path);
-        return (free(path), 1);
+        return (1);
     }
     fd_in = open(path, O_RDONLY);
     if (fd_in < 0)
     {
         ft_putstr_fd("minishell: ", 2);
         perror(path);
-        return (free(path), 1);
+        return (1);
     }
     if (dup2(fd_in, STDIN_FILENO) == -1)
     {
         close(fd_in);
-        return (free(path), 1);
+        return (1);
     }
     close(fd_in);
-    free(path);
     return (0);
 }
 
@@ -194,7 +193,7 @@ int	redir_out(t_redir *redir)
     if (!path)
         return (1);
     if (redir_is_directory(path))
-        return (free(path), 1);
+        return (1);
     if (redir->type == 5)
         fd_out = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     else
@@ -203,15 +202,14 @@ int	redir_out(t_redir *redir)
     {
         ft_putstr_fd("minishell: ", 2);
         perror(path);
-        return (free(path), 1);
+        return (1);
     }
     if (dup2(fd_out, STDOUT_FILENO) == -1)
     {
         close(fd_out);
-        return (free(path), 1);
+        return (1);
     }
     close(fd_out);
-    free(path);
     return (0);
 }
 
@@ -223,7 +221,7 @@ char	*strip_quotes_redir(const char *src)
 
     if (!src)
         return (NULL);
-    dst = malloc(sizeof(char) * (ft_strlen(src) + 1));
+    dst = ft_malloc(1, sizeof(char) * (ft_strlen(src) + 1));
     if (!dst)
         return (NULL);
     i = 0;
