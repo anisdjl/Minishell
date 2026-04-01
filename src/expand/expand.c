@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/01 17:39:19 by eprieur           #+#    #+#             */
+/*   Updated: 2026/04/01 17:52:57 by eprieur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	init_expand(t_expand *exp_data, t_value_node *n_value, t_env *env)
@@ -12,7 +24,6 @@ void	init_expand(t_expand *exp_data, t_value_node *n_value, t_env *env)
 	exp_data->in_dquote = 0;
 	exp_data->in_squote = 0;
 	exp_data->clean_vers = ft_malloc(sizeof(char), size);
-	// printf("taille alloue : %i\n", size);
 }
 
 void	expand(t_value_node *n_value, t_env *env)
@@ -27,7 +38,7 @@ void	expand(t_value_node *n_value, t_env *env)
 		else if (n_value->value[exp_data.i] == '\"')
 			exp_data.in_dquote = !exp_data.in_dquote;
 		if (n_value->value[exp_data.i] == '$' && n_value->value[exp_data.i
-			+ 1] != '\0' && (exp_data.in_dquote || !exp_data.in_squote))
+				+ 1] != '\0' && (exp_data.in_dquote || !exp_data.in_squote))
 			do_expand(&exp_data, n_value, env);
 		else
 			exp_data.clean_vers[exp_data.k++] = n_value->value[exp_data.i++];
@@ -46,9 +57,6 @@ void	domain_expand(t_tree *node, t_env *env)
 	while (tmp)
 	{
 		expand(tmp, env);
-		// wash_machine(tmp);
-		// printf("Value : %s\n", tmp->value);
 		tmp = tmp->next;
 	}
 }
-	

@@ -36,7 +36,7 @@ void					do_expand(t_expand *exp_data, t_value_node *n_value,
 							t_env *env);
 void					expand_return(t_expand *exp_data, t_value_node *n_value,
 							t_env *env);
-void 					expand_$$(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void 					expand_2dollar(t_expand *exp_data, t_value_node *n_value, t_env *env);
 char					*expand_split(char *expand_value);
 
 #endif

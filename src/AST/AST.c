@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-t_tree	*AST_VALUE_NODE(t_token *start, t_token *end)
+t_tree	*ast_value_node(t_token *start, t_token *end)
 {
 	t_tree	*node;
 	t_value_node *new_value;
@@ -62,7 +62,7 @@ t_tree	*AST(t_token *start, t_token *end)
 	}
 	op_pos = AST_EVAL_OP(start, end);
 	if (!op_pos)
-		return (AST_VALUE_NODE(start, end));
+		return (ast_value_node(start, end));
 	node = AST_OP_NODE(op_pos);
 	node->left = AST(start, op_pos);
 	node->right = AST(op_pos->next, end);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/03/30 16:40:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:01:57 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_tree					*AST(t_token *start, t_token *end);
 t_token					*AST_EVAL_OP(t_token *start, t_token *end);
 t_tree					*AST_build_subshell(t_token *start, t_token *end);
 void					add_redir(t_tree *node, t_token *redirs);
-t_tree					*AST_VALUE_NODE(t_token *start, t_token *end);
+t_tree					*ast_value_node(t_token *start, t_token *end);
 
 /* AST Check */
 

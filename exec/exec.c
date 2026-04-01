@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 12:27:51 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:22:08 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,20 @@ int	subshell(t_tree *node, t_env *env)
 	return (env->exit_status->exit_status);
 }
 
-int	exec_cmd(t_tree *node, t_env **env)
+int empty_check(t_tree *node)
 {
-	char	**arg;
+	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)) 
+		&& node->n_value->next)
+	{
+		node->n_value = node->n_value->next;
+	}
+	if (!node->n_value->next && (only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
+		return (1);
+	return (0);
+}
 
-	domain_expand(node, *env);
-	wash_start(node->n_value);
-	if (!node->n_value->value || only_spaces(node->n_value->value) || only_tabs(node->n_value->value))
-		return (0);
+int exec_cmd_next(t_tree *node, t_env **env, char **arg)
+{
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
@@ -101,6 +107,19 @@ int	exec_cmd(t_tree *node, t_env **env)
 	else
 		return (exec_normal_command(node, *env));
 	return (1);
+}
+
+int	exec_cmd(t_tree *node, t_env **env)
+{
+	char	**arg;
+
+	domain_expand(node, *env);
+	wash_start(node->n_value);
+	if(empty_check(node))
+		return (1);
+	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
+		node->n_value = node->n_value->next;
+	return (exec_cmd_next(node, env, arg));
 }
 
 int	exec_normal_command(t_tree *node, t_env *env)

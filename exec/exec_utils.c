@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:34:02 by anis              #+#    #+#             */
-/*   Updated: 2026/03/30 16:55:06 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:06:22 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,29 @@ int	check_n(char *args)
 	return (0);
 }
 
-char	**args_to_tab(t_value_node *node_values)
+char    **args_to_tab(t_value_node *node_values)
 {
-	char			**args;
-	t_value_node	*tmp;
-	int				y;
+    char            **args;
+    t_value_node    *tmp;
+    int                y;
 
-	if (!node_values)
-		return (NULL);
-	y = ft_lstsize_arg(node_values);
-	tmp = node_values;
-	args = ft_malloc(1, sizeof(char *) * (y + 1));
-	y = 0;
-	while (tmp)
-	{
-		args[y] = ft_strdup(tmp->value);
-		tmp = tmp->next;
-		y++; 
-	}
-	args[y] = NULL;
-	return (args);
+    if (!node_values)
+        return (NULL);
+    y = ft_lstsize_arg(node_values);
+    tmp = node_values;
+    args = ft_malloc(1, sizeof(char *) * (y + 1));
+    y = 0;
+    while (tmp)
+    {
+        if (tmp->value[0] != '\0')
+        {
+            args[y] = ft_strdup(tmp->value);
+            y++;
+        }
+        tmp = tmp->next;
+    }
+    args[y] = NULL;
+    return (args);
 }
 
 int	ft_lstsize_arg(t_value_node *node_value)

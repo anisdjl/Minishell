@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 12:52:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:17:56 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	int	pid;
 
+	domain_expand(node, env);
 	pid = fork();
 	if (pid < 0)
 	{
