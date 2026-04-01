@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 15:23:40 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:00:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,34 @@ void	free_pid(t_pid **pid)
 		tmp = next;
 	}
 	(*pid) = NULL;
+}
+
+char	*ft_strjoin_env(char const *s1, char const *s2)
+{
+	int		a;
+	int		y;
+	char	*new_str;
+
+	a = 0;
+	y = 0;
+	new_str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!new_str)
+		return (NULL);
+	while (s1[a])
+	{
+		new_str[y] = s1[a];
+		a++;
+		y++;
+	}
+	a = 0;
+	while (s2[a])
+	{
+		new_str[y] = s2[a];
+		a++;
+		y++;
+	}
+	new_str[y] = '\0';
+	return (new_str);
 }
 
 // void	free_env(t_env **env) elle ne marche pas

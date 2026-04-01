@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 17:29:56 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 19:09:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*find_path(char *cmd, char **env)
 	// ft_free_pipes(pipes, data);
 	// ft_free_data(data);
 	// ft_free_paths(cmd);
-	exit(127);
+	exit (127);
+	//return (NULL); // je suis pas sur de ca 
 }
 
 char	**get_paths(char **envp)
@@ -49,11 +50,7 @@ char	**get_paths(char **envp)
 	while (envp[y])
 	{
 		if (ft_strncmp(envp[y], "PATH=", 5) == 0)
-		{
-			path = ft_strchr(envp[y], '/');
-			paths = ft_split(path, ':');
-			return (paths);
-		}
+			return (ft_split(envp[y] + 5, ':'));
 		else
 			y++;
 	}

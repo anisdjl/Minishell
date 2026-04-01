@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/01 11:12:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 15:54:30 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	pre_exec(t_tree *node, t_env *env);
 char	*strip_quotes_redir(const char *src);
 int		redir_is_directory(char *path);
 int		error_message(char *path);
-int	heredoc_redir_pipe(t_tree *node, int *fd_in);
+int		heredoc_redir_pipe(t_tree *node, int *fd_in);
+int		go_to_home(t_tree *node, t_env *env, int *fd_in, int *fd_out, char *current_dir);
+int		return_to_old_pwd(t_tree *node, t_env *env, char *current_dir, int *fd_in, int *fd_out);
+void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value);
 
 #endif
