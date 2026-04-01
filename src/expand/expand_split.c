@@ -18,7 +18,7 @@ char	*ft_strjoin_spe(char *s1, char *s2)
 	}
 	while (s2[j])
 		ns[i++] = s2[j++];
-	//ns[i] = ' ';
+	ns[i] = ' ';
 	ns[i + 1] = '\0';
 	return (ns);
 }
@@ -34,12 +34,11 @@ char	*expand_split(char *expand_value)
 	split_vers = ft_split(expand_value, ' ');
 	while (split_vers[i] != NULL)
 	{
-		clean_vers = ft_strjoin_spe(clean_vers, split_vers[i]);
+		if (split_vers[i + 1] != NULL)
+			clean_vers = ft_strjoin_spe(clean_vers, split_vers[i]);
+		else
+			clean_vers = ft_strjoin(clean_vers, split_vers[i]);
 		i++;
 	}
 	return (clean_vers);
 }
-
-/*
-	Split -> strjoin
-*/
