@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:50:41 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/14 15:29:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:28:37 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 
 	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
-	if (redir_for_pipes(node, fd_in, fd_out))
-		exit(1);
 	if (!env || !*env)
 		exit (0);
 	status = 0;
 	if (arg[1] == NULL)
 		return (env_command_for_export_pipe(node, env, fd_in, fd_out));
+	if (redir_for_pipes(node, fd_in, fd_out))
+		exit(1);
 	y = 1;
 	while (arg[y])
 	{

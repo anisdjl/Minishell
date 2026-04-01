@@ -6,43 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/03/30 15:33:31 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:14:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	cd_command(t_tree *node, t_env *env)
-{
-	char	current_dir[4096];
-	int		fd_in;
-	int		fd_out;
-	char	**arg;
-
-	arg = args_to_tab(node->n_value);
-	save_fds(&fd_in, &fd_out);
-	if (redir_function(node))
-	{
-		reset_and_close(&fd_in, &fd_out);
-		return (1);
-	}
-	getcwd(current_dir, 4096);
-	if (size_of_table(arg) > 2)
-	{
-		ft_putstr_fd("minishell: too many arguments\n", 2);
-		return (1);
-	}
-	if (chdir(arg[1]) != 0)
-	{
-		ft_putstr_fd(arg[0], 2);
-		write(2, ": ", 2);
-		perror(arg[1]);
-		reset_and_close(&fd_in, &fd_out);
-		return (1);
-	}
-	reset_and_close(&fd_in, &fd_out);
-	return (0);
-}
 
 int pwd_command(t_tree *node, t_env *env)
 {
@@ -159,6 +127,7 @@ int	echo_command2(t_tree *node, t_env *env)
 	if (arg[1] == NULL)
 	{
 		ft_putchar_fd('\n', 1);
+		reset_and_close(&fd_in, &fd_out);
 		return (0);
 	}
 	while (arg[y])

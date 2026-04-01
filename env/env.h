@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:43:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/18 17:21:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:00:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		env_command_for_export(t_tree *node, t_env **env);
 char	*ft_strdup_env(const char *s);
 void	free_env(t_env **env);
 void	free_pid(t_pid **pid);
+char	*ft_strjoin_env(char const *s1, char const *s2);
 
 #endif

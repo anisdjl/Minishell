@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 17:36:34 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/01 18:27:52 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ int	export_cmd(t_tree *node, t_env **env)
 	if (!env || !*env)
 		return (0);
 	save_fds(&fd_in, &fd_out);
-	if (redir_function(node))
-		return (1);
 	status = 0;
 	if (arg[1] == NULL)
 		return (env_command_for_export(node, env));
 	y = 1;
+	if (redir_function(node))
+		return (1);
 	while (arg[y])
 	{
 		if (valid_export(arg[y]))
@@ -60,6 +60,7 @@ int	export_cmd(t_tree *node, t_env **env)
 			export_update_create(node, env, y);
 		y++;
 	}
+	reset_and_close(&fd_in, &fd_out);
 	return (status);
 }
 
