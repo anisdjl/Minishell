@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/01 10:15:58 by adjelili         ###   ########.fr        #
+#    Updated: 2026/04/01 18:33:57 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,11 @@ SRC = main.c \
 	garbage_collector/gc1.c \
 	garbage_collector/gc2.c \
 	tokenization/check.c \
-	src/AST/synthax_check.c \
-	src/AST/AST.c \
-	src/AST/AST_subshell.c \
-	src/AST/AST_utils.c \
-	src/AST/AST_utils2.c \
-	src/AST/consecutive_op.c \
+	src/ast/synthax_check.c \
+	src/ast/ast.c \
+	src/ast/ast_subshell.c \
+	src/ast/ast_utils.c \
+	src/ast/ast_utils2.c \
 	src/expand/extraction.c \
 	env/env.c \
 	exec/exec.c \

@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 18:01:57 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/01 18:32:39 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,26 +115,24 @@ int						only_tabs(char *argv);
 
 /*	AST	main func */
 
-t_tree					*AST_launcher(t_token *token);
-t_tree					*AST_OP_NODE(t_token *op_pos);
-t_tree					*AST(t_token *start, t_token *end);
-t_token					*AST_EVAL_OP(t_token *start, t_token *end);
-t_tree					*AST_build_subshell(t_token *start, t_token *end);
+t_tree					*ast_launcher(t_token *token);
+t_tree					*ast_op_node(t_token *op_pos);
+t_tree					*ast(t_token *start, t_token *end);
+t_token					*ast_eval_op(t_token *start, t_token *end);
+t_tree					*ast_build_subshell(t_token *start, t_token *end);
 void					add_redir(t_tree *node, t_token *redirs);
 t_tree					*ast_value_node(t_token *start, t_token *end);
 
 /* AST Check */
 
-int						AST_check(t_token *token);
-t_token					*AST_EVAL_OP(t_token *start, t_token *end);
+int						ast_check(t_token *token);
+t_token					*ast_eval_op(t_token *start, t_token *end);
 
 /* AST Utils */
 
 t_token					*find_op(t_token *start, t_token *end, t_enum type);
-void					print_ast(t_tree *tree, char *prefix, int is_left);
-void 					print_redirs(t_redir *redir);
 int						count_word(t_token *start, t_token *end);
-t_token					*AST_find_subparent(t_token *start);
+t_token					*ast_find_subparent(t_token *start);
 int						check_consecutive_op(t_token **token);
 
 /* AST lst Utils */

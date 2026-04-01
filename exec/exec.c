@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 17:22:08 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/01 18:38:48 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	exec_cmd(t_tree *node, t_env **env)
 	domain_expand(node, *env);
 	wash_start(node->n_value);
 	if(empty_check(node))
-		return (1);
+		return (0);
 	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
 		node->n_value = node->n_value->next;
 	return (exec_cmd_next(node, env, arg));

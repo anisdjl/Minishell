@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   synthax_check.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/01 18:19:00 by eprieur           #+#    #+#             */
+/*   Updated: 2026/04/01 18:59:21 by eprieur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-int	AST_check_start(t_token *token)
+int	ast_check_start(t_token *token)
 {
 	if (token->type == AND || token->type == OR || token->type == PIPE)
 	{
@@ -33,10 +45,10 @@ int	check_cons_op_subshell(t_token **token)
 	while (tmp->next)
 	{
 		if (tmp->type == L_PARENTHESE && (tmp->next->type == AND
-				|| tmp->next->type == OR)) //  ( && echo hello)
+				|| tmp->next->type == OR))
 			state = 0;
 		else if ((tmp->type == AND || tmp->type == OR)
-			&& (tmp->next->type == R_PARENTHESE)) // (echo hello &&)
+			&& (tmp->next->type == R_PARENTHESE))
 			state = 0;
 		tmp = tmp->next;
 	}
@@ -55,13 +67,13 @@ int	check_around_subshell(t_token **token)
 	state = 1;
 	while (tmp->next)
 	{
-		if ((tmp->type == L_PARENTHESE && tmp->next->type == R_PARENTHESE)) //()
+		if ((tmp->type == L_PARENTHESE && tmp->next->type == R_PARENTHESE))
 			state = 0;
 		else if ((tmp->type == WORD || tmp->type == F_FILE)
-			&& tmp->next->type == L_PARENTHESE) // echo hello (echo hello)
+			&& tmp->next->type == L_PARENTHESE)
 			state = 0;
 		else if (tmp->type == R_PARENTHESE && (tmp->next->type == WORD
-				|| tmp->next->type == F_FILE)) // (echo hello) echo hello
+				|| tmp->next->type == F_FILE))
 			state = 0;
 		tmp = tmp->next;
 	}
@@ -81,9 +93,10 @@ int	check_consecutive_op(t_token **token)
 	while (tmp->next)
 	{
 		if ((tmp->type == AND || tmp->type == OR)
-			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A) 
-			&& (tmp->type == PIPE && (tmp->next->type == HERE_DOC 
-				|| tmp->next->type == APPEND || tmp->next->type == RIGHT_A || tmp->next->type == LEFT_A))) 
+			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A)
+			|| (tmp->type == PIPE && (tmp->next->type == HERE_DOC
+					|| tmp->next->type == APPEND || tmp->next->type == RIGHT_A
+					|| tmp->next->type == LEFT_A)))
 			state = 1;
 		else if ((tmp->type != WORD && tmp->type != L_PARENTHESE
 				&& tmp->type != R_PARENTHESE && tmp->type != F_FILE)
@@ -93,38 +106,22 @@ int	check_consecutive_op(t_token **token)
 			state = 0;
 		tmp = tmp->next;
 	}
-	if (state == 0)
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
-		//ft_putstr_fd(tmp->value, 2);
-		ft_putstr_fd("\n", 2);
-		return (1);
-	}
 	return (state);
 }
 
-int	AST_check(t_token *token)
+int	ast_check(t_token *token)
 {
-	if (!AST_check_start(token))
+	if (!ast_check_start(token))
 		return (0);
 	if (!check_around_subshell(&token))
 		return (0);
 	if (!check_cons_op_subshell(&token))
 		return (0);
 	if (!check_consecutive_op(&token))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+		ft_putstr_fd("\n", 2);
 		return (0);
+	}
 	return (1);
 }
-
-// (echo a &&)
-// (echo a ||)
-
-/*
-	En plusieur fonction :
-
-	- is_valid_operator_sequence()
-	- is_valid_redirection()
-	- is_balanced_quotes()
-	- is_valid_pipe_chain()
-
-*/

@@ -1,18 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/01 19:01:28 by eprieur           #+#    #+#             */
+/*   Updated: 2026/04/01 19:01:29 by eprieur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-void  history(char *line)
+void	history(char *line)
 {
-	// int fd;
-
-	// if (access(".minishell_history", F_OK) == -1)
-	// {
-	// 	fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND, 0700);
-	// 	if (fd == -1)
-    //         return ;
-	// }
-	// else
-	// 	fd = open(".minishell_history", O_RDWR | O_CREAT | O_APPEND);
 	add_history(line);
-	// write(fd, line, ft_strlen(line));
-	// write(fd, "\n", 1);
 }

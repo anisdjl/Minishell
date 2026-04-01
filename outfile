@@ -1,0 +1,29 @@
+
+[?2004hminishell> ^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004h
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> ^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004h[?2004l
+exita
+
+[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> 
+[?2004l[?2004hminishell> ^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004hdd
+[?2004l
+[?2004hminishell> ^C[?2004l
+minishell> [?2004h^C[?2004l
+minishell> [?2004h[?2004l
+exit

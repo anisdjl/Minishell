@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 14:35:02 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:14:09 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv, char **envp)
 		if (!check_parentheses(line) || !check_quotes(line))
 			continue;
 		lexer = ft_lexer(line);
-		ast = AST_launcher(lexer->content);
+		ast = ast_launcher(lexer->content);
 		pre_exec(ast, env);
 		exec(ast, &env);
 		// printf("%d\n", env->exit_status->exit_status);
