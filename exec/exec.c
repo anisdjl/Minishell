@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 14:10:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 12:27:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	exec(t_tree *ast, t_env **env)
 {
 	if (!ast)
 		return (1);
-	//domain_expand(ast, env);
 	if (ast->type == AND)
 	{
 		(*env)->exit_status->exit_status = exec(ast->left, env);

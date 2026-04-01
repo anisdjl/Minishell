@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 12:03:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 16:00:48 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 11:49:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	here_doc(t_tree *node, t_env *env)
 	t_redir	*tmp;
 	int		return_value;
 
+	return_value = 0;
 	if (!node->redirs)
 		return ;
 	tmp = node->redirs;
@@ -83,6 +84,8 @@ int	create_file(t_tree *node, t_env *env, t_redir *redir)
 		perror(""); // mettre le bon message d'erreur
 		return (1);	
 	}
+	if (node->fd_r > 2)
+		close(node->fd_r);
 	node->fd_r = open(redir->file_name, O_RDONLY); //pas besoin
 	if (node->fd_r < 0)
 	{
@@ -98,7 +101,6 @@ int	heredoc_redir(t_tree *node)
 {
 	int value;
 
-	int	fd_in;
 	value =	dup2(node->fd_r, 0);
 	if (value < 0)
 	{

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anis <anis@student.42.fr>                  +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/03/29 16:33:01 by anis             ###   ########.fr        #
+#    Updated: 2026/04/01 10:15:58 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC = main.c \
 	exec/exit.c \
 	exec/exec_utils2.c \
 	exec/redir.c \
+	exec/redir2.c \
 	exec/builtin.c \
 	exec/exec_utils.c \
 	exec/unset.c \

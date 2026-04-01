@@ -6,20 +6,31 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 16:37:42 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/01 12:52:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static void	close_extra_fds(int fd_in, int fd_out)
+static void	close_extra_fds(t_tree *node, int fd_in, int fd_out)
 {
     int	fd;
+	int	heredoc_fd;
+	t_redir	*redir;
+
+	heredoc_fd = -1;
+	redir = node->redirs;
+	while (redir)
+	{
+		if (redir->type == HERE_DOC && node->fd_r > 2)
+			heredoc_fd = node->fd_r;
+		redir = redir->next;
+	}
 
     fd = 3;
     while (fd < 1024)
     {
-        if (fd != fd_in && fd != fd_out)
+		if (fd != fd_in && fd != fd_out && fd != heredoc_fd)
             close(fd);
         fd++;
     }
@@ -36,14 +47,16 @@ void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 		{
 			ft_free_all_malloc();
 			free_env(&env);
-			exit(EXIT_FAILURE); // + free env
+			exit(EXIT_FAILURE);
 		}
 		handle_pipes(node->left, env, fd_in , fd[1]);
 		close(fd[1]);
+		if (fd_in != 0) // je l'ai ajoute ce matin
+            close(fd_in);
 		handle_pipes(node->right, env, fd[0], fd_out);
 		close(fd[0]);
-		if (fd_in != 0)
-            close(fd_in);
+		// if (fd_in != 0) // mon code de base
+            // close(fd_in);
 	}
 	else if (node->type == WORD)
 	{
@@ -60,17 +73,18 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 	if (pid < 0)
 	{
 		ft_free_all_malloc();
-		exit(EXIT_FAILURE); // + free env
+		free_env(&env);
+		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
     {
         signal(SIGINT, SIG_DFL);
         signal(SIGQUIT, SIG_DFL);
-        close_extra_fds(fd_in, fd_out);
+		close_extra_fds(node, fd_in, fd_out);
+		if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
+            exit(1);
         if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
         {
-            if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
-                exit(1);
             child_pipe(node, env, fd_in, fd_out);
         }
         else
@@ -101,9 +115,9 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 		path = find_path(arg[0], paths);
 	else
 		path = ft_strdup(arg[0]);
-	if (fd_in != 0)
+	if (fd_in != STDIN_FILENO)
 		(dup2(fd_in, 0), close(fd_in));
-	if (fd_out != 1)
+	if (fd_out != STDOUT_FILENO)
 		(dup2(fd_out, 1), close(fd_out));
 	exec_pipe(path, paths, env_tab, arg);
 }
@@ -203,6 +217,8 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 			return_value = (redir_in_pipe(tmp, fd_in));
 		else if (tmp->type == 5 || tmp->type == 7)
 			return_value = (redir_out_pipe(tmp, fd_out));
+		else if (tmp->type == 4)
+			return_value = heredoc_redir_pipe(node, fd_in);
 		if (return_value != 0)
 			return (return_value);
 		tmp = tmp->next;
@@ -212,6 +228,16 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
     if (*fd_out != 1 && dup2(*fd_out, STDOUT_FILENO) == -1)
         return (1);
 	return (return_value);
+}
+
+int	heredoc_redir_pipe(t_tree *node, int *fd)
+{
+	if (node->fd_r < 0)
+		return (1);
+	if (*fd != STDIN_FILENO && *fd != node->fd_r)
+		close(*fd);
+	*fd = node->fd_r;
+	return (0);
 }
 
 int redir_in_pipe(t_redir *redir, int *fd_in)
@@ -228,7 +254,7 @@ int redir_in_pipe(t_redir *redir, int *fd_in)
     }
     if (access(path, F_OK | R_OK) == -1)
     {
-        ft_putstr_fd("minishell: ", 2);
+        //ft_putstr_fd("minishell: ", 2); // on purra la remettre une fois la synchronisation regele
         perror(redir->value);
         return (1);
     }
@@ -236,12 +262,7 @@ int redir_in_pipe(t_redir *redir, int *fd_in)
         close(*fd_in);
     *fd_in = open(path, O_RDONLY);
 	if (*fd_in < 0)
-	{
-        ft_putstr_fd("minishell: ", 2);
-        perror(path);
-        free(path);
-        return (1);
-    }
+		return (error_message(path));
     return (0);
 }
 
