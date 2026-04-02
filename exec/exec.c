@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:26:15 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 18:18:35 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	command_is_empty(t_tree *node)
 
 int	exec(t_tree *ast, t_env **env)
 {
-	if (!ast) //|| !ast->n_value)
+	if (!ast)
 		return (0);
 	if (ast->type == AND)
 	{
