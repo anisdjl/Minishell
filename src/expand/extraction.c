@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:47:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 17:47:55 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:58:11 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ int	predict_expand_size(t_value_node *n_value, t_env *env)
 		exp_data.size++;
 		exp_data.i++;
 	}
-	return (exp_data.size + 1);
+	return (exp_data.size + 2);
 }
