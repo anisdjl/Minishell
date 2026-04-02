@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 12:03:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 11:49:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 15:25:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,16 @@ void	pre_exec(t_tree *node, t_env *env)
 {
 	if (!node)
 		return ;
-	if (node->type == AND || node->type == OR || node->type == PIPE)
+	if (node && (node->type == AND || node->type == OR || node->type == PIPE))
 	{
-		pre_exec(node->left, env);
-		pre_exec(node->right, env);
+		if (node->left)
+			pre_exec(node->left, env);
+		if (node->right)
+			pre_exec(node->right, env);
 	}
-	else if (node->type == SUBSHELL)
+	else if (node && node->left && node->type == SUBSHELL)
 		pre_exec(node->left, env);
-	else if (node->type == WORD)
+	else if (node && node->type == WORD)
 		here_doc(node, env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 18:15:38 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 11:23:34 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 		}
 	}
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(&env);
 	exit (0);
 }
 
@@ -56,6 +58,8 @@ int	env_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 		tmp = tmp->next;
 	}
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(env);
 	exit (0);
 }
 
@@ -84,6 +88,8 @@ int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 			y++;
 		}
 		(close((*fd_in)), close((*fd_out)));
+		ft_free_all_malloc();
+		free_env(&env);
 	}
 	else
 		return (echo_command2_pipe(node, env, fd_in, fd_out));
@@ -114,6 +120,8 @@ int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	}
 	ft_putchar_fd('\n', 1);
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(&env);
 	exit (0);
 }
 

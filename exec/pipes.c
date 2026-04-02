@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 17:17:56 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:17:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 	int	pid;
 
 	domain_expand(node, env);
+	
 	pid = fork();
 	if (pid < 0)
 	{
@@ -85,9 +86,7 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 		if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
             exit(1);
         if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
-        {
             child_pipe(node, env, fd_in, fd_out);
-        }
         else
             exit(env->exit_status->exit_status);
 	}
@@ -113,7 +112,7 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 		exit (126);
 	}
 	if (arg && arg[0] && !given_path(arg[0]))
-		path = find_path(arg[0], paths);
+		path = find_path(arg[0], paths, &env);
 	else
 		path = ft_strdup(arg[0]);
 	if (fd_in != STDIN_FILENO)

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:50:41 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 18:28:37 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 11:23:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 		y++;
 	}
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(env);
 	exit (0);
 }
 
@@ -60,6 +62,8 @@ int	export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 		y++;
 	}
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(env);
 	exit (status);
 }
 
@@ -81,5 +85,7 @@ int	env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_o
 		tmp = tmp->next;
 	}
 	(close((*fd_in)), close((*fd_out)));
+	ft_free_all_malloc();
+	free_env(env);
 	exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/01 15:54:30 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 14:51:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		exec(t_tree *ast, t_env **env);
 void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out);
 int		exec_cmd(t_tree *node, t_env **env);
 char 	**env_to_tab(t_env **env);
-char	*find_path(char *cmd, char **env);
+char	*find_path(char *cmd, char **env, t_env **envp);
 int		given_path(char *cmd);
 int		exec_normal_command(t_tree *node, t_env *env);
 char	**get_paths(char **envp);
@@ -49,9 +49,9 @@ int		check_existant(t_env *env, char *key);
 char	**args_to_tab(t_value_node *node_values);
 int		ft_lstsize_arg(t_value_node *node_value);
 void	exit_command(t_tree *node, t_env *env);
-void	exit_non_numeric(char **arg, t_env *env);
-void	numeric_exit(char **arg, char *nptr, t_env *env);
+void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out);
 int		non_numeric(char *arg);
+void	numeric_exit(char **arg, char *nptr, t_env *env, int *fd_in, int *fd_out);
 int		exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out);
 void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out);
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg);
