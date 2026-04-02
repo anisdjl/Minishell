@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:39:19 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 17:52:57 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 16:04:47 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	domain_expand(t_tree *node, t_env *env)
 	t_value_node	*tmp;
 
 	tmp = node->n_value;
-	if (!tmp)
+	if (!tmp || !tmp->value)
 		return ;
 	while (tmp)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:40:08 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 14:41:25 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	check_parentheses(char *line)
 	}
 	if (par != 0)
 	{
-		//free(line);
 		ft_putstr_fd("Syntax error : parenthese not closed\n", 2);
 		return (1);
 	}
@@ -56,7 +55,6 @@ int	check_quotes(char *line)
 	}
 	if (in_dquote == 1 || in_squote == 1)
 	{
-		//free(line);
 		ft_putstr_fd("Syntax error : quote not closed\n", 2);
 		return (1);
 	}
@@ -101,8 +99,9 @@ void	file_flag(t_token **tokens)
 	tmp = (*tokens);
 	while (tmp->next)
 	{
-		if ((tmp->type == HERE_DOC || tmp->type == RIGHT_A || tmp->type == LEFT_A
-		|| tmp->type == APPEND) && (tmp->next->type == WORD))
+		if ((tmp->type == HERE_DOC || tmp->type == RIGHT_A
+				|| tmp->type == LEFT_A || tmp->type == APPEND)
+			&& (tmp->next->type == WORD))
 			tmp->next->type = F_FILE;
 		tmp = tmp->next;
 	}

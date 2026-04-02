@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/02 13:51:10 by eprieur           #+#    #+#             */
+/*   Updated: 2026/04/02 13:51:11 by eprieur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXPAND_H
 # define EXPAND_H
 
@@ -36,7 +48,8 @@ void					do_expand(t_expand *exp_data, t_value_node *n_value,
 							t_env *env);
 void					expand_return(t_expand *exp_data, t_value_node *n_value,
 							t_env *env);
-void 					expand_2dollar(t_expand *exp_data, t_value_node *n_value, t_env *env);
+void					expand_2dollar(t_expand *exp_data,
+							t_value_node *n_value, t_env *env);
 char					*expand_split(char *expand_value);
 
 #endif

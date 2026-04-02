@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 17:17:56 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 16:03:53 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
 {
 	int	pid;
 
+	if (!node->n_value)
+		return (0);
 	domain_expand(node, env);
+	if(empty_check(node))
+		return (0);
+	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
+		node->n_value = node->n_value->next;
 	pid = fork();
 	if (pid < 0)
 	{
