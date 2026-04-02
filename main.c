@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 18:14:09 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 18:12:10 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int main(int argc, char **argv, char **envp)
 		exec(ast, &env);
 		// printf("%d\n", env->exit_status->exit_status);
 		ft_free_all_malloc();
+		close_pipe(); // pas sur de lui
 		//free env
 		free(line);
 	}

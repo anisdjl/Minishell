@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 12:06:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:52:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	{
 		ft_free_all_malloc();
 		free_env(&env);
+		close_pipe();
 		exit(les);
 	}
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
@@ -34,6 +35,9 @@ void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	else if (size_of_table(arg) > 2)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		free_env(&env);
+		ft_free_all_malloc();
+		close_pipe();
 		exit (146);
 	}
 }
@@ -45,6 +49,7 @@ void	exit_non_numeric_pipes(char **arg, t_env *env)
 	ft_putstr_fd(": numeric argument required\n", 2);
 	ft_free_all_malloc();
 	free_env(&env);
+	close_pipe();
 	exit(2);
 }
 
@@ -71,5 +76,8 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 		total = total * 10 + nptr[y] - '0';
 		y++;
 	}
+	free_env(&env);
+	close_pipe();
+	ft_free_all_malloc();
 	exit((unsigned char)(total * sign));
 }

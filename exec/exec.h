@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/02 17:26:52 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:51:10 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ int		heredoc_redir_pipe(t_tree *node, int *fd_in);
 int		go_to_home(t_tree *node, t_env *env, int *fd_in, int *fd_out, char *current_dir);
 int		return_to_old_pwd(t_tree *node, t_env *env, char *current_dir, int *fd_in, int *fd_out);
 void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value);
+int		command_is_empty(t_tree *node);
+void	close_pipe(void);
 
 #endif

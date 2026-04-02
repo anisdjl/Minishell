@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:27:25 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:50:46 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ static void	close_extra_fds(t_tree *node, int fd_in, int fd_out)
             close(fd);
         fd++;
     }
+}
+
+void	close_pipe(void)
+{
+	int fd;
+
+	fd = 3;
+	while (fd < 1024)
+	{
+		if (fd != STDERR_FILENO && fd != STDIN_FILENO && fd != STDOUT_FILENO)
+			close (fd);
+		fd++;
+	}
 }
 
 void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
@@ -85,7 +98,18 @@ int	exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out)
         signal(SIGQUIT, SIG_DFL);
 		close_extra_fds(node, fd_in, fd_out);
 		if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
+		{
+			free_env(&env);
+			ft_free_all_malloc();
             exit(1);
+		}
+		if (command_is_empty(node))
+		{
+			free_env(&env);
+			ft_free_all_malloc();
+			close_pipe();
+			exit (0);
+		}
         if (builtin_pipe(node, env, &fd_in, &fd_out) == 44444)
             child_pipe(node, env, fd_in, fd_out);
         else

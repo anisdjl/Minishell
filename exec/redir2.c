@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 10:15:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 11:36:10 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 18:18:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	redir_out(t_redir *redir)
     if (dup2(fd_out, STDOUT_FILENO) == -1)
     {
         close(fd_out);
-		ft_free_all_malloc();
         return (1);
     }
     close(fd_out);
