@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/01 11:12:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 15:24:30 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "../minishell.h"
+# include "../minishell.h"
 
 int		ft_lstsize_env(t_env *lst);
 int		exec(t_tree *ast, t_env **env);
 void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out);
 int		exec_cmd(t_tree *node, t_env **env);
-char 	**env_to_tab(t_env **env);
+char	**env_to_tab(t_env **env);
 char	*find_path(char *cmd, char **env);
 int		given_path(char *cmd);
 int		exec_normal_command(t_tree *node, t_env *env);
 char	**get_paths(char **envp);
 int		cd_command(t_tree *node, t_env *env);
-int 	pwd_command(t_tree *node, t_env *env);
+int		pwd_command(t_tree *node, t_env *env);
 int		size_of_table(char **tab);
 int		env_command(t_tree *node, t_env **env);
 int		echo_command(t_tree *node, t_env *env);
@@ -62,16 +62,17 @@ void	ft_lstadd_back_pid(t_pid **lst, t_pid *new);
 int		redir_for_pipes(t_tree *node, int *fd_in, int *fd_out);
 int		redir_in_pipe(t_redir *redir, int *fd_in);
 int		redir_out_pipe(t_redir *redir, int *fd_out);
-int		cd_command_pipe(t_tree *node, t_env *env, int *fd_in , int *fd_out);
-int 	pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		cd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		env_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 int		echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
-int		builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out);
+int		builtin_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 int		export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
 void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
-int		env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out);
+int		env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in,
+			int *fd_out);
 void	exit_non_numeric_pipes(char **arg, t_env *env);
 void	numeric_exit_pipes(char **arg, char *nptr, t_env *env);
 int		subshell(t_tree *node, t_env *env);
@@ -84,6 +85,7 @@ void	pre_exec(t_tree *node, t_env *env);
 char	*strip_quotes_redir(const char *src);
 int		redir_is_directory(char *path);
 int		error_message(char *path);
-int	heredoc_redir_pipe(t_tree *node, int *fd_in);
+int		heredoc_redir_pipe(t_tree *node, int *fd_in);
+int		empty_check(t_tree *node);
 
 #endif

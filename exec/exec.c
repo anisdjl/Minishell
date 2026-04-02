@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 18:38:48 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:16:13 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,6 @@ int	subshell(t_tree *node, t_env *env)
 	return (env->exit_status->exit_status);
 }
 
-int empty_check(t_tree *node)
-{
-	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)) 
-		&& node->n_value->next)
-	{
-		node->n_value = node->n_value->next;
-	}
-	if (!node->n_value->next && (only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
-		return (1);
-	return (0);
-}
 
 int exec_cmd_next(t_tree *node, t_env **env, char **arg)
 {
@@ -113,12 +102,6 @@ int	exec_cmd(t_tree *node, t_env **env)
 {
 	char	**arg;
 
-	domain_expand(node, *env);
-	wash_start(node->n_value);
-	if(empty_check(node))
-		return (0);
-	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
-		node->n_value = node->n_value->next;
 	return (exec_cmd_next(node, env, arg));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 12:37:38 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 13:49:50 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # include <sys/stat.h>
 # include "header/parsing.h"
 # include "header/expand.h"
-# include "header/utils.h"
 # include "libft/libft.h"
 # include "garbage_collector/gc.h"
 # include "env/env.h"

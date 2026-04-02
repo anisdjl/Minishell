@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   gc1.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:09:48 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/25 10:33:11 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 13:51:47 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gc.h"
 
-static	t_list	**return_adress(void)
+static t_list	**return_adress(void)
 {
 	static t_list	*list = NULL;
 
 	return (&list);
 }
 
-void	ft_free_all_malloc() // une boucle qui free tout
+void	ft_free_all_malloc(void)
 {
 	t_list	**list_ptr;
 	t_list	*tmp;
@@ -80,7 +80,6 @@ void	*ft_malloc(size_t nmemb, size_t size)
 	if (!new)
 		ft_free_all_malloc();
 	ft_lstadd_back_gc(list_ptr, new);
-	
 	return (ptr);
 }
 
