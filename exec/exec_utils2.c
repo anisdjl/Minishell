@@ -6,13 +6,13 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 19:09:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 14:52:31 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-char	*find_path(char *cmd, char **env)
+char	*find_path(char *cmd, char **env, t_env **envp)
 {
 	int		y;
 	char	*path_v1;
@@ -21,7 +21,14 @@ char	*find_path(char *cmd, char **env)
 	path_v1 = ft_strjoin("/", cmd);
 	y = 0;
 	if (!env || !*env)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": no such file or directory\n", 2);
+		free_env(envp);
+		ft_free_all_malloc();
 		exit(127);
+	}
 	while (env[y])
 	{
 		path_joined = ft_strjoin(env[y], path_v1);
@@ -33,11 +40,9 @@ char	*find_path(char *cmd, char **env)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	// ft_free_pipes(pipes, data);
-	// ft_free_data(data);
-	// ft_free_paths(cmd);
+	free_env(envp);
+	ft_free_all_malloc();
 	exit (127);
-	//return (NULL); // je suis pas sur de ca 
 }
 
 char	**get_paths(char **envp)

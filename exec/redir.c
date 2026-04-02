@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:28:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 12:07:25 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 11:39:16 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	redir_is_directory(char *path)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(path, 2);
         ft_putendl_fd(": Is a directory", 2);
+		ft_free_all_malloc();
         return (1);
     }
     return (0);
@@ -83,8 +84,9 @@ int	redir_in(t_redir *redir)
         return (1);
     if (access(path, F_OK | R_OK) == -1)
     {
-    	//ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd("minishell: ", 2); // pas sur si il faut le laisser
         perror(path);
+		ft_free_all_malloc();
         return (1);
     }
     fd_in = open(path, O_RDONLY);
@@ -93,6 +95,7 @@ int	redir_in(t_redir *redir)
     if (dup2(fd_in, STDIN_FILENO) == -1)
     {
         close(fd_in);
+		ft_free_all_malloc();
         return (1);
     }
     close(fd_in);

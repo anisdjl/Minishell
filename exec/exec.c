@@ -6,16 +6,32 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:22:25 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/02 17:26:15 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+static int	command_is_empty(t_tree *node)
+{
+	t_value_node	*tmp;
+
+	if (!node || !node->n_value)
+		return (1);
+	tmp = node->n_value;
+	while (tmp)
+	{
+		if (tmp->value && tmp->value[0] != '\0')
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 int	exec(t_tree *ast, t_env **env)
 {
-	if (!ast)
-		return (1);
+	if (!ast) //|| !ast->n_value)
+		return (0);
 	if (ast->type == AND)
 	{
 		(*env)->exit_status->exit_status = exec(ast->left, env);
@@ -60,7 +76,10 @@ int	subshell(t_tree *node, t_env *env)
 	}
 	if (pid_subshell == 0)
 	{
-		exit(exec(node->left, &env));
+		status = exec(node->left, &env);
+		free_env(&env);
+		ft_free_all_malloc();
+		exit (status);
 	}
 	waitpid(pid_subshell, &status, 0);
 	if (WIFEXITED(status))
@@ -68,6 +87,19 @@ int	subshell(t_tree *node, t_env *env)
 	return (env->exit_status->exit_status);
 }
 
+int empty_check(t_tree *node)
+{
+	if (!node || !node->n_value || !node->n_value->value)
+		return (1);
+	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)) 
+		&& node->n_value->next)
+	{
+		node->n_value = node->n_value->next;
+	}
+	if (!node->n_value->next && (only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
+		return (1);
+	return (0);
+}
 
 int exec_cmd_next(t_tree *node, t_env **env, char **arg)
 {
@@ -101,7 +133,28 @@ int exec_cmd_next(t_tree *node, t_env **env, char **arg)
 int	exec_cmd(t_tree *node, t_env **env)
 {
 	char	**arg;
+	int		fd_in;
+	int		fd_out;
+	int		status;
 
+	domain_expand(node, *env);
+	wash_start(node->n_value);
+	if (command_is_empty(node))
+	{
+		if (node->redirs)
+		{
+			save_fds(&fd_in, &fd_out);
+			status = redir_function(node);
+			reset_and_close(&fd_in, &fd_out);
+			if (status != 0)
+			{
+				(*env)->exit_status->exit_status = 1;
+				return (1);
+			}
+		}
+		(*env)->exit_status->exit_status = 0;
+		return (0);
+	}
 	return (exec_cmd_next(node, env, arg));
 }
 
@@ -121,7 +174,10 @@ int	exec_normal_command(t_tree *node, t_env *env)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (redir_function(node) == 1)
+		{
+			free_env(&env);
 			exit (1);
+		}
 		child(node, env);
 	}
 	else if (pid != 0)
@@ -160,20 +216,20 @@ int	child(t_tree *node, t_env *env)
 		exit (126);
 	}
 	if (arg && arg[0] && !given_path(arg[0]))
-		path = find_path(arg[0], paths);
+		path = find_path(arg[0], paths, &env);
 	else
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
 	if (errno == EACCES)
 	{
-    	ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
     	ft_putstr_fd(arg[0], 2);
-   		ft_putstr_fd(": Permission denied\n", 2);
+		ft_putstr_fd(": Permission denied\n", 2);
     	exit(126);
 	}
 	if (errno == EISDIR)
 	{
-    	ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
     	ft_putstr_fd(arg[0], 2);
     	ft_putstr_fd(": Is a directory\n", 2);
     	exit(126);
@@ -181,6 +237,7 @@ int	child(t_tree *node, t_env *env)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(arg[0], 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
+	free_env(&env);
 	ft_free_all_malloc();
 	exit (127);
 }

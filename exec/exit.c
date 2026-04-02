@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/30 16:32:45 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/02 12:04:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ void	exit_command(t_tree *node, t_env *env)
 	if (size_of_table(arg) == 1)
 	{
 		ft_putstr_fd("exit\n", 2);
+		reset_and_close(&fd_in, &fd_out);
 		ft_free_all_malloc();
 		free_env(&env);
 		exit(les);
 	}
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
-		numeric_exit(arg, arg[1], env);
+		numeric_exit(arg, arg[1], env, &fd_in, &fd_out);
 	else if (non_numeric(arg[1]))
-		exit_non_numeric(arg, env);
+		exit_non_numeric(arg, env, &fd_in, &fd_out);
 	else if (size_of_table(arg) > 2)
 	{
 		ft_putstr_fd("exit\n", 2);
@@ -45,7 +46,7 @@ void	exit_command(t_tree *node, t_env *env)
 	}
 }
 
-void	exit_non_numeric(char **arg, t_env *env)
+void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out)
 {
 	ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd("minishell: exit: ", 2);
@@ -56,7 +57,7 @@ void	exit_non_numeric(char **arg, t_env *env)
 	exit(2);
 }
 
-void	numeric_exit(char **arg, char *nptr, t_env *env)
+void	numeric_exit(char **arg, char *nptr, t_env *env, int *fd_in, int *fd_out)
 {
 	int					y;
 	long long			sign;
@@ -73,11 +74,11 @@ void	numeric_exit(char **arg, char *nptr, t_env *env)
 		if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
 				|| (total == (unsigned long long)LLONG_MAX / 10
 					&& (nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10)))
-			exit_non_numeric(arg, env);
+			exit_non_numeric(arg, env, fd_in, fd_out);
 		if (sign == -1 && (total > 9223372036854775808ULL / 10
 				|| (total == 9223372036854775808ULL / 10
 					&& (nptr[y] - '0') > 9223372036854775808ULL % 10)))
-			exit_non_numeric(arg, env);
+			exit_non_numeric(arg, env, fd_in, fd_out);
 		total = total * 10 + (nptr[y++] - '0');
 	}
 	ft_putstr_fd("exit\n", 2);
