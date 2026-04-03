@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:04:40 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/03 14:52:01 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 15:56:53 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*ast_eval_op(t_token *start, t_token *end)
 	return (op_pos);
 }
 
-int		is_subshell_redir(t_token *start, t_token *end)
+int	is_subshell_redir(t_token *start, t_token *end)
 {
 	while (start && start != end)
 	{
