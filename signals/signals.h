@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 15:25:59 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/28 18:34:35 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:53:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 void    set_interactive_signals(void);
 void    set_execution_signals(void);
 void	my_handler(int sig);
+void	handler_heredoc(int sig);
 
 #endif

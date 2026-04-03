@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 14:30:50 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/31 14:30:43 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:51:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 // 	// signal(SIGINT, SIG_IGN);
 // 	// signal(SIGINT, SIG_DFL);
 // }
+
+void	handler_heredoc(int sig)
+{
+	(void)sig;
+	g_signal = 130;
+	write(1, "\n", 1);
+	close(STDIN_FILENO);
+}
 
 void my_handler(int sig)
 {
