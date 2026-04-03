@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/01 19:14:57 by adjelili         ###   ########.fr        #
+#    Updated: 2026/04/03 19:07:05 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC = main.c \
 	exec/unset.c \
 	exec/export.c \
 	exec/pipes.c \
+	exec/butltin_utils.c \
 	exec/builtin_pipes.c \
 	exec/builtin_pipes2.c \
 	exec/exit_pipes.c \
