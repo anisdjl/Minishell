@@ -6,11 +6,49 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:50:46 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 12:15:33 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static void	close_extra_fds(t_tree *node, int fd_in, int fd_out);
+
+static int	exec_pipe_subshell(t_tree *node, t_env *env, int fd_in, int fd_out)
+{
+	int	pid;
+	int status;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_free_all_malloc();
+		free_env(&env);
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		close_extra_fds(node, fd_in, fd_out);
+		if (redir_for_pipes(node, &fd_in, &fd_out) != 0)
+		{
+			free_env(&env);
+			ft_free_all_malloc();
+			exit(1);
+		}
+		if (fd_in != STDIN_FILENO)
+			close(fd_in);
+		if (fd_out != STDOUT_FILENO)
+			close(fd_out);
+		status = exec(node->left, &env);
+		free_env(&env);
+		ft_free_all_malloc();
+		close_pipe();
+		exit (status);
+	}
+	return (pid);
+}
 
 static void	close_extra_fds(t_tree *node, int fd_in, int fd_out)
 {
@@ -64,16 +102,19 @@ void	handle_pipes(t_tree *node, t_env *env, int fd_in, int fd_out)
 		}
 		handle_pipes(node->left, env, fd_in , fd[1]);
 		close(fd[1]);
-		if (fd_in != 0) // je l'ai ajoute ce matin
+		if (fd_in != 0)
             close(fd_in);
 		handle_pipes(node->right, env, fd[0], fd_out);
 		close(fd[0]);
-		// if (fd_in != 0) // mon code de base
-            // close(fd_in);
 	}
 	else if (node->type == WORD)
 	{
 		pid = exec_pipe_cmd(node, env, fd_in, fd_out);
+		add_pid_to_list(env, pid);
+	}
+	else if (node->type == L_PARENTHESE)
+	{
+		pid = exec_pipe_subshell(node, env, fd_in, fd_out);
 		add_pid_to_list(env, pid);
 	}
 }
@@ -149,6 +190,7 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
+	//close_pipe(); // pas sur du truc
 	execve(path, arg, env_tab);
 	if (errno == EACCES)
 	{
@@ -233,8 +275,6 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 	int		return_value;
 
 	return_value = 0;
-	if (!node->redirs)
-		return (0);
 	tmp = node->redirs;
 	while (tmp)
 	{

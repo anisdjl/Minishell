@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 18:12:10 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 11:13:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 	t_tree		*ast;
 
-	//sig();
 	env = get_env(envp);
-   // domain_expand(tmp_tree(), env); // Sert au test de l'expand
     while (1)
     {
 		if (g_signal != 0)
@@ -52,10 +50,8 @@ int main(int argc, char **argv, char **envp)
 		ast = ast_launcher(lexer->content);
 		pre_exec(ast, env);
 		exec(ast, &env);
-		// printf("%d\n", env->exit_status->exit_status);
 		ft_free_all_malloc();
-		close_pipe(); // pas sur de lui
-		//free env
+		close_pipe();
 		free(line);
 	}
 	return (0);

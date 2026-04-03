@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 18:39:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 12:04:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,15 @@ int	subshell(t_tree *node, t_env *env)
 	}
 	if (pid_subshell == 0)
 	{
+		if (redir_function(node) == 1)
+		{
+			free_env(&env);
+			exit (1);
+		}
 		status = exec(node->left, &env);
 		free_env(&env);
 		ft_free_all_malloc();
+		close_pipe();
 		exit (status);
 	}
 	waitpid(pid_subshell, &status, 0);

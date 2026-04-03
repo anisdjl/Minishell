@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 12:03:24 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 15:25:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 11:07:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	write_in_file(t_tree *node, t_env *env, t_redir *redir)
 		if (line == NULL)
 		{
 			ft_putstr_fd("minishell: here-document at line 1 delimited by end-of-file", 2);
+			ft_putstr_fd("(wanted ('", 2);
+			ft_putstr_fd(redir->value, 2);
+			ft_putstr_fd("')\n", 2);
 			close(env->fd_w);
 			env->exit_status->exit_status = 0;
 			free(line);
