@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:48:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 18:00:52 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:06:20 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	expand_spe_case(t_expand *exp_data, t_value_node *n_value, t_env *env)
 		return (1);
 	}
 	else if (n_value->value[exp_data->i] == '$'
-		&& !ft_isalnum(n_value->value[exp_data->i + 1])
+		&& (n_value->value[exp_data->i + 1] == ' '
+			|| n_value->value[exp_data->i + 1] == '"')
 		&& n_value->value[exp_data->i + 1] != '\0' && n_value->value[exp_data->i
 			+ 1] != '?')
 	{
@@ -124,3 +125,6 @@ void	do_expand(t_expand *exp_data, t_value_node *n_value, t_env *env)
 			exp_data->i++;
 	}
 }
+//i = lecture string de base
+//j = lecture clean_vers
+//k = ecriture

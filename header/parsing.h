@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/02 13:46:51 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:09:53 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "../minishell.h"
+
 # define F_EXPAND (1 << 0)
 # define F_DQUOTE (1 << 1)
 # define F_SQUOTE (1 << 2)
@@ -91,7 +92,6 @@ typedef struct s_lexer
 	int					was_quoted;
 }						t_lexer;
 
-void					debug_tokens(t_token **tokens);
 void					add_to_buffer(t_lexer *lexer, char line);
 void					create_token(t_lexer *lexer);
 void					lexing(t_lexer *lexer, char *line);
@@ -134,6 +134,9 @@ t_token					*find_op(t_token *start, t_token *end, t_enum type);
 int						count_word(t_token *start, t_token *end);
 t_token					*ast_find_subparent(t_token *start);
 int						check_consecutive_op(t_token **token);
+void					add_subshell_redirs(t_tree *node, t_token *start,
+							t_token *end);
+int						is_subshell_redir(t_token *start, t_token *end);
 
 /* AST lst Utils */
 

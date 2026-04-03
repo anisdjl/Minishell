@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/04/02 16:09:27 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:08:24 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,10 @@ int pwd_command(t_tree *node, t_env *env)
 	{
 		reset_and_close(&fd_in, &fd_out);
 		return (1);
-	} // PROBLEME ICI pwd ne marche plus a cause des redirs il renvoit tout le temps 1
-	ptr = getcwd(current_dir, 4096);
-	if (ptr)
-		printf("%s\n", current_dir);
-	else if (!ptr)
-	{
-		while(tmp)
-		{
-			if (ft_strncmp(tmp->key, "PWD", 3) == 0 && ft_strlen(tmp->key) == 3)
-			{
-				printf("%s\n", tmp->value + 1);
-				return (0);
-			}
-			tmp = tmp->next;
-		}
 	}
+	ptr = getcwd(current_dir, 4096);
+	if (!pwd_command_loop(tmp, ptr, current_dir))
+		return (0);
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
 }
@@ -71,7 +59,6 @@ int	env_command(t_tree *node, t_env **env)
 	return (0);
 }
 
-
 int	echo_command(t_tree *node, t_env *env)
 {
 	int	y;
@@ -80,7 +67,7 @@ int	echo_command(t_tree *node, t_env *env)
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);
-	if (arg[1] && !check_n(arg[1])) // option -n
+	if (arg[1] && !check_n(arg[1]))
 	{
 		save_fds(&fd_in, &fd_out);
 		if (redir_function(node))
@@ -91,17 +78,8 @@ int	echo_command(t_tree *node, t_env *env)
 		y = 2;
 		if (arg[2] == NULL)
 			return (0);
-		while (arg[y] && !check_n(arg[y]))
-			y++;
-		if (y == size_of_table(arg))
+		if (!echo_command_loop(arg, y))
 			return (0);
-		while (arg[y])
-		{
-			ft_putstr_fd(arg[y], 1);
-			if (y < size_of_table(arg) - 1)
-				ft_putchar_fd(' ', 1);
-			y++;
-		}
 		reset_and_close(&fd_in, &fd_out);
 	}
 	else
@@ -130,13 +108,7 @@ int	echo_command2(t_tree *node, t_env *env)
 		reset_and_close(&fd_in, &fd_out);
 		return (0);
 	}
-	while (arg[y])
-	{
-		ft_putstr_fd(arg[y], 1);
-		if (y < size_of_table(arg) - 1)
-			ft_putchar_fd(' ', 1);
-		y++;
-	}
+	echo_command2_loop(arg, y);
 	ft_putchar_fd('\n', 1);
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
