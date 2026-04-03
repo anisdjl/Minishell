@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc1.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:09:48 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:27:30 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:02:45 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_free_all_malloc(void)
 
 	list_ptr = return_adress();
 	if (!list_ptr || !*list_ptr)
-		exit(EXIT_FAILURE);
+		return ;
 	tmp = (*list_ptr);
 	while (tmp)
 	{

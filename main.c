@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 11:13:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:07:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ int main(int argc, char **argv, char **envp)
     while (1)
     {
 		if (g_signal != 0)
-			env->exit_status->exit_status += g_signal;
+		{
+			env->exit_status->exit_status = g_signal;
+			g_signal = 0;
+		}
 		set_interactive_signals();
 		line = readline("minishell> ");
 		if (!line)
 		{
-			//break;
-			write(1, "exit", 4);
+			write(1, "exit\n", 5);
+			rl_clear_history();
 			ft_free_all_malloc();
 			free_env(&env);
 			exit(0);
@@ -45,7 +48,10 @@ int main(int argc, char **argv, char **envp)
 		set_execution_signals();
 		history(line);
 		if (!check_parentheses(line) || !check_quotes(line))
+		{
+			free(line);
 			continue;
+		}
 		lexer = ft_lexer(line);
 		ast = ast_launcher(lexer->content);
 		pre_exec(ast, env);
