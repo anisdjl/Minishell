@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/03 19:09:23 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:20:52 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int		command_is_empty(t_tree *node);
 int		echo_command_loop(char **arg, int y);
 void 	echo_command2_loop(char **arg, int y);
 void	close_pipe(void);
+int	pwd_command_loop(t_env *tmp, void *ptr, char *current_dir);
 
 #endif
