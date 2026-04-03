@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:55:01 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:57:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	exit_command(t_tree *node, t_env *env)
 
 void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out)
 {
+	(void)fd_in;
+	(void)fd_out;
 	ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(arg[1], 2);
@@ -74,12 +76,12 @@ void	numeric_exit(char **arg, char *nptr, t_env *env, int *fd_in, int *fd_out)
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
 		if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
-				|| (total == (unsigned long long)LLONG_MAX / 10
-					&& (nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10)))
+				|| (((total == (unsigned long long)LLONG_MAX / 10
+					&& ((unsigned long long)(nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10))))))
 			exit_non_numeric(arg, env, fd_in, fd_out);
 		if (sign == -1 && (total > 9223372036854775808ULL / 10
-				|| (total == 9223372036854775808ULL / 10
-					&& (nptr[y] - '0') > 9223372036854775808ULL % 10)))
+				|| (((total == 9223372036854775808ULL / 10
+					&& ((unsigned long long)(nptr[y] - '0') > 9223372036854775808ULL % 10))))))
 			exit_non_numeric(arg, env, fd_in, fd_out);
 		total = total * 10 + (nptr[y++] - '0');
 	}
@@ -93,7 +95,6 @@ void	numeric_exit(char **arg, char *nptr, t_env *env, int *fd_in, int *fd_out)
 int	non_numeric(char *arg)
 {
 	int y;
-	int	nb_operator;
 
 	y = 0;
 	if (arg[0] == '+' || arg[0] == '-')

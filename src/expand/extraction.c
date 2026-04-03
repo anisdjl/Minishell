@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extraction.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:47:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/02 17:58:11 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:50:15 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*extract_env_value(t_value_node *n_value, t_env *env, char *search)
 	int		i;
 	char	*expand;
 
+	(void)n_value;
 	i = 1;
 	while (env)
 	{

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:07:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:44:11 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ volatile sig_atomic_t g_signal = 0;
 int main(int argc, char **argv, char **envp)
 {
     char *line;
-    int fd;
     t_lexer		*lexer;
 	t_env		*env;
 	t_tree		*ast;
 
+	(void)argc;
+	(void)argv;
 	env = get_env(envp);
     while (1)
     {

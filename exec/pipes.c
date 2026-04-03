@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 12:15:33 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 20:01:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
 	//close_pipe(); // pas sur du truc
+	(void)paths;
 	execve(path, arg, env_tab);
 	if (errno == EACCES)
 	{
@@ -288,11 +289,12 @@ int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 			return (return_value);
 		tmp = tmp->next;
 	}
-	if (*fd_in != 0 && dup2(*fd_in, STDIN_FILENO) == -1)
+	if (*fd_in != 0 && (dup2(*fd_in, STDIN_FILENO) == -1))
         return (1);
-    if (*fd_out != 1 && dup2(*fd_out, STDOUT_FILENO) == -1)
+    if (*fd_out != 1 && (dup2(*fd_out, STDOUT_FILENO) == -1))
         return (1);
-	return (return_value);
+	else
+		return (return_value);
 }
 
 int	heredoc_redir_pipe(t_tree *node, int *fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   synthax_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:19:00 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 18:59:21 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:48:06 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int	check_consecutive_op(t_token **token)
 	state = 1;
 	while (tmp->next)
 	{
-		if ((tmp->type == AND || tmp->type == OR)
-			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A)
+		if (((tmp->type == AND || tmp->type == OR)
+			&& (tmp->next->type == HERE_DOC || tmp->next->type == LEFT_A))
 			|| (tmp->type == PIPE && (tmp->next->type == HERE_DOC
 					|| tmp->next->type == APPEND || tmp->next->type == RIGHT_A
 					|| tmp->next->type == LEFT_A)))

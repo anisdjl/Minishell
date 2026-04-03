@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_case.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:48:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/03 19:06:20 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 20:02:43 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	expand_dollar(t_expand *exp_data, t_value_node *n_value, t_env *env)
 {
+	(void)n_value;
+	(void)env;
 	exp_data->expand = ft_strdup("$");
 	exp_data->expand_value = ft_strdup("$");
 	exp_data->j = 0;
@@ -50,6 +52,7 @@ void	expand_return(t_expand *exp_data, t_value_node *n_value, t_env *env)
 
 void	expand_2dollar(t_expand *exp_data, t_value_node *n_value, t_env *env)
 {
+	(void)env;
 	exp_data->expand = extract_var(n_value, exp_data->i + 1);
 	exp_data->expand_value = ft_strdup("$");
 	if (exp_data->expand_value)

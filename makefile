@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/03 19:07:05 by eprieur          ###   ########.fr        #
+#    Updated: 2026/04/03 19:43:10 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(LIBFT_LIB) :
 	$(MAKE) -C $(LIBFT_PATH)
 
 %.o : %.c
-	$(CC) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean :
 	rm -f $(OBJ)

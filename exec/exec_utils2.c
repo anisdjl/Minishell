@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 14:52:31 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:57:56 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	*find_path(char *cmd, char **env, t_env **envp)
 char	**get_paths(char **envp)
 {
 	int		y;
-	char	**paths;
-	char	*path;
 
 	y = 0;
 	while (envp[y])

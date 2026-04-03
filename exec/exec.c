@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 12:04:49 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:50:55 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	exec_cmd(t_tree *node, t_env **env)
 	int		fd_out;
 	int		status;
 
+	arg = NULL;
 	domain_expand(node, *env);
 	wash_start(node->n_value);
 	if (command_is_empty(node))

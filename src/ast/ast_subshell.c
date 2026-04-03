@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_subshell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:18:33 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 18:41:39 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:48:39 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_tree	*ast_build_subshell(t_token *start, t_token *end)
 	t_tree	*node;
 	t_token	*match;
 
+	(void)end;
 	match = ast_find_subparent(start);
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->type = L_PARENTHESE;

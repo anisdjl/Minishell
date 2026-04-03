@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/04/03 19:08:24 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 19:58:16 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	echo_command2(t_tree *node, t_env *env)
 	int	fd_out;
 	char	**arg;
 
+	(void)env;
 	arg = args_to_tab(node->n_value);
 	y = 1;
 	save_fds(&fd_in, &fd_out);

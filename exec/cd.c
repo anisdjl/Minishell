@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 15:21:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 18:24:59 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:51:44 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value)
 {
     char *expand;
 
+	expand = NULL;
+	(void)n_value;
 	if (!env)
 		return ;
     while (env)
