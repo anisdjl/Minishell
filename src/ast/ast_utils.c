@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:04:40 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/01 18:29:10 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/03 14:52:01 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,28 @@ t_token	*ast_eval_op(t_token *start, t_token *end)
 	if (!op_pos)
 		op_pos = find_op(start, end, PIPE);
 	return (op_pos);
+}
+
+int		is_subshell_redir(t_token *start, t_token *end)
+{
+	while (start && start != end)
+	{
+		if (start->type < HERE_DOC || start->type > APPEND)
+			return (0);
+		if (!start->next || start->next == end)
+			return (0);
+		start = start->next->next;
+	}
+	return (1);
+}
+
+void	add_subshell_redirs(t_tree *node, t_token *start, t_token *end)
+{
+	while (start && start != end)
+	{
+		add_redir(node, start);
+		if (!start->next)
+			break ;
+		start = start->next->next;
+	}
 }

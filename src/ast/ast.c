@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:18:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/03 11:31:26 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 14:52:13 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-static int	is_subshell_redir_suffix(t_token *start, t_token *end)
-{
-	while (start && start != end)
-	{
-		if (start->type < HERE_DOC || start->type > APPEND)
-			return (0);
-		if (!start->next || start->next == end)
-			return (0);
-		start = start->next->next;
-	}
-	return (1);
-}
-
-static void	add_subshell_redirs(t_tree *node, t_token *start, t_token *end)
-{
-	while (start && start != end)
-	{
-		add_redir(node, start);
-		if (!start->next)
-			break ;
-		start = start->next->next;
-	}
-}
 
 t_tree	*ast_value_node(t_token *start, t_token *end)
 {
@@ -93,7 +69,7 @@ t_tree	*ast(t_token *start, t_token *end)
 	if (start->type == L_PARENTHESE)
 	{
 		match = ast_find_subparent(start);
-		if (match && is_subshell_redir_suffix(match->next, end))
+		if (match && is_subshell_redir(match->next, end))
 		{
 			node = ast_build_subshell(start, match);
 			add_subshell_redirs(node, match->next, end);
