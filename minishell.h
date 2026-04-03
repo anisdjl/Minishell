@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:15:15 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 19:16:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define _DARWIN_C_SOURCE
 # include <stdio.h>
 # include <fcntl.h>
-#include <termios.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <stdlib.h>
 # include <unistd.h>
