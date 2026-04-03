@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 11:23:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:24:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	{
 		ft_putchar_fd('\n', 1);
 		reset_and_close(fd_in, fd_out);
+		ft_free_all_malloc();
+		free_env(&env);
+		close_pipe();
 		exit (0);
 	}
 	while (arg[y])
