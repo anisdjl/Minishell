@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 14:33:11 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 15:12:52 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int main(int argc, char **argv, char **envp)
 		}
 		lexer = ft_lexer(line);
 		ast = ast_launcher(lexer->content, env);
-		pre_exec(ast, env);
-		exec(ast, &env);
+		if (!pre_exec(ast, env))
+			exec(ast, &env);
 		ft_free_all_malloc();
 		close_pipe();
 		free(line);
