@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:26:40 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 14:40:29 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 15:39:54 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	exit (0);
 }
 
+void echo_cmd2_pipe_loop(char **arg, int y)
+{
+	while (arg[y])
+	{
+		ft_putstr_fd(arg[y], 1);
+		if (y < size_of_table(arg) - 1)
+			ft_putchar_fd(' ', 1);
+		y++;
+	}
+}
+
 int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
 	int	y;
@@ -70,13 +81,7 @@ int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 		close_pipe();
 		exit (0);
 	}
-	while (arg[y])
-	{
-		ft_putstr_fd(arg[y], 1);
-		if (y < size_of_table(arg) - 1)
-			ft_putchar_fd(' ', 1);
-		y++;
-	}
+	echo_cmd2_pipe_loop(arg, y);
 	ft_putchar_fd('\n', 1);
 	(close((*fd_in)), close((*fd_out)));
 	ft_free_all_malloc();
