@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:16:08 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 13:08:03 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define _XOPEN_SOURCE 700
 #define _APPLE_C_SOURCE
 #define _DARWIN_C_SOURCE
+# include <sys/ioctl.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <termios.h>

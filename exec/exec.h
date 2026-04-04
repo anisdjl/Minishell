@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/03 19:40:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 11:57:10 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int		heredoc_redir_pipe(t_tree *node, int *fd_in);
 char	*generate_herdoc_name(int index);
 int		heredoc_redir(t_tree *node);
 int		create_file(t_tree *node, t_env *env, t_redir *redir);
-void	write_in_file(t_tree *node, t_env *env, t_redir *redir);
-void	here_doc(t_tree *node, t_env *env);
-void	pre_exec(t_tree *node, t_env *env);
+int		write_in_file(t_tree *node, t_env *env, t_redir *redir);
+int	here_doc(t_tree *node, t_env *env);
+int	pre_exec(t_tree *node, t_env *env);
 int		error_message(char *path);
 void	close_pipe(void);
 
