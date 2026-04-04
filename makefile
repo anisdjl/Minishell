@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
+#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/03 19:43:10 by adjelili         ###   ########.fr        #
+#    Updated: 2026/04/04 14:41:47 by eprieur          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,8 @@ SRC = main.c \
 	exec/builtin_pipes2.c \
 	exec/exit_pipes.c \
 	exec/here_doc.c \
+	exec/echo_pipes.c \
+	exec/pwd_pipe.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c \
 	src/expand/expand_case.c \

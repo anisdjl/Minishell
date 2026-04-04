@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/03 19:09:53 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 14:34:05 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int						only_tabs(char *argv);
 
 /*	AST	main func */
 
-t_tree					*ast_launcher(t_token *token);
+t_tree					*ast_launcher(t_token *token, t_env *env);
 t_tree					*ast_op_node(t_token *op_pos);
 t_tree					*ast(t_token *start, t_token *end);
 t_token					*ast_eval_op(t_token *start, t_token *end);
