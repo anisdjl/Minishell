@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 14:37:31 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 15:34:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int    builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out)
 {
     char    **arg;
 
+	node->fd_in = *fd_in;
+	node->fd_out = *fd_out;
     wash_start(node->n_value);
     if (*fd_in != 0)
         dup2(*fd_in, 0);
