@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 17:52:36 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 16:00:09 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 {
 	int	y;
 	int	sign;
-	long long	total;
+	unsigned long long	total;
 	int			digit;
 
 	total = 0;
@@ -69,9 +69,13 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
 		digit = nptr[y] - '0';
-        if (sign == 1 && (total > (LLONG_MAX - digit) / 10))
+        if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
+				|| (((total == (unsigned long long)LLONG_MAX / 10
+					&& ((unsigned long long)(nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10))))))
             exit_non_numeric_pipes(arg, env);
-        if (sign == -1 && (total > (-(LLONG_MIN + digit)) / 10))
+        if (sign == -1 && (total > 9223372036854775808ULL / 10
+				|| (((total == 9223372036854775808ULL / 10
+					&& ((unsigned long long)(nptr[y] - '0') > 9223372036854775808ULL % 10))))))
 			exit_non_numeric_pipes(arg, env);
 		total = total * 10 + nptr[y] - '0';
 		y++;

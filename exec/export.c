@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:58:38 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:04:04 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ int	export_cmd(t_tree *node, t_env **env)
 	int 	fd_in;
 	int		fd_out;
 
-	// wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (!env || !*env)
 		return (0);
-	save_fds(&fd_in, &fd_out);
-	status = 0;
+	(save_fds(&fd_in, &fd_out), status = 0);
 	if (arg[1] == NULL)
 		return (env_command_for_export(node, env));
 	y = 1;
@@ -94,7 +92,8 @@ void	create_new_node(t_env **env, char *arg)
 	if (!new)
 	{
 		ft_free_all_malloc();
-		exit(EXIT_FAILURE); // + free env
+		free_env(env);
+		exit(EXIT_FAILURE);
 	}
 	new->next = NULL;
 	new->key = create_key(arg);
@@ -115,7 +114,8 @@ int	check_existant(t_env *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strlen(tmp->key) == ft_strlen(key) && ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+		if (ft_strlen(tmp->key) == ft_strlen(key)
+				&& ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
 			return (1);
 		tmp = tmp->next;
 	}

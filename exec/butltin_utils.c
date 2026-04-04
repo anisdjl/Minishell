@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   butltin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 19:10:46 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/03 19:10:47 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 17:56:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ void	echo_command2_loop(char **arg, int y)
 			ft_putchar_fd(' ', 1);
 		y++;
 	}
+}
+
+void	child_exit_status(int status, t_env *env, int pid)
+{
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
+    {
+		if (WTERMSIG(status) == SIGINT)
+        	write(1, "\n", 1);
+		else if (WTERMSIG(status) == SIGQUIT)
+			write(1, "Quit (core dumped)\n", 19);
+		env->exit_status->exit_status = 128 + WTERMSIG(status);
+	}
+	if (WIFEXITED(status))
+		env->exit_status->exit_status = WEXITSTATUS(status);
 }

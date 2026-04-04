@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 15:21:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 15:36:42 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:00:08 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,7 @@ int	cd_command(t_tree *node, t_env *env)
 	if (ft_strlen(arg[1]) == 1 && arg[1][0] == '-')
 		return (return_to_old_pwd(node, env, current_dir));
 	if (chdir(arg[1]) != 0)
-	{
-		ft_putstr_fd(arg[0], 2);
-		write(2, ": ", 2);
-		perror(arg[1]);
-		reset_and_close(&node->fd_in, &node->fd_out);
-		return (1);
-	}
+		return (error_cd_pipe(arg, &node->fd_in, &node->fd_out));
 	extract_oldpwd(node->n_value, env, current_dir);
 	reset_and_close(&node->fd_in, &node->fd_out);
 	return (0);
@@ -49,8 +43,8 @@ int	cd_command(t_tree *node, t_env *env)
 
 int	go_to_home(t_tree *node, t_env *env, char *current_dir)
 {
-	t_tree *home;
-	
+	t_tree	*home;
+
 	home = ft_malloc(1, sizeof(t_tree));
 	home->n_value = ft_malloc(1, sizeof(t_value_node));
 	home->n_value->value = ft_strdup("$HOME");
@@ -70,15 +64,15 @@ int	go_to_home(t_tree *node, t_env *env, char *current_dir)
 
 void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value)
 {
-    char *expand;
+	char	*expand;
 
 	expand = NULL;
 	(void)n_value;
 	if (!env)
 		return ;
-    while (env)
-    {
-        if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0 
+	while (env)
+	{
+		if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0
 			&& ft_strlen(env->key) == ft_strlen("OLDPWD"))
 		{
 			free(env->value);
@@ -92,8 +86,8 @@ void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value)
 
 int	return_to_old_pwd(t_tree *node, t_env *env, char *current_dir)
 {
-	t_tree *home;
-	
+	t_tree	*home;
+
 	home = ft_malloc(1, sizeof(t_tree));
 	home->n_value = ft_malloc(1, sizeof(t_value_node));
 	home->n_value->value = ft_strdup("$OLDPWD");

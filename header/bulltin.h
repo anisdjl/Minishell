@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:47:39 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 15:40:25 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 16:28:33 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int		check_n(char *args);
 void	exit_command(t_tree *node, t_env *env);
 void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out);
 int		non_numeric(char *arg);
-void	numeric_exit(char **arg, char *nptr, t_env *env, int *fd_in,
-			int *fd_out);
+void	numeric_exit(char **arg, char *nptr, t_env *env, t_tree *node);
 int		valid_export(char *args);
 int		ft_lstsize_env(t_env *lst);
 void	export_update_create(t_tree *node, t_env **env, int y);
@@ -56,6 +55,7 @@ int		pwd_command_loop(t_env *tmp, void *ptr, char *current_dir);
 int		return_to_old_pwd(t_tree *node, t_env *env, char *current_dir);
 int		go_to_home_pipe(t_tree *node, t_env *env, char *current_dir);
 void	extract_oldpwd_pipe(t_value_node *n_value, t_env *env, char *new_value);
-int	return_to_old_pwd_pipe(t_tree *node, t_env *env, char *current_dir);
+int		return_to_old_pwd_pipe(t_tree *node, t_env *env, char *current_dir);
+int		error_cd_pipe(char **arg, int *fd_in, int *fd_out);
 
 #endif

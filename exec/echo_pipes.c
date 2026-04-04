@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:26:40 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 15:39:54 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 16:31:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	echo_cmd_pipe_loop(char **arg, int y)
 
 int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
-	int	y;
+	int		y;
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);
-	if (arg[1] && !check_n(arg[1])) // option -n
+	if (arg[1] && !check_n(arg[1]))
 	{
 		if (redir_for_pipes(node, fd_in, fd_out))
 			exit(1);
@@ -52,7 +52,7 @@ int	echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	exit (0);
 }
 
-void echo_cmd2_pipe_loop(char **arg, int y)
+void	echo_cmd2_pipe_loop(char **arg, int y)
 {
 	while (arg[y])
 	{
@@ -65,7 +65,7 @@ void echo_cmd2_pipe_loop(char **arg, int y)
 
 int	echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
-	int	y;
+	int		y;
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/04 15:12:36 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 18:01:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int		size_of_table(char **tab);
 char	**args_to_tab(t_value_node *node_values);
 int		subshell(t_tree *node, t_env *env);
 int		ft_lstsize_arg(t_value_node *node_value);
-int		child(t_tree *node, t_env *env);
+void	child(t_tree *node, t_env *env);
+void	error_execve(char **arg, t_env *env);
+void	child_exit_status(int status, t_env *env, int pid);
+void	exit_no_path(char *cmd, t_env **envp);
 
 /* ======================= heredoc ===================================== */
 

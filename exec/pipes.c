@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 20:01:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:04:29 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
-	//close_pipe(); // pas sur du truc
 	(void)paths;
 	execve(path, arg, env_tab);
 	if (errno == EACCES)

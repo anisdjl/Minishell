@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:50:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:16:05 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,9 +174,9 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	if ((pid = fork()) < 0)
 	{
 		ft_free_all_malloc();
-		exit(EXIT_FAILURE); // ou affiche juste le prompt
+		exit(EXIT_FAILURE);
 	}
-	if (pid == 0) // on est dans le fils
+	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -188,24 +188,11 @@ int	exec_normal_command(t_tree *node, t_env *env)
 		child(node, env);
 	}
 	else if (pid != 0)
-	{
-		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status))
-    	{
-        	if (WTERMSIG(status) == SIGINT)
-            	write(1, "\n", 1);
-        	else if (WTERMSIG(status) == SIGQUIT)
-            	write(1, "Quit (core dumped)\n", 19);
-			env->exit_status->exit_status = 128 + WTERMSIG(status);
-    	}
-		if (WIFEXITED(status))
-			env->exit_status->exit_status = WEXITSTATUS(status);
-		return (env->exit_status->exit_status);
-	}
+		child_exit_status(status, env, pid);
 	return(env->exit_status->exit_status);
 }
 
-int	child(t_tree *node, t_env *env)
+void	child(t_tree *node, t_env *env)
 {
 	char	*path;
 	char	**paths;
@@ -227,24 +214,5 @@ int	child(t_tree *node, t_env *env)
 	else
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
-	if (errno == EACCES)
-	{
-		ft_putstr_fd("minishell: ", 2);
-    	ft_putstr_fd(arg[0], 2);
-		ft_putstr_fd(": Permission denied\n", 2);
-    	exit(126);
-	}
-	if (errno == EISDIR)
-	{
-		ft_putstr_fd("minishell: ", 2);
-    	ft_putstr_fd(arg[0], 2);
-    	ft_putstr_fd(": Is a directory\n", 2);
-    	exit(126);
-	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(arg[0], 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	free_env(&env);
-	ft_free_all_malloc();
-	exit (127);
+	error_execve(arg , env);
 }

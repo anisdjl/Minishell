@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/04/03 19:58:16 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:01:22 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,28 @@ int	echo_command2(t_tree *node, t_env *env)
 	ft_putchar_fd('\n', 1);
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
+}
+
+void	error_execve(char **arg, t_env *env)
+{
+	if (errno == EACCES)
+	{
+		ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+    	exit(126);
+	}
+	if (errno == EISDIR)
+	{
+		ft_putstr_fd("minishell: ", 2);
+    	ft_putstr_fd(arg[0], 2);
+    	ft_putstr_fd(": Is a directory\n", 2);
+    	exit(126);
+	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	free_env(&env);
+	ft_free_all_malloc();
+	exit (127);
 }
