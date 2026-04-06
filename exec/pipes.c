@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 18:04:29 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:17:34 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,6 @@ int redir_in_pipe(t_redir *redir, int *fd_in)
     }
     if (access(path, F_OK | R_OK) == -1)
     {
-        //ft_putstr_fd("minishell: ", 2); // on purra la remettre une fois la synchronisation regele
         perror(redir->value);
         return (1);
     }

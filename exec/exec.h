@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/04 18:01:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:29:54 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ char	*generate_herdoc_name(int index);
 int		heredoc_redir(t_tree *node);
 int		create_file(t_tree *node, t_env *env, t_redir *redir);
 int		write_in_file(t_tree *node, t_env *env, t_redir *redir);
-int	here_doc(t_tree *node, t_env *env);
-int	pre_exec(t_tree *node, t_env *env);
+int		here_doc(t_tree *node, t_env *env);
+int		pre_exec(t_tree *node, t_env *env);
 int		error_message(char *path);
 void	close_pipe(void);
 
 int		echo_cmd_pipe_loop(char **arg, int y);
 int		echo_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		echo_command2_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
-int 	pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+int		pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out);
 int		pwd_cmd_pipe_loop(t_env	*tmp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 19:10:46 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 17:56:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:39:51 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	child_exit_status(int status, t_env *env, int pid)
 {
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
-    {
+	{
 		if (WTERMSIG(status) == SIGINT)
-        	write(1, "\n", 1);
+			write(1, "\n", 1);
 		else if (WTERMSIG(status) == SIGQUIT)
 			write(1, "Quit (core dumped)\n", 19);
 		env->exit_status->exit_status = 128 + WTERMSIG(status);

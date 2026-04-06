@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:24:08 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/10 14:02:07 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/06 11:27:09 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ char	*ft_strchr(const char *s, int c)
 
 // #include <stdio.h>
 // #include <string.h>
-
 // int main(void)
 // {
 // 	char str[] = "hello world";
-	
 // 	printf("%s\n", ft_strchr	(str, 'l'));
 // 	printf("%s", strchr(str, 'l'));
 // 	return (0);

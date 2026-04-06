@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:56:57 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 18:04:04 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:36:44 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	export_update_create(t_tree *node, t_env **env, int y)
 
 int	export_cmd(t_tree *node, t_env **env)
 {
-	int	y;
+	int		y;
 	int		status;
 	char	**arg;
-	int 	fd_in;
+	int		fd_in;
 	int		fd_out;
 
 	arg = args_to_tab(node->n_value);
@@ -77,7 +77,7 @@ void	update_env(t_env *env, char *arg, char *splitted)
 				tmp->value = ft_strdup_env(ptr);
 			else
 				tmp->value = NULL;
-			return ;				
+			return ;
 		}
 		tmp = tmp->next;
 	}
@@ -115,7 +115,7 @@ int	check_existant(t_env *env, char *key)
 	while (tmp)
 	{
 		if (ft_strlen(tmp->key) == ft_strlen(key)
-				&& ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+			&& ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
 			return (1);
 		tmp = tmp->next;
 	}

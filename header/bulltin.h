@@ -6,11 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:47:39 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 16:28:33 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:29:07 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef BULLTIN_H
+#ifndef BULLTIN_H
 # define BULLTIN_H
 
 # include "../minishell.h"
@@ -57,5 +57,6 @@ int		go_to_home_pipe(t_tree *node, t_env *env, char *current_dir);
 void	extract_oldpwd_pipe(t_value_node *n_value, t_env *env, char *new_value);
 int		return_to_old_pwd_pipe(t_tree *node, t_env *env, char *current_dir);
 int		error_cd_pipe(char **arg, int *fd_in, int *fd_out);
+void	remove_env_node(t_env **env, t_env *current, t_env *prev);
 
 #endif

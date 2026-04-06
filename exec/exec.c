@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 18:16:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:34:20 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	exec(t_tree *ast, t_env **env)
 	{
 		(*env)->exit_status->exit_status = exec(ast->left, env);
 		if ((*env)->exit_status->exit_status != 0)
-			(*env)->exit_status->exit_status=  exec(ast->right, env);
+			(*env)->exit_status->exit_status = exec(ast->right, env);
 		return ((*env)->exit_status->exit_status);
 	}
 	else if (ast->type == PIPE)
 	{
 		handle_pipes(ast, *env, 0, 1);
-		wait_all_pids(*env);//ici le boucle wait all pipes
+		wait_all_pids(*env);
 	}
 	else if (ast->type == L_PARENTHESE)
 		return (subshell(ast, *env));
@@ -93,29 +93,30 @@ int	subshell(t_tree *node, t_env *env)
 	return (env->exit_status->exit_status);
 }
 
-int empty_check(t_tree *node)
+int	empty_check(t_tree *node)
 {
 	if (!node || !node->n_value || !node->n_value->value)
 		return (1);
-	while ((only_spaces(node->n_value->value) || only_tabs(node->n_value->value)) 
-		&& node->n_value->next)
+	while ((only_spaces(node->n_value->value)
+			|| only_tabs(node->n_value->value)) && node->n_value->next)
 	{
 		node->n_value = node->n_value->next;
 	}
-	if (!node->n_value->next && (only_spaces(node->n_value->value) || only_tabs(node->n_value->value)))
+	if (!node->n_value->next && (only_spaces(node->n_value->value)
+			|| only_tabs(node->n_value->value)))
 		return (1);
 	return (0);
 }
 
-int exec_cmd_next(t_tree *node, t_env **env, char **arg)
+int	exec_cmd_next(t_tree *node, t_env **env, char **arg)
 {
 	arg = args_to_tab(node->n_value);
 	if (arg && arg[0] && ft_strlen(arg[0]) == 4
 		&& ft_strncmp(arg[0], "echo", 4) == 0)
 		return (echo_command(node, *env));
-	if (arg && arg[0] && ft_strlen(arg[0]) == 2 
+	if (arg && arg[0] && ft_strlen(arg[0]) == 2
 		&& ft_strncmp(arg[0], "cd", 2) == 0)
-	 	return (cd_command(node, *env));
+		return (cd_command(node, *env));
 	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
 		&& ft_strncmp(arg[0], "pwd", 3) == 0)
 		return (pwd_command(node, *env));
@@ -171,7 +172,8 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	int		status;
 
 	status = 0;
-	if ((pid = fork()) < 0)
+	pid = fork();
+	if (pid < 0)
 	{
 		ft_free_all_malloc();
 		exit(EXIT_FAILURE);
@@ -189,7 +191,7 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	}
 	else if (pid != 0)
 		child_exit_status(status, env, pid);
-	return(env->exit_status->exit_status);
+	return (env->exit_status->exit_status);
 }
 
 void	child(t_tree *node, t_env *env)
@@ -214,5 +216,5 @@ void	child(t_tree *node, t_env *env)
 	else
 		path = ft_strdup(arg[0]);
 	execve(path, arg, env_tab);
-	error_execve(arg , env);
+	error_execve(arg, env);
 }

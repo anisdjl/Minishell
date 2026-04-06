@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:22:47 by adjelili          #+#    #+#             */
-/*   Updated: 2026/02/24 15:15:16 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:25:28 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s)
 		a++;
 	new_str = ft_malloc(1, sizeof(char) * a + 1);
 	if (!new_str)
-		return (0); // free tout le reste 
+		return (0);
 	a = 0;
 	while (s[a])
 	{
