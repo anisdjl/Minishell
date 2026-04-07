@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:40:37 by adjelili          #+#    #+#             */
-/*   Updated: 2026/03/02 15:45:05 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:26:47 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split(char const *s, char c)
 	while (m < nbwords)
 	{
 		ft_length(s, c, &i, &j);
-		tab[m] = ft_malloc(1 ,sizeof(char) * (j - i) + 1);
+		tab[m] = ft_malloc(1, sizeof(char) * (j - i) + 1);
 		if (!tab[m])
 			return (ft_free(&tab, m));
 		ft_fill(s, tab[m], i, j);

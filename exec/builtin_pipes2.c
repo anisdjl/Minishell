@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:50:41 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 11:23:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:18:06 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	unset_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 
 int	export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 {
-	int	y;
+	int		y;
 	int		status;
 	char	**arg;
 
@@ -67,7 +67,8 @@ int	export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 	exit (status);
 }
 
-int	env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
+int	env_command_for_export_pipe(t_tree *node,
+	t_env **env, int *fd_in, int *fd_out)
 {
 	t_env	*tmp;
 
@@ -76,9 +77,10 @@ int	env_command_for_export_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_o
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit (1);
 	tmp = *env;
-	while(tmp)
+	while (tmp)
 	{
-		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key)
+			> 0 && tmp->value && ft_strlen(tmp->value) > 0)
 			printf("export %s%s\n", tmp->key, tmp->value);
 		else
 			printf("export %s\n", tmp->key);

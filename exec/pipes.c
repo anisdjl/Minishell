@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 16:36:49 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 12:28:46 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
-	//close_pipe(); // pas sur du truc
 	(void)paths;
 	execve(path, arg, env_tab);
 	if (errno == EACCES)
@@ -322,7 +321,6 @@ int redir_in_pipe(t_redir *redir, int *fd_in)
     }
     if (access(path, F_OK | R_OK) == -1)
     {
-        //ft_putstr_fd("minishell: ", 2); // on purra la remettre une fois la synchronisation regele
         perror(redir->value);
         return (1);
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:45:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 15:17:37 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/04 18:16:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int	env_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit(1);
 	tmp = *env;
-	while(tmp)
+	while (tmp)
 	{
-		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key)
+			> 0 && tmp->value && ft_strlen(tmp->value) > 0)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
@@ -33,45 +34,71 @@ int	env_command_pipe(t_tree *node, t_env **env, int *fd_in, int *fd_out)
 	exit (0);
 }
 
-int bultin_pipe_next(t_tree *node, t_env *env , int *fd_in, int *fd_out)
+int	bultin_pipe_next(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
-    char **arg;
-    
-    arg = args_to_tab(node->n_value);
-    if (arg && arg[0] && ft_strlen(arg[0]) == 6
-        && ft_strncmp(arg[0], "export", 6) == 0)
-        return (export_pipe(node, &env, fd_in, fd_out));
-    else if (arg && arg[0] && ft_strlen(arg[0]) == 5
-        && ft_strncmp(arg[0], "unset", 5) == 0)
-        return (unset_command_pipe(node, &env, fd_in, fd_out));
-    else if (arg && arg[0] && ft_strlen(arg[0]) == 3
-        && ft_strncmp(arg[0], "env", 3) == 0)
-        return (env_command_pipe(node, &env, fd_in, fd_out));
-    else if (arg && arg[0] && ft_strlen(arg[0]) == 4
-        && ft_strncmp(arg[0], "exit", 4) == 0)
-        exit_command_pipe(node, env, fd_in, fd_out);
-    return (44444);
+	char	**arg;
+
+	arg = args_to_tab(node->n_value);
+	if (arg && arg[0] && ft_strlen(arg[0]) == 6
+		&& ft_strncmp(arg[0], "export", 6) == 0)
+		return (export_pipe(node, &env, fd_in, fd_out));
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 5
+		&& ft_strncmp(arg[0], "unset", 5) == 0)
+		return (unset_command_pipe(node, &env, fd_in, fd_out));
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
+		&& ft_strncmp(arg[0], "env", 3) == 0)
+		return (env_command_pipe(node, &env, fd_in, fd_out));
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 4
+		&& ft_strncmp(arg[0], "exit", 4) == 0)
+		exit_command_pipe(node, env, fd_in, fd_out);
+	return (44444);
 }
 
-int    builtin_pipe(t_tree *node, t_env *env , int *fd_in, int *fd_out)
+int	builtin_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
-    char    **arg;
+	char	**arg;
 
-    wash_start(node->n_value);
-    if (*fd_in != 0)
-        dup2(*fd_in, 0);
-    if (*fd_out != 1)
-        dup2(*fd_out, 1);
-    wash_start(node->n_value);
-    arg = args_to_tab(node->n_value);
-    if (arg && arg[0] && ft_strlen(arg[0]) == 4
-        && ft_strncmp(arg[0], "echo", 4) == 0)
-        return (echo_command_pipe(node, env, fd_in, fd_out));
-    if (arg && arg[0] && ft_strlen(arg[0]) == 2 
-        && ft_strncmp(arg[0], "cd", 2) == 0)
-         return (cd_command_pipe(node, env, fd_in , fd_out));
-    else if (arg && arg[0] && ft_strlen(arg[0]) == 3
-        && ft_strncmp(arg[0], "pwd", 3) == 0)
-        return (pwd_command_pipe(node, env, fd_in, fd_out));
-    return (bultin_pipe_next(node, env, fd_in, fd_out));
+	node->fd_in = *fd_in;
+	node->fd_out = *fd_out;
+	wash_start(node->n_value);
+	if (*fd_in != 0)
+		dup2(*fd_in, 0);
+	if (*fd_out != 1)
+		dup2(*fd_out, 1);
+	wash_start(node->n_value);
+	arg = args_to_tab(node->n_value);
+	if (arg && arg[0] && ft_strlen(arg[0]) == 4
+		&& ft_strncmp(arg[0], "echo", 4) == 0)
+		return (echo_command_pipe(node, env, fd_in, fd_out));
+	if (arg && arg[0] && ft_strlen(arg[0]) == 2
+		&& ft_strncmp(arg[0], "cd", 2) == 0)
+		return (cd_command_pipe(node, env, fd_in, fd_out));
+	else if (arg && arg[0] && ft_strlen(arg[0]) == 3
+		&& ft_strncmp(arg[0], "pwd", 3) == 0)
+		return (pwd_command_pipe(node, env, fd_in, fd_out));
+	return (bultin_pipe_next(node, env, fd_in, fd_out));
+}
+
+char	**env_to_tab(t_env **env)
+{
+	t_env	*tmp;
+	char	**env_tab;
+	int		y;
+
+	if (!env || !*env)
+		return (NULL);
+	y = 0;
+	tmp = (*env);
+	env_tab = ft_malloc(1, sizeof(char *) * (ft_lstsize_env(*env) + 1));
+	while (tmp)
+	{
+		if (tmp->value)
+			env_tab[y] = ft_strjoin(tmp->key, tmp->value);
+		else
+			env_tab[y] = ft_strdup(tmp->key);
+		tmp = tmp->next;
+		y++;
+	}
+	env_tab[y] = NULL;
+	return (env_tab);
 }

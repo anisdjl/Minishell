@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/01 16:00:24 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:46:13 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new_env)
 
 char	*create_key(char *envp)
 {
-	int 	y;
+	int		y;
 	char	*key;
 
 	y = 0;
@@ -40,7 +40,6 @@ char	*create_key(char *envp)
 	if (!key)
 	{
 		ft_free_all_malloc();
-		//ft_free_env();
 		exit(EXIT_FAILURE);
 	}
 	y = 0;
@@ -52,6 +51,7 @@ char	*create_key(char *envp)
 	key[y] = '\0';
 	return (key);
 }
+
 char	*ft_strdup_env(const char *s)
 {
 	char	*new_str;
@@ -62,7 +62,7 @@ char	*ft_strdup_env(const char *s)
 		a++;
 	new_str = malloc(sizeof(char) * a + 1);
 	if (!new_str)
-		return (0); // free tout le reste 
+		return (NULL);
 	a = 0;
 	while (s[a])
 	{
@@ -73,9 +73,9 @@ char	*ft_strdup_env(const char *s)
 	return (new_str);
 }
 
-t_env *get_env(char **envp)
+t_env	*get_env(char **envp)
 {
-	int y;
+	int		y;
 	t_env	*env;
 	t_env	*new;
 	void	*ptr;
@@ -113,17 +113,18 @@ t_env *get_env(char **envp)
 int	env_command_for_export(t_tree *node, t_env **env)
 {
 	t_env	*tmp;
-	int	fd_in;
-	int	fd_out;
+	int		fd_in;
+	int		fd_out;
 
 	if (!env || !*env)
 		return (0);
 	save_fds(&fd_in, &fd_out);
 	redir_function(node);
 	tmp = *env;
-	while(tmp)
+	while (tmp)
 	{
-		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key) > 0
+			&& tmp->value && ft_strlen(tmp->value) > 0)
 			printf("export %s%s\n", tmp->key, tmp->value);
 		else
 			printf("export %s\n", tmp->key);
@@ -133,7 +134,7 @@ int	env_command_for_export(t_tree *node, t_env **env)
 	return (0);
 }
 
-void	free_env(t_env **env) // une boucle qui free tout
+void	free_env(t_env **env)
 {
 	t_env	*tmp;
 	t_env	*next;
@@ -148,7 +149,7 @@ void	free_env(t_env **env) // une boucle qui free tout
 		next = tmp->next;
 		tmp->next = NULL;
 		if (tmp->key)
-		free(tmp->key);
+			free(tmp->key);
 		if (tmp->value)
 			free(tmp->value);
 		free(tmp);
@@ -223,4 +224,3 @@ char	*ft_strjoin_env(char const *s1, char const *s2)
 // 			return ;
 // 	}
 // }
-

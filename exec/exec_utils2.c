@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:31:02 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/03 19:57:56 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:47:42 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ char	*find_path(char *cmd, char **env, t_env **envp)
 	path_v1 = ft_strjoin("/", cmd);
 	y = 0;
 	if (!env || !*env)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
-		free_env(envp);
-		ft_free_all_malloc();
-		exit(127);
-	}
+		exit_no_path(cmd, envp);
 	while (env[y])
 	{
 		path_joined = ft_strjoin(env[y], path_v1);
@@ -43,6 +36,16 @@ char	*find_path(char *cmd, char **env, t_env **envp)
 	free_env(envp);
 	ft_free_all_malloc();
 	exit (127);
+}
+
+void	exit_no_path(char *cmd, t_env **envp)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": no such file or directory\n", 2);
+	free_env(envp);
+	ft_free_all_malloc();
+	exit(127);
 }
 
 char	**get_paths(char **envp)
@@ -80,13 +83,14 @@ int	valid_export(char *args)
 	int	y;
 
 	y = 0;
-	if (args[0] == '\0' || only_spaces(args) || (!((args[0] >= 'a' && args[0] <= 'z') 
-        || (args[0] >= 'A' && args[0] <= 'Z') 
-        || (args[0] == '_'))))
+	if (args[0] == '\0' || only_spaces(args)
+		|| (!((args[0] >= 'a' && args[0] <= 'z')
+				|| (args[0] >= 'A' && args[0] <= 'Z')
+				|| (args[0] == '_'))))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(args, 2);
-		ft_putstr_fd(": not a valid identifier\n", 2);	
+		ft_putstr_fd(": not a valid identifier\n", 2);
 		return (1);
 	}
 	while (args[++y] && args[y] != '=')
@@ -95,7 +99,7 @@ int	valid_export(char *args)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(args, 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);	
+			ft_putstr_fd(": not a valid identifier\n", 2);
 			return (1);
 		}
 	}

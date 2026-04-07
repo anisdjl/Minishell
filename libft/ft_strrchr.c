@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:20:15 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/17 17:25:57 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:26:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_strrchr(const char *s, int c)
 
 /*#include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
 	char str[] = "hello world";

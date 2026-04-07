@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:37:48 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 14:42:51 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/06 11:41:18 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int pwd_cmd_pipe_loop(t_env	*tmp)
+int	pwd_cmd_pipe_loop(t_env	*tmp)
 {
-	while(tmp)
+	while (tmp)
 	{
 		if (ft_strncmp(tmp->key, "PWD", 3) == 0 && ft_strlen(tmp->key) == 3)
 		{
@@ -26,12 +26,12 @@ int pwd_cmd_pipe_loop(t_env	*tmp)
 	return (1);
 }
 
-int pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
+int	pwd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {
 	char	current_dir[4096];
 	t_env	*tmp;
 	void	*ptr;
-	
+
 	tmp = env;
 	if (redir_for_pipes(node, fd_in, fd_out))
 		exit(1);
