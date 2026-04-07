@@ -6,11 +6,38 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:31:19 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 16:37:28 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	numeric_exit(char **arg, char *nptr, t_env *env, t_tree *node)
+{
+	int					y;
+	long long			sign;
+	unsigned long long	total;
+
+	y = 0;
+	sign = 1;
+	total = 0;
+	if (nptr[y] == '-' || nptr[y] == '+')
+		if (nptr[y++] == '-')
+			sign = -1;
+	while (nptr[y] >= '0' && nptr[y] <= '9')
+	{
+		if (sign == 1 && overflow_pos(total, nptr[y]))
+			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
+		if (sign == -1 && overflow_neg(total, nptr[y]))
+			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
+		total = total * 10 + (nptr[y++] - '0');
+	}
+	ft_putstr_fd("exit\n", 2);
+	ft_free_all_malloc();
+	free_env(&env);
+	close_pipe();
+	exit((unsigned char)(total * sign));
+}
 
 void	exit_command(t_tree *node, t_env *env)
 {
@@ -60,33 +87,6 @@ void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out)
 	free_env(&env);
 	close_pipe();
 	exit(2);
-}
-
-void	numeric_exit(char **arg, char *nptr, t_env *env, t_tree *node)
-{
-	int					y;
-	long long			sign;
-	unsigned long long	total;
-
-	y = 0;
-	sign = 1;
-	total = 0;
-	if (nptr[y] == '-' || nptr[y] == '+')
-		if (nptr[y++] == '-')
-			sign = -1;
-	while (nptr[y] >= '0' && nptr[y] <= '9')
-	{
-		if (sign == 1 && overflow_pos(total, nptr[y]))
-			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
-		if (sign == -1 && overflow_neg(total, nptr[y]))
-			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
-		total = total * 10 + (nptr[y++] - '0');
-	}
-	ft_putstr_fd("exit\n", 2);
-	ft_free_all_malloc();
-	free_env(&env);
-	close_pipe();
-	exit((unsigned char)(total * sign));
 }
 
 int	non_numeric(char *arg)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:07:40 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 15:08:09 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:39:24 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../minishell.h"
 
 int	redir_for_pipes(t_tree *node, int *fd_in, int *fd_out)
 {

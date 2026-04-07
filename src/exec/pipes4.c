@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:12:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 15:25:00 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:39:30 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../minishell.h"
 
 void	exec_pipe_subshell2(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 {

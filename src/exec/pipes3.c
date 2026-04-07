@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:07:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 15:09:14 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:39:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../minishell.h"
 
 void	exec_pipe(char *path, char **paths, char **env_tab, char **arg)
 {
