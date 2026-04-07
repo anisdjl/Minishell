@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 14:31:50 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:50:45 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,9 @@ void	numeric_exit(char **arg, char *nptr, t_env *env, t_tree *node)
 			sign = -1;
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
-		if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
-				|| (((total == (unsigned long long)LLONG_MAX / 10
-							&& ((unsigned long long)(nptr[y]
-								- '0') > (unsigned long long)LLONG_MAX
-							% 10))))))
+		if (sign == 1 && overflow_pos(total, nptr[y]))
 			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
-		if (sign == -1 && (total > 9223372036854775808ULL / 10
-				|| (((total == 9223372036854775808ULL / 10
-							&& ((unsigned long long)(nptr[y]
-								- '0') > 9223372036854775808ULL % 10))))))
+		if (sign == -1 && overflow_neg(total, nptr[y]))
 			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
 		total = total * 10 + (nptr[y++] - '0');
 	}

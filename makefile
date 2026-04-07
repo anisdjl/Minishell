@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/07 14:45:36 by adjelili         ###   ########.fr        #
+#    Updated: 2026/04/07 15:26:01 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC = main.c \
 	exec/cd.c \
 	exec/cd_pipe.c \
 	exec/exit.c \
+	exec/exit_utils.c \
 	exec/exec_utils2.c \
 	exec/redir.c \
 	exec/redir2.c \
@@ -43,6 +44,9 @@ SRC = main.c \
 	exec/unset.c \
 	exec/export.c \
 	exec/pipes.c \
+	exec/pipes2.c \
+	exec/pipes3.c \
+	exec/pipes4.c \
 	exec/butltin_utils.c \
 	exec/builtin_pipes.c \
 	exec/builtin_pipes2.c \

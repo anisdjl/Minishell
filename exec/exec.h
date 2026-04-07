@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/07 14:45:31 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:25:41 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int		exec_cmd(t_tree *node, t_env **env);
 int		exec_normal_command(t_tree *node, t_env *env);
 int		subshell(t_tree *node, t_env *env);
 void	child(t_tree *node, t_env *env);
+void	exec_pipe_subshell2(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+void	check_empty_redirs(t_tree *node, t_env *env, int *fd_in, int *fd_out);
+void	exit_wrong_pid(t_env *env);
 
 /* path */
 
@@ -68,6 +71,8 @@ int		here_doc(t_tree *node, t_env *env);
 int		pre_exec(t_tree *node, t_env *env);
 int		error_message(char *path);
 void	close_pipe(void);
+void	close_extra_fds(t_tree *node, int fd_in, int fd_out);
+int		exec_pipe_subshell(t_tree *node, t_env *env, int fd_in, int fd_out);
 
 /* write */
 

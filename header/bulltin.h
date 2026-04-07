@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:47:39 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/06 11:29:07 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:57:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ void	extract_oldpwd_pipe(t_value_node *n_value, t_env *env, char *new_value);
 int		return_to_old_pwd_pipe(t_tree *node, t_env *env, char *current_dir);
 int		error_cd_pipe(char **arg, int *fd_in, int *fd_out);
 void	remove_env_node(t_env **env, t_env *current, t_env *prev);
+int		overflow_pos(unsigned long long total, char digit);
+int		overflow_neg(unsigned long long total, char digit);
+void	exit_too_many_args(t_env *env);
 
 #endif

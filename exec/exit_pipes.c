@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 16:00:09 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:58:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,7 @@ void	exit_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	else if (non_numeric(arg[1]))
 		exit_non_numeric_pipes(arg, env);
 	else if (size_of_table(arg) > 2)
-	{
-		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		free_env(&env);
-		ft_free_all_malloc();
-		close_pipe();
-		exit (146);
-	}
+		exit_too_many_args(env);
 }
 
 void	exit_non_numeric_pipes(char **arg, t_env *env)
@@ -55,10 +49,10 @@ void	exit_non_numeric_pipes(char **arg, t_env *env)
 
 void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 {
-	int	y;
-	int	sign;
+	int					y;
+	int					sign;
 	unsigned long long	total;
-	int			digit;
+	int					digit;
 
 	total = 0;
 	sign = 1;
@@ -69,13 +63,9 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
 		digit = nptr[y] - '0';
-        if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
-				|| (((total == (unsigned long long)LLONG_MAX / 10
-					&& ((unsigned long long)(nptr[y] - '0') > (unsigned long long)LLONG_MAX % 10))))))
-            exit_non_numeric_pipes(arg, env);
-        if (sign == -1 && (total > 9223372036854775808ULL / 10
-				|| (((total == 9223372036854775808ULL / 10
-					&& ((unsigned long long)(nptr[y] - '0') > 9223372036854775808ULL % 10))))))
+		if (sign == 1 && overflow_pos(total, nptr[y]))
+			exit_non_numeric_pipes(arg, env);
+		if (sign == -1 && overflow_neg(total, nptr[y]))
 			exit_non_numeric_pipes(arg, env);
 		total = total * 10 + nptr[y] - '0';
 		y++;
