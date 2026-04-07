@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/04/04 18:01:22 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 13:02:58 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int pwd_command(t_tree *node, t_env *env)
+int	pwd_command(t_tree *node, t_env *env)
 {
 	char	current_dir[4096];
 	t_env	*tmp;
 	void	*ptr;
 	int		fd_in;
 	int		fd_out;
-	
+
 	tmp = env;
 	save_fds(&fd_in, &fd_out);
 	if (redir_function(node))
@@ -37,8 +37,8 @@ int pwd_command(t_tree *node, t_env *env)
 int	env_command(t_tree *node, t_env **env)
 {
 	t_env	*tmp;
-	int	fd_in;
-	int	fd_out;
+	int		fd_in;
+	int		fd_out;
 
 	if (!env || !*env)
 		return (0);
@@ -49,9 +49,10 @@ int	env_command(t_tree *node, t_env **env)
 		return (1);
 	}
 	tmp = *env;
-	while(tmp)
+	while (tmp)
 	{
-		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value && ft_strlen(tmp->value) > 0)
+		if (tmp->key && ft_strlen(tmp->key) > 0 && tmp->value
+			&& ft_strlen(tmp->value) > 0)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
@@ -61,9 +62,9 @@ int	env_command(t_tree *node, t_env **env)
 
 int	echo_command(t_tree *node, t_env *env)
 {
-	int	y;
-	int	fd_in;
-	int	fd_out;
+	int		y;
+	int		fd_in;
+	int		fd_out;
 	char	**arg;
 
 	arg = args_to_tab(node->n_value);
@@ -89,9 +90,9 @@ int	echo_command(t_tree *node, t_env *env)
 
 int	echo_command2(t_tree *node, t_env *env)
 {
-	int	y;
-	int	fd_in;
-	int	fd_out;
+	int		y;
+	int		fd_in;
+	int		fd_out;
 	char	**arg;
 
 	(void)env;
@@ -120,21 +121,21 @@ void	error_execve(char **arg, t_env *env)
 	if (errno == EACCES)
 	{
 		ft_putstr_fd("minishell: ", 2);
-    	ft_putstr_fd(arg[0], 2);
+		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": Permission denied\n", 2);
-    	exit(126);
+		exit(126);
 	}
 	if (errno == EISDIR)
 	{
 		ft_putstr_fd("minishell: ", 2);
-    	ft_putstr_fd(arg[0], 2);
-    	ft_putstr_fd(": Is a directory\n", 2);
-    	exit(126);
+		ft_putstr_fd(arg[0], 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		exit(126);
 	}
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(arg[0], 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 	free_env(&env);
 	ft_free_all_malloc();
-	exit (127);
+	exit(127);
 }

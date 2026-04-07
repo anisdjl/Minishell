@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:07:42 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/06 11:34:20 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 13:42:55 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	command_is_empty(t_tree *node)
+int	exec_next(t_tree *ast, t_env **env)
 {
-	t_value_node	*tmp;
-
-	if (!node || !node->n_value)
-		return (1);
-	tmp = node->n_value;
-	while (tmp)
+	if (ast->type == PIPE)
 	{
-		if (tmp->value && tmp->value[0] != '\0')
-			return (0);
-		tmp = tmp->next;
+		handle_pipes(ast, *env, 0, 1);
+		wait_all_pids(*env);
+	}
+	else if (ast->type == L_PARENTHESE)
+		return (subshell(ast, *env));
+	else if (ast->type == WORD)
+	{
+		(*env)->exit_status->exit_status = exec_cmd(ast, env);
+		return ((*env)->exit_status->exit_status);
 	}
 	return (1);
 }
@@ -46,66 +47,7 @@ int	exec(t_tree *ast, t_env **env)
 			(*env)->exit_status->exit_status = exec(ast->right, env);
 		return ((*env)->exit_status->exit_status);
 	}
-	else if (ast->type == PIPE)
-	{
-		handle_pipes(ast, *env, 0, 1);
-		wait_all_pids(*env);
-	}
-	else if (ast->type == L_PARENTHESE)
-		return (subshell(ast, *env));
-	else if (ast->type == WORD)
-	{
-		(*env)->exit_status->exit_status = exec_cmd(ast, env);
-		return ((*env)->exit_status->exit_status);
-	}
-	return (1);
-}
-
-int	subshell(t_tree *node, t_env *env)
-{
-	int	pid_subshell;
-	int	status;
-
-	status = 0;
-	pid_subshell = fork();
-	if (pid_subshell < 0)
-	{
-		ft_free_all_malloc();
-		free_env(&env);
-		exit(EXIT_FAILURE);
-	}
-	if (pid_subshell == 0)
-	{
-		if (redir_function(node) == 1)
-		{
-			free_env(&env);
-			exit (1);
-		}
-		status = exec(node->left, &env);
-		free_env(&env);
-		ft_free_all_malloc();
-		close_pipe();
-		exit (status);
-	}
-	waitpid(pid_subshell, &status, 0);
-	if (WIFEXITED(status))
-		env->exit_status->exit_status = WEXITSTATUS(status);
-	return (env->exit_status->exit_status);
-}
-
-int	empty_check(t_tree *node)
-{
-	if (!node || !node->n_value || !node->n_value->value)
-		return (1);
-	while ((only_spaces(node->n_value->value)
-			|| only_tabs(node->n_value->value)) && node->n_value->next)
-	{
-		node->n_value = node->n_value->next;
-	}
-	if (!node->n_value->next && (only_spaces(node->n_value->value)
-			|| only_tabs(node->n_value->value)))
-		return (1);
-	return (0);
+	return (exec_next(ast, env));
 }
 
 int	exec_cmd_next(t_tree *node, t_env **env, char **arg)
@@ -192,29 +134,4 @@ int	exec_normal_command(t_tree *node, t_env *env)
 	else if (pid != 0)
 		child_exit_status(status, env, pid);
 	return (env->exit_status->exit_status);
-}
-
-void	child(t_tree *node, t_env *env)
-{
-	char	*path;
-	char	**paths;
-	char	**env_tab;
-	char	**arg;
-
-	arg = args_to_tab(node->n_value);
-	env_tab = env_to_tab(&env);
-	paths = get_paths(env_tab);
-	if (arg && arg[0] && (only_spaces(arg[0]) || arg[0][0] == '\0'))
-	{
-		ft_putstr_fd("minsihell: ", 2);
-		ft_putstr_fd(arg[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit (126);
-	}
-	if (arg && arg[0] && !given_path(arg[0]))
-		path = find_path(arg[0], paths, &env);
-	else
-		path = ft_strdup(arg[0]);
-	execve(path, arg, env_tab);
-	error_execve(arg, env);
 }
