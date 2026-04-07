@@ -2,13 +2,13 @@
 
 ---
 
-# 🐚 Minishell
+# Minishell
 
 > A fully functional Unix shell written in C, built from scratch as part of the 42 School curriculum.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Description](#description)
 - [Features](#features)
@@ -30,10 +30,10 @@ This project covers a wide range of low-level systems programming concepts inclu
 
 ## Features
 
-### 🔤 Lexer (adjelili)
+### Lexer (adjelili)
 The lexer is the first stage of the pipeline. It takes the raw string received from `readline` and breaks it into a **linked list of tokens** using a **Finite State Machine (FSM)**. The FSM transitions between states (default, in single quote, in double quote, in word, etc.) and only splits the input when it encounters a whitespace or a separator token — making it far more precise and efficient than a naive string split approach.
 
-### 🌿 Parser & AST (eprieur)
+### Parser & AST (eprieur)
 The parser consumes the token list produced by the lexer and builds an **Abstract Syntax Tree (AST)**. Each node of the tree represents a logical unit of the command line (a command, a pipe, a logical operator, a subshell, etc.). The parser is written using **recursive descent parsing**, inspired by the grammar-based approach from *Crafting Interpreters*.
 
 ```
@@ -53,7 +53,7 @@ Each AST node contains:
 
 The parser also handles **syntax error detection**: unclosed parentheses, unclosed quotes, unexpected tokens, etc.
 
-### 🔁 Expand (eprieur)
+### Expand (eprieur)
 Before execution, every AST node goes through an **expansion phase**. This step:
 - Removes single and double quotes
 - Searches for `$VARIABLE` patterns and replaces them with their value from the environment
@@ -103,10 +103,10 @@ A **heredoc** is a form of redirection that lets the user type multi-line input 
 - **`&&`** executes the right-hand command only if the left-hand command succeeded (exit code 0).
 - **`||`** executes the right-hand command only if the left-hand command failed (non-zero exit code).
 
-### 🌍 Environment
+### Environment
 The shell copies the initial `envp` array into an internal **linked list** at startup. This allows dynamic updates to environment variables (`export`, `unset`) throughout the shell session without modifying the original environment.
 
-### 🛑 Signals
+### Signals
 The shell handles Unix signals to mimic `bash` behavior:
 
 | Signal | Key combo | Behavior |
@@ -117,7 +117,7 @@ The shell handles Unix signals to mimic `bash` behavior:
 
 Signal handling is adapted depending on context (interactive prompt vs. child process execution).
 
-### 🗑️ Garbage Collector
+### Garbage Collector
 To guarantee **zero memory leaks** between commands and at program exit, Minishell uses a custom **garbage collector**: a global linked list where every dynamically allocated pointer is registered. This allows freeing all memory at once on error or exit.
 
 The only known remaining leaks are internal to the **`readline` library** itself, which are suppressed using a Valgrind suppression file (`.readline.supp`).
@@ -313,13 +313,13 @@ AI (Claude / ChatGPT) was used throughout the project for the following purposes
 
 ---
 
-# 🐚 Minishell
+# Minishell
 
 > Un shell Unix entièrement fonctionnel écrit en C, construit de zéro dans le cadre du cursus de l'école 42.
 
 ---
 
-## 📋 Table des matières
+## Table des matières
 
 - [Description](#description-1)
 - [Fonctionnalités](#fonctionnalités)
@@ -341,10 +341,10 @@ Ce projet couvre un large éventail de concepts de programmation système bas ni
 
 ## Fonctionnalités
 
-### 🔤 Lexer (adjelili)
+### Lexer (adjelili)
 Le lexer est la première étape du pipeline. Il prend la chaîne brute reçue de `readline` et la découpe en une **liste chaînée de tokens** grâce à une **Finite State Machine (FSM)**. La FSM transite entre différents états (défaut, dans une quote simple, dans une quote double, dans un mot, etc.) et ne découpe l'entrée que lorsqu'elle rencontre un espace ou un séparateur — ce qui est bien plus précis et efficace qu'un simple `split` naïf.
 
-### 🌿 Parser & AST (eprieur)
+### Parser & AST (eprieur)
 Le parser consomme la liste de tokens produite par le lexer et construit un **Abstract Syntax Tree (AST)**. Chaque nœud de l'arbre représente une unité logique de la ligne de commande (une commande, un pipe, un opérateur logique, un sous-shell, etc.). Le parser est écrit en **recursive descent parsing**, inspiré de l'approche grammaticale de *Crafting Interpreters*.
 
 ```
@@ -364,7 +364,7 @@ Chaque nœud de l'AST contient :
 
 Le parser gère également la **détection d'erreurs de syntaxe** : parenthèses non fermées, quotes non fermées, tokens inattendus, etc.
 
-### 🔁 Expand (eprieur)
+### Expand (eprieur)
 Avant l'exécution, chaque nœud de l'AST passe par une phase d'**expansion**. Cette étape :
 - Supprime les quotes simples et doubles
 - Recherche les patterns `$VARIABLE` et les remplace par leur valeur dans l'environnement
@@ -414,10 +414,10 @@ Un **heredoc** est une forme de redirection qui permet à l'utilisateur de saisi
 - **`&&`** exécute la commande de droite uniquement si celle de gauche a réussi (code de sortie 0).
 - **`||`** exécute la commande de droite uniquement si celle de gauche a échoué (code de sortie non nul).
 
-### 🌍 Environnement
+### Environnement
 Le shell copie le tableau `envp` initial dans une **liste chaînée interne** au démarrage. Cela permet des mises à jour dynamiques des variables d'environnement (`export`, `unset`) tout au long de la session sans modifier l'environnement d'origine.
 
-### 🛑 Signaux
+### Signaux
 Le shell gère les signaux Unix pour reproduire le comportement de `bash` :
 
 | Signal | Raccourci | Comportement |
@@ -605,9 +605,9 @@ Une grande partie de notre apprentissage est venue de tests d'edge cases directe
 
 ### Utilisation de l'IA
 
-L'IA (Claude / ChatGPT) a été utilisée tout au long du projet pour :
+L'IA (Claude / Gemini) a été utilisée tout au long du projet pour :
 
 - **Apprendre de nouveaux concepts** : comprendre les FSM pour le lexer, le parsing récursif pour l'AST, et la gestion des signaux Unix.
 - **Déboguer** : identifier des problèmes avec les pipes et les descripteurs de fichiers non fermés, ainsi que des bugs mémoire (invalid reads, conditional jumps reportés par Valgrind).
-- **Comprendre la structure de l'AST** : Evan a utilisé l'IA pour mieux appréhender la construction et la traversée d'un AST en C, en complément de *Crafting Interpreters*.
+- **Comprendre la structure de l'AST** : eprieur a utilisé l'IA pour mieux appréhender la construction et la traversée d'un AST en C, en complément de *Crafting Interpreters*.
 - L'IA n'a **jamais été utilisée pour écrire du code de production directement** — elle a servi d'assistant d'apprentissage et de débogage.
