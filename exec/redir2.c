@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 10:15:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/06 11:22:14 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:01:09 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ int	redir_out(t_redir *redir)
 	}
 	close(fd_out);
 	return (0);
+}
+
+void	save_fds(int *fd_in, int *fd_out)
+{
+	*fd_in = dup(0);
+	*fd_out = dup(1);
+}
+
+void	reset_and_close(int *fd_in, int *fd_out)
+{
+	dup2(*fd_in, 0);
+	dup2(*fd_out, 1);
+	close(*fd_in);
+	close(*fd_out);
 }
 
 char	*strip_quotes_redir(const char *src)

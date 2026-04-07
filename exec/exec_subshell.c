@@ -6,17 +6,17 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:12:00 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 13:15:36 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 14:48:00 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void subshell_exit(t_env *env)
+void	subshell_exit(t_env *env)
 {
-    ft_free_all_malloc();
-    free_env(&env);
-    exit(EXIT_FAILURE);
+	ft_free_all_malloc();
+	free_env(&env);
+	exit(EXIT_FAILURE);
 }
 
 int	subshell(t_tree *node, t_env *env)
@@ -27,19 +27,19 @@ int	subshell(t_tree *node, t_env *env)
 	status = 0;
 	pid_subshell = fork();
 	if (pid_subshell < 0)
-        subshell_exit(env);
+		subshell_exit(env);
 	if (pid_subshell == 0)
 	{
 		if (redir_function(node) == 1)
 		{
 			free_env(&env);
-			exit (1);
+			exit(1);
 		}
 		status = exec(node->left, &env);
 		free_env(&env);
 		ft_free_all_malloc();
 		close_pipe();
-		exit (status);
+		exit(status);
 	}
 	waitpid(pid_subshell, &status, 0);
 	if (WIFEXITED(status))

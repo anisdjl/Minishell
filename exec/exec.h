@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/07 14:42:32 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:02:07 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ int		here_doc(t_tree *node, t_env *env);
 int		pre_exec(t_tree *node, t_env *env);
 int		error_message(char *path);
 void	close_pipe(void);
+
+/* redir utils */
+
+void	save_fds(int *fd_in, int *fd_out);
+void	reset_and_close(int *fd_in, int *fd_out);
 
 /* write */
 
