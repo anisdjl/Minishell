@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 09:23:24 by adjelili          #+#    #+#             */
-/*   Updated: 2025/11/12 09:26:15 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/04 16:24:05 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_putstr_fd(char *s, int fd)
 
 /*int main(void)
 {
-    char str[] = "hello world";
+	char str[] = "hello world";
 
-    ft_putstr_fd(str, 1);
-    return (0);
+	ft_putstr_fd(str, 1);
+	return (0);
 }*/

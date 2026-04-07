@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/06 11:17:34 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:39:57 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ int	wait_all_pids(t_env *env)
 	t_pid	*tmp;
 	int		status;
 
+	status = 0;
 	tmp = env->pid;
 	while (tmp->next)
 	{
