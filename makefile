@@ -6,7 +6,7 @@
 #    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/07 12:52:23 by adjelili         ###   ########.fr        #
+#    Updated: 2026/04/07 14:44:59 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,12 +50,16 @@ SRC = main.c \
 	exec/here_doc.c \
 	exec/echo_pipes.c \
 	exec/pwd_pipe.c \
+	exec/here_doc_utils.c \
+	exec/exec_subshell.c \
+	exec/exec_child.c \
+	exec/exec_empty.c \
 	src/expand/expand.c \
 	src/expand/wash_quote.c \
 	src/expand/expand_case.c \
 	src/expand/expand_split.c \
 	signals/signals.c
-
+	
 OBJ = $(SRC:.c=.o)
 
 NAME = minishell
