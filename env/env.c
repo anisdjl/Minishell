@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/06 11:46:13 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 12:34:06 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,24 +203,3 @@ char	*ft_strjoin_env(char const *s1, char const *s2)
 	new_str[y] = '\0';
 	return (new_str);
 }
-
-// void	free_env(t_env **env) elle ne marche pas
-// {
-// 	t_env	*current;
-// 	t_env	*next;
-
-// 	if (!env || !*env)
-// 		return ;
-// 	current = *env;
-// 	next = NULL;
-// 	while (current)
-// 	{
-// 		if (current->next)
-// 			next = current->next;
-// 		free(current);
-// 		if (next)
-// 			current = next;
-// 		else
-// 			return ;
-// 	}
-// }
