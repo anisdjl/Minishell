@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.h                                            :+:      :+:    :+:   */
+/*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/04 15:06:52 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 16:21:59 by eprieur          ###   ########.fr       */
+/*   Created: 2026/02/24 15:20:13 by adjelili          #+#    #+#             */
+/*   Updated: 2026/04/07 16:23:16 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REDIR_H
-# define REDIR_H
+#ifndef GC_H
+# define GC_H
 
-int		redir_function(t_tree *node);
-int		redir_in(t_redir *redir);
-int		redir_out(t_redir *redir);
-void	save_fds(int *fd_in, int *fd_out);
-void	reset_and_close(int *fd_in, int *fd_out);
-int		env_command_for_export(t_tree *node, t_env **env);
-int		check_existant(t_env *env, char *key);
-char	*strip_quotes_redir(const char *src);
-int		redir_is_directory(char *path);
+# include <stddef.h>
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+void				ft_lstadd_back_gc(t_list **lst, t_list *new_node);
+void				*ft_calloc_gc(size_t nmemb, size_t size);
+t_list				*ft_lstnew_gc(void *content);
 
 #endif

@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   bulltin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:47:39 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/06 11:29:07 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:21:45 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BULLTIN_H
 # define BULLTIN_H
 
-# include "../minishell.h"
+typedef struct s_tree t_tree;
+typedef struct s_env  t_env;
+typedef struct s_value_node t_value_node;
+
 
 int		cd_command(t_tree *node, t_env *env);
 int		pwd_command(t_tree *node, t_env *env);
