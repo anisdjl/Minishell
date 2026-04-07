@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:35:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/02 14:41:25 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 14:05:59 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_quotes(char *line)
 	if (in_dquote == 1 || in_squote == 1)
 	{
 		ft_putstr_fd("Syntax error : quote not closed\n", 2);
-		return (1);
+		return (0);
 	}
 	else
 		return (1);

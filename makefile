@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+         #
+#    By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/11 12:26:41 by adjelili          #+#    #+#              #
-#    Updated: 2026/04/04 14:41:47 by eprieur          ###   ########.fr        #
+#    Updated: 2026/04/07 12:52:23 by adjelili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC = main.c \
 	src/ast/ast_utils2.c \
 	src/expand/extraction.c \
 	env/env.c \
+	env/env2.c \
 	exec/exec.c \
 	exec/cd.c \
 	exec/cd_pipe.c \

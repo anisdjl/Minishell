@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 10:39:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/04 18:15:28 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:31:50 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ void	exit_command(t_tree *node, t_env *env)
 	wash_start(node->n_value);
 	arg = args_to_tab(node->n_value);
 	if (size_of_table(arg) == 1)
-	{
-		ft_putstr_fd("exit\n", 2);
-		reset_and_close(&node->fd_in, &node->fd_out);
-		ft_free_all_malloc();
-		free_env(&env);
-		close_pipe();
-		exit(les);
-	}
+		exit_classic(env, node, les);
 	else if (size_of_table(arg) == 2 && !non_numeric(arg[1]))
 		numeric_exit(arg, arg[1], env, node);
 	else if (non_numeric(arg[1]))
@@ -43,6 +36,16 @@ void	exit_command(t_tree *node, t_env *env)
 		env->exit_status->exit_status = 1;
 		reset_and_close(&node->fd_in, &node->fd_out);
 	}
+}
+
+void	exit_classic(t_env *env, t_tree *node, int les)
+{
+	ft_putstr_fd("exit\n", 2);
+	reset_and_close(&node->fd_in, &node->fd_out);
+	ft_free_all_malloc();
+	free_env(&env);
+	close_pipe();
+	exit(les);
 }
 
 void	exit_non_numeric(char **arg, t_env *env, int *fd_in, int *fd_out)
@@ -76,13 +79,13 @@ void	numeric_exit(char **arg, char *nptr, t_env *env, t_tree *node)
 		if (sign == 1 && (total > (unsigned long long)LLONG_MAX / 10
 				|| (((total == (unsigned long long)LLONG_MAX / 10
 							&& ((unsigned long long)(nptr[y]
-									- '0') > (unsigned long long)LLONG_MAX
-								% 10))))))
+								- '0') > (unsigned long long)LLONG_MAX
+							% 10))))))
 			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
 		if (sign == -1 && (total > 9223372036854775808ULL / 10
 				|| (((total == 9223372036854775808ULL / 10
 							&& ((unsigned long long)(nptr[y]
-									- '0') > 9223372036854775808ULL % 10))))))
+								- '0') > 9223372036854775808ULL % 10))))))
 			exit_non_numeric(arg, env, &node->fd_in, &node->fd_out);
 		total = total * 10 + (nptr[y++] - '0');
 	}

@@ -6,27 +6,11 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 12:34:06 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 12:56:46 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_lstadd_back_env(t_env **lst, t_env *new_env)
-{
-	t_env	*ptr;
-
-	ptr = NULL;
-	if (*lst == NULL)
-		*lst = new_env;
-	else
-	{
-		ptr = *lst;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = new_env;
-	}
-}
 
 char	*create_key(char *envp)
 {
@@ -78,7 +62,6 @@ t_env	*get_env(char **envp)
 	int		y;
 	t_env	*env;
 	t_env	*new;
-	void	*ptr;
 
 	env = NULL;
 	new = NULL;
@@ -92,22 +75,29 @@ t_env	*get_env(char **envp)
 			free_env(&env);
 			exit(EXIT_FAILURE);
 		}
-		new->next = NULL;
-		new->exit_status = NULL;
-		new->pid = NULL;
-		new->key = create_key(envp[y]);
-		ptr = ft_strchr(envp[y], '=');
-		if (ptr)
-			new->value = ft_strdup_env(ptr);
-		else
-			new->value = NULL;
-		ft_lstadd_back_env(&env, new);
+		fill_env(envp, y, new, &env);
 		y++;
 	}
 	env->exit_status = malloc(sizeof(t_exit_status) * 1);
 	env->exit_status->exit_status = 0;
 	env->pid = NULL;
 	return (env);
+}
+
+void	fill_env(char **envp, int y, t_env *new, t_env **env)
+{
+	void	*ptr;
+
+	new->next = NULL;
+	new->exit_status = NULL;
+	new->pid = NULL;
+	new->key = create_key(envp[y]);
+	ptr = ft_strchr(envp[y], '=');
+	if (ptr)
+		new->value = ft_strdup_env(ptr);
+	else
+		new->value = NULL;
+	ft_lstadd_back_env(env, new);
 }
 
 int	env_command_for_export(t_tree *node, t_env **env)
@@ -132,74 +122,4 @@ int	env_command_for_export(t_tree *node, t_env **env)
 	}
 	reset_and_close(&fd_in, &fd_out);
 	return (0);
-}
-
-void	free_env(t_env **env)
-{
-	t_env	*tmp;
-	t_env	*next;
-
-	if (!env || !*env)
-		return ;
-	tmp = (*env);
-	free(tmp->exit_status);
-	free_pid(&(*env)->pid);
-	while (tmp)
-	{
-		next = tmp->next;
-		tmp->next = NULL;
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->value)
-			free(tmp->value);
-		free(tmp);
-		tmp = next;
-	}
-	(*env) = NULL;
-}
-
-void	free_pid(t_pid **pid)
-{
-	t_pid	*tmp;
-	t_pid	*next;
-
-	if (!pid || !*pid)
-		return ;
-	tmp = (*pid);
-	while (tmp)
-	{
-		next = tmp->next;
-		tmp->next = NULL;
-		free(tmp);
-		tmp = next;
-	}
-	(*pid) = NULL;
-}
-
-char	*ft_strjoin_env(char const *s1, char const *s2)
-{
-	int		a;
-	int		y;
-	char	*new_str;
-
-	a = 0;
-	y = 0;
-	new_str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!new_str)
-		return (NULL);
-	while (s1[a])
-	{
-		new_str[y] = s1[a];
-		a++;
-		y++;
-	}
-	a = 0;
-	while (s2[a])
-	{
-		new_str[y] = s2[a];
-		a++;
-		y++;
-	}
-	new_str[y] = '\0';
-	return (new_str);
 }

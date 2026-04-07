@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/06 11:29:54 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:27:49 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	child(t_tree *node, t_env *env);
 void	error_execve(char **arg, t_env *env);
 void	child_exit_status(int status, t_env *env, int pid);
 void	exit_no_path(char *cmd, t_env **envp);
+void	exit_classic(t_env *env, t_tree *node, int les);
 
 /* ======================= heredoc ===================================== */
 
