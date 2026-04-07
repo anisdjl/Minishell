@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:51:51 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/06 11:29:19 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:21:56 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPE_H
 # define PIPE_H
 
-# include "../minishell.h"
+typedef struct s_tree t_tree;
+typedef struct s_env  t_env;
+
 
 int		exec_pipe_cmd(t_tree *node, t_env *env, int fd_in, int fd_out);
 void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out);
