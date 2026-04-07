@@ -6,26 +6,19 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:17:50 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:00:27 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# ifndef LLONG_MAX
-#  define LLONG_MAX 9223372036854775807LL
-# endif
-# ifndef LLONG_MIN
-#  define LLONG_MIN (-9223372036854775807LL - 1LL)
-# endif
-
 # define _XOPEN_SOURCE 700
 # define _APPLE_C_SOURCE
 # define _DARWIN_C_SOURCE
 # include "header/bulltin.h"
-# include "header/exec.h"
 # include "header/env.h"
+# include "header/exec.h"
 # include "header/expand.h"
 # include "header/gc.h"
 # include "header/parsing.h"
@@ -37,6 +30,7 @@
 # include "sys/wait.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>

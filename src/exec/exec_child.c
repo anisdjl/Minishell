@@ -6,11 +6,11 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:23:23 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 16:10:33 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:01:12 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+#include "../../minishell.h"
 
 void	child(t_tree *node, t_env *env)
 {

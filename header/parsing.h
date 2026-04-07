@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 16:21:47 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:07:32 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ void					ft_lstadd_back_value(t_value_node **lst,
 
 /* main */
 
-void							fail_line(t_env *env);
-int								line_check1(char *line);
-int								line_check2(char *line);
-void							main_start_loop(t_env *env, char **line);
-void							main_end_loop(char *line);
+void					fail_line(t_env *env);
+int						line_check1(char *line);
+int						line_check2(char *line);
+void					main_start_loop(t_env *env, char **line);
+void					main_end_loop(char *line);
 
 #endif
