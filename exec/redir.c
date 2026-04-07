@@ -3,27 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:28:25 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/06 11:14:55 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:14:06 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	save_fds(int *fd_in, int *fd_out)
+int	redir_return_value(t_redir *tmp, t_redir *next, t_tree *node)
 {
-	*fd_in = dup(0);
-	*fd_out = dup(1);
-}
+	int	return_value;
 
-void	reset_and_close(int *fd_in, int *fd_out)
-{
-	dup2(*fd_in, 0);
-	dup2(*fd_out, 1);
-	close(*fd_in);
-	close(*fd_out);
+	return_value = 0;
+	if (tmp->type == 6)
+		return_value = (redir_in(tmp));
+	else if (tmp->type == 5 || tmp->type == 7)
+		return_value = (redir_out(tmp));
+	else if (tmp->type == HERE_DOC)
+	{
+		next = tmp->next;
+		while (next && next->type != HERE_DOC)
+			next = next->next;
+		if (!next)
+			return_value = heredoc_redir(node);
+	}
+	return (return_value);
 }
 
 int	redir_function(t_tree *node)
@@ -32,24 +38,13 @@ int	redir_function(t_tree *node)
 	t_redir	*next;
 	int		return_value;
 
+	next = NULL;
 	if (!node->redirs)
 		return (0);
 	tmp = node->redirs;
-	return_value = 0;
 	while (tmp)
 	{
-		if (tmp->type == 6)
-			return_value = (redir_in(tmp));
-		else if (tmp->type == 5 || tmp->type == 7)
-			return_value = (redir_out(tmp));
-		else if (tmp->type == HERE_DOC)
-		{
-			next = tmp->next;
-			while (next && next->type != HERE_DOC)
-				next = next->next;
-			if (!next)
-				return_value = heredoc_redir(node);
-		}
+		return_value = redir_return_value(tmp, next, node);
 		if (return_value != 0)
 			return (return_value);
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/07 15:25:41 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:27:24 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int		error_message(char *path);
 void	close_pipe(void);
 void	close_extra_fds(t_tree *node, int fd_in, int fd_out);
 int		exec_pipe_subshell(t_tree *node, t_env *env, int fd_in, int fd_out);
+
+/* redir utils */
+
+void	save_fds(int *fd_in, int *fd_out);
+void	reset_and_close(int *fd_in, int *fd_out);
 
 /* write */
 
