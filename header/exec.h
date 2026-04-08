@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 22:25:29 by anis              #+#    #+#             */
-/*   Updated: 2026/04/07 17:05:30 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:05:56 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void						exec_pipe_subshell2(t_tree *node, t_env *env,
 void						check_empty_redirs(t_tree *node, t_env *env,
 								int *fd_in, int *fd_out);
 void						exit_wrong_pid(t_env *env);
+void						exit_void_args(t_env *env, char **arg);
+void						error_execve2(char **arg);
 
 /* path */
 
@@ -47,8 +49,7 @@ char						**args_to_tab(t_value_node *node_values);
 int							ft_lstsize_arg(t_value_node *node_value);
 
 /* error */
-
-void						error_execve(char **arg, t_env *env);
+void						error_execve(char **arg, char *path, t_env *env);
 void						child_exit_status(int status, t_env *env, int pid);
 void						exit_no_path(char *cmd, t_env **envp);
 void						exit_classic(t_env *env, t_tree *node, int les);

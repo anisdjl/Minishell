@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:31:22 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:11:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,7 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 	env_tab = env_to_tab(&env);
 	paths = get_paths(env_tab);
 	if (arg && arg[0] && (only_spaces(arg[0]) || arg[0][0] == '\0'))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(arg[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit (126);
-	}
+		exit_void_args(env, arg);
 	if (arg && arg[0] && !given_path(arg[0]))
 		path = find_path(arg[0], paths, &env);
 	else
@@ -131,5 +126,5 @@ void	child_pipe(t_tree *node, t_env *env, int fd_in, int fd_out)
 		(dup2(fd_in, 0), close(fd_in));
 	if (fd_out != STDOUT_FILENO)
 		(dup2(fd_out, 1), close(fd_out));
-	exec_pipe(path, paths, env_tab, arg);
+	exec_pipe(path, env, env_tab, arg);
 }

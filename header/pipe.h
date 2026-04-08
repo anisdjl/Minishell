@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:51:51 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 16:56:14 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:12:12 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int						exec_pipe_cmd(t_tree *node, t_env *env, int fd_in,
 							int fd_out);
 void					child_pipe(t_tree *node, t_env *env, int fd_in,
 							int fd_out);
-void					exec_pipe(char *path, char **paths, char **env_tab,
+void					exec_pipe(char *path, t_env *env, char **env_tab,
 							char **arg);
 void					add_pid_to_list(t_env *env, int pid);
 int						wait_all_pids(t_env *env);

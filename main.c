@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:57:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 15:51:57 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:49:32 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		lexer = ft_lexer(line);
 		ast = ast_launcher(lexer->content, env);
-		if (!pre_exec(ast, env))
+		if (pre_exec(ast, env) <= 0)
 			exec(ast, &env);
 		main_end_loop(line);
 	}

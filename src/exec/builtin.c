@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:54:04 by anis              #+#    #+#             */
-/*   Updated: 2026/04/07 16:09:23 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:09:19 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,26 +116,28 @@ int	echo_command2(t_tree *node, t_env *env)
 	return (0);
 }
 
-void	error_execve(char **arg, t_env *env)
+void	error_execve(char **arg, char *path, t_env *env)
 {
+	struct stat	st;
+
+	if (path && stat(path, &st) == 0 && S_ISDIR(st.st_mode))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(arg[0], 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		ft_free_all_malloc();
+		free_env(&env);
+		exit(126);
+	}
 	if (errno == EACCES)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": Permission denied\n", 2);
+		ft_free_all_malloc();
+		free_env(&env);
 		exit(126);
 	}
-	if (errno == EISDIR)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(arg[0], 2);
-		ft_putstr_fd(": Is a directory\n", 2);
-		exit(126);
-	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(arg[0], 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
 	free_env(&env);
-	ft_free_all_malloc();
-	exit(127);
+	error_execve2(arg);
 }
