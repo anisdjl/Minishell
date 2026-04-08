@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:39:19 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/08 17:05:18 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 18:33:45 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	expand(t_value_node *n_value, t_env *env)
 		else if (n_value->value[exp_data.i] == '\"')
 			exp_data.in_dquote = !exp_data.in_dquote;
 		if (n_value->value[exp_data.i] == '$' && n_value->value[exp_data.i
-				+ 1] != '\0' && ((exp_data.in_dquote && !exp_data.in_squote)
-				|| (exp_data.in_dquote && exp_data.in_squote)
-				|| (!exp_data.in_dquote && !exp_data.in_squote)))
+			+ 1] != '\0' && (exp_data.in_dquote || !exp_data.in_squote))
 			do_expand(&exp_data, n_value, env);
 		else
 			exp_data.clean_vers[exp_data.k++] = n_value->value[exp_data.i++];
@@ -58,7 +56,8 @@ void	domain_expand(t_tree *node, t_env *env)
 		return ;
 	while (tmp)
 	{
-		expand(tmp, env);
+		if (tmp->value[0] != '\'')
+			expand(tmp, env);
 		tmp = tmp->next;
 	}
 }
