@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:20:44 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/07 17:07:32 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/08 12:01:14 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# define F_EXPAND (1 << 0)
-# define F_DQUOTE (1 << 1)
-# define F_SQUOTE (1 << 2)
+# define F_EXPAND 1
+# define F_DQUOTE 2
+# define F_SQUOTE 4
 
 typedef struct s_env	t_env;
 
