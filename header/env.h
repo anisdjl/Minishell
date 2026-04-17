@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 16:43:34 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 17:05:07 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 15:22:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void					free_env(t_env **env);
 void					free_pid(t_pid **pid);
 char					*ft_strjoin_env(char const *s1, char const *s2);
 void					fill_env(char **envp, int y, t_env *new, t_env **env);
+t_env					*manual_env(void);
+void					manual_env2(t_env **env);
 
 #endif

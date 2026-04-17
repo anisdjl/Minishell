@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 12:50:51 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:09:01 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 15:22:41 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,16 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new_env)
 			ptr = ptr->next;
 		ptr->next = new_env;
 	}
+}
+
+t_env	*manual_env(void)
+{
+	t_env		*env;
+
+	env = NULL;
+	manual_env2(&env);
+	env->exit_status = malloc(sizeof(t_exit_status) * 1);
+	env->exit_status->exit_status = 0;
+	env->pid = NULL;
+	return (env);
 }

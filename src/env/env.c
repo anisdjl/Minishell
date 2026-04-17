@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:03:31 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:08:56 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:30:38 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_env	*get_env(char **envp)
 	t_env	*env;
 	t_env	*new;
 
+	if (!envp || !(*envp))
+		return (manual_env());
 	env = NULL;
 	new = NULL;
 	y = 0;
