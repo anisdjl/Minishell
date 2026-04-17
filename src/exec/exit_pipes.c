@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:43:09 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:31:09 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:31:44 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 	int					y;
 	int					sign;
 	unsigned long long	total;
-	int					digit;
+	// int					digit;
 
 	total = 0;
 	sign = 1;
@@ -62,7 +62,7 @@ void	numeric_exit_pipes(char **arg, char *nptr, t_env *env)
 	y++;
 	while (nptr[y] >= '0' && nptr[y] <= '9')
 	{
-		digit = nptr[y] - '0';
+		// digit = nptr[y] - '0';
 		if (sign == 1 && overflow_pos(total, nptr[y]))
 			exit_non_numeric_pipes(arg, env);
 		if (sign == -1 && overflow_neg(total, nptr[y]))

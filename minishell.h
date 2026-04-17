@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:31:26 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 17:00:27 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:23:25 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <termios.h>

@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 18:18:42 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/04 14:32:42 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:25:20 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ t_tree	*ast_value_node(t_token *start, t_token *end)
 {
 	t_tree			*node;
 	t_value_node	*new_value;
-	int				i;
 
-	i = 0;
 	node = ft_malloc(sizeof(t_tree), 1);
 	node->type = WORD;
 	while (start && start != end)
