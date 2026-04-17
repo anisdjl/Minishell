@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:52:12 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/17 15:05:19 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 15:38:36 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,5 @@ void	main_start_loop(t_env *env, char **line)
 void	main_end_loop(char *line)
 {
 	ft_free_all_malloc();
-	close_pipe();
 	free(line);
 }
