@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 16:26:30 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/17 14:30:02 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 15:48:12 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cd_command_pipe(t_tree *node, t_env *env, int *fd_in, int *fd_out)
 	free_env(&env);
 	close_pipe();
 	exit (0);
-}	
+}
 
 int	error_cd_pipe(char **arg, int *fd_in, int *fd_out)
 {

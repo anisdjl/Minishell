@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 15:21:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/17 14:28:56 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 15:48:01 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cd_command(t_tree *node, t_env *env)
 	extract_oldpwd(node->n_value, env, current_dir);
 	reset_and_close(&node->fd_in, &node->fd_out);
 	return (0);
-}	
+}
 
 int	go_to_home(t_tree *node, t_env *env, char *current_dir)
 {
