@@ -6,7 +6,7 @@
 /*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:39:19 by eprieur           #+#    #+#             */
-/*   Updated: 2026/04/17 15:31:51 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/17 15:33:00 by adjelili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	domain_expand(t_tree *node, t_env *env)
 		return ;
 	while (tmp)
 	{
-		if (tmp->value[0] != '\'')
-			expand(tmp, env);
+		expand(tmp, env);
 		tmp = tmp->next;
 	}
 }

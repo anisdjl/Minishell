@@ -6,7 +6,7 @@
 /*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 15:21:17 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/07 16:09:32 by eprieur          ###   ########.fr       */
+/*   Updated: 2026/04/17 14:28:56 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ int	go_to_home(t_tree *node, t_env *env, char *current_dir)
 
 void	extract_oldpwd(t_value_node *n_value, t_env *env, char *new_value)
 {
-	char	*expand;
-
-	expand = NULL;
 	(void)n_value;
 	if (!env)
 		return ;
