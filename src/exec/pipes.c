@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjelili <adjelili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eprieur <eprieur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 13:29:52 by adjelili          #+#    #+#             */
-/*   Updated: 2026/04/08 17:11:32 by adjelili         ###   ########.fr       */
+/*   Updated: 2026/04/17 15:02:31 by eprieur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	close_pipe(void)
 	while (fd < 1024)
 	{
 		if (fd != STDERR_FILENO && fd != STDIN_FILENO && fd != STDOUT_FILENO)
-			close (fd);
+			close(fd);
 		fd++;
 	}
 }
